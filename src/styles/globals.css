@@ -7,7 +7,7 @@
     --background: 0 0% 100%;
     --foreground: 222.2 47.4% 11.2%;
 
-    --muted: 210 40% 96.1%;
+    --muted: 240 4.8% 95.9%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
     --popover: 0 0% 100%;
@@ -71,7 +71,7 @@
   }
 
   body {
-    @apply font-sans bg-background text-foreground;
+    @apply bg-background text-foreground;
 
     font-family: var(--font-geist-sans), sans-serif;
   }
