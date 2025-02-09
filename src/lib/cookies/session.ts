@@ -13,7 +13,7 @@ class SessionCookies {
 	}
 
 	public remove(): void {
-		return Cookies.remove('session-token')
+		return Cookies.remove('token', { domain: '.teacoder.ru' })
 	}
 }
 

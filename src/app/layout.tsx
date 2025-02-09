@@ -2,6 +2,7 @@ import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
+import { Toaster } from '../components/shared/sonner'
 import { TanstackQueryProvider } from '../providers/tanstack-query-provider'
 
 import '@/src/styles/globals.css'
@@ -15,7 +16,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang='ru'>
 			<body className={GeistSans.variable}>
-				<TanstackQueryProvider>{children}</TanstackQueryProvider>
+				<TanstackQueryProvider>
+					<Toaster duration={2000} />
+					{children}
+				</TanstackQueryProvider>
 			</body>
 		</html>
 	)

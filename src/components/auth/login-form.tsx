@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '../ui/button'
@@ -40,10 +41,15 @@ export function LoginForm() {
 		mutationKey: ['login'],
 		mutationFn: async (data: Login) => await sessionAPI.login(data),
 		onSuccess() {
+			toast.success('Вы успешно вошли в аккаунт')
 			push('/account')
 		},
 		onError(error) {
-			console.log(error.message)
+			if (error.message) {
+				toast.error(error.message)
+			} else {
+				toast.error('Ошибка при входе')
+			}
 		}
 	})
 

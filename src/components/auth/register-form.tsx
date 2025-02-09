@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '../ui/button'
@@ -39,18 +40,24 @@ export function RegisterForm() {
 
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['register'],
-		mutationFn: async (data: Register) => await accountAPI.create(data),
+		mutationFn: (data: Register) => accountAPI.create(data),
 		onSuccess() {
+			toast.success('Вы успешно зарегистрировались')
 			push('/account')
 		},
 		onError(error) {
-			console.log(error.message)
+			if (error.message) {
+				toast.error(error.message)
+			} else {
+				toast.error('Ошибка при регистрации')
+			}
 		}
 	})
 
 	const form = useForm<Register>({
 		resolver: zodResolver(registerSchema),
 		defaultValues: {
+			name: '',
 			email: '',
 			password: ''
 		}

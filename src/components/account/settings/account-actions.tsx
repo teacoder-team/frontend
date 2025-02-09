@@ -1,0 +1,79 @@
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { toast } from 'sonner'
+
+import { ConfirmDialog } from '../../shared/confirm-dialog'
+import { Button } from '../../ui/button'
+import { Card, CardContent } from '../../ui/card'
+
+import { sessionAPI } from '@/src/api/session'
+
+export function AccountActions() {
+	const [isLogoutOpen, setIsLogoutOpen] = useState(false)
+
+	const { push } = useRouter()
+
+	const { mutate } = useMutation({
+		mutationKey: ['logout'],
+		mutationFn: () => sessionAPI.logout(),
+		onSuccess() {
+			setIsLogoutOpen(false)
+			toast.success('Вы успешно вышли из системы')
+			push('/auth/login')
+		},
+		onError(error) {
+			if (error.message) {
+				toast.error(error.message)
+			} else {
+				toast.error('Ошибка при выходе')
+			}
+		}
+	})
+
+	return (
+		<div className='flex flex-col gap-y-3 pb-10'>
+			<h2 className='text-[19px] font-medium shadow-none'>Действия</h2>
+			<Card className='border-rose-500'>
+				<CardContent className='p-4'>
+					<div className='space-y-8'>
+						<div className='flex items-center justify-between'>
+							<div className='mr-5'>
+								<h2 className='font-semibold'>Выход</h2>
+								<p className='text-sm text-muted-foreground'>
+									Завершите сеанс, чтобы выйти из аккаунта на
+									этом устройстве.
+								</p>
+							</div>
+							<ConfirmDialog
+								open={isLogoutOpen}
+								onOpenChange={setIsLogoutOpen}
+								title='Выход из аккаунта'
+								description='Вы уверены, что хотите завершить сеанс и выйти из аккаунта?'
+								handleConfirm={() => mutate()}
+							>
+								<Button variant='outline'>Выйти</Button>
+							</ConfirmDialog>
+						</div>
+
+						<div className='flex items-center justify-between'>
+							<div className='mr-5'>
+								<h2 className='font-semibold'>
+									Отметить аккаунт для удаления
+								</h2>
+								<p className='text-sm text-muted-foreground'>
+									Если вы отметите аккаунт для удаления, все
+									данные, включая ваш прогресс в курсах, будут
+									подготовлены к удалению. В течение 7 дней вы
+									сможете отменить удаление, обратившись в
+									службу поддержки.
+								</p>
+							</div>
+							<Button variant='destructive'>Удалить</Button>
+						</div>
+					</div>
+				</CardContent>
+			</Card>
+		</div>
+	)
+}

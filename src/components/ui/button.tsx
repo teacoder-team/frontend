@@ -21,7 +21,7 @@ const buttonVariants = cva(
 				ghost: 'hover:bg-accent hover:text-accent-foreground',
 				link: 'text-primary underline-offset-4 hover:underline',
 				primary:
-					'bg-blue-500 text-primary-foreground hover:bg-blue-500/90'
+					'bg-blue-600 text-primary-foreground hover:bg-blue-600/90'
 			},
 			size: {
 				default: 'h-10 px-4 py-2',
@@ -78,3 +78,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 
 export { Button, buttonVariants }
+

@@ -1,12 +1,13 @@
 import type { Register } from '../components/auth/register-form'
 import { sessionCookies } from '../lib/cookies/session'
 import type { AuthResponse } from '../types/auth'
+import type { User } from '../types/user'
 
 import { api, instance } from './api'
 
 class AccountAPI {
 	public async me() {
-		const response = await instance.get('/auth/account')
+		const response = await instance.get<User>('/auth/account')
 
 		return response
 	}

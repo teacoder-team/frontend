@@ -21,6 +21,14 @@ class SessionAPI {
 
 		return response
 	}
+
+	public async logout() {
+		const response = await instance
+			.post<boolean>('/auth/session/logout')
+			.then(() => sessionCookies.remove())
+
+		return response
+	}
 }
 
 export const sessionAPI = new SessionAPI()
