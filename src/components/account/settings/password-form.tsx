@@ -27,7 +27,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { accountAPI } from '@/src/api/account'
+import { accountAPI } from '@/src/api'
 
 const passwordSchema = z.object({
 	currentPassword: z.string().min(6).max(128),

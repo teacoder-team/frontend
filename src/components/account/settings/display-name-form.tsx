@@ -13,7 +13,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import type { User } from '@/src/types/user'
+import type { User } from '@/src/types'
 
 const displayNameSchema = z.object({
 	name: z.string({ message: 'Имя обязательно' })

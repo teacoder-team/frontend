@@ -17,7 +17,7 @@ import {
 } from '../../ui/dialog'
 import { Separator } from '../../ui/separator'
 
-import { mfaAPI } from '@/src/api/mfa'
+import { mfaAPI } from '@/src/api'
 
 interface RecoveryCodesModalProps {}
 

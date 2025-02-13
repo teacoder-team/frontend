@@ -10,8 +10,8 @@ import { AccountActions } from './account-actions'
 import { AccountForm } from './account-form'
 import { ProfileForm } from './profile-form'
 import { TwoStepAuthForm } from './two-step-auth-form'
-import { mfaAPI } from '@/src/api/mfa'
-import { useCurrent } from '@/src/hooks/use-current'
+import { mfaAPI } from '@/src/api'
+import { useCurrent } from '@/src/hooks'
 
 export function Settings() {
 	const { user, isLoading } = useCurrent()

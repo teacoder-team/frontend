@@ -20,7 +20,7 @@ import {
 import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
-import { accountAPI } from '@/src/api/account'
+import { accountAPI } from '@/src/api'
 
 const registerSchema = z.object({
 	name: z.string({ message: 'Имя обязательно' }),

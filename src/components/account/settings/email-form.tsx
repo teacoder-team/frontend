@@ -10,7 +10,7 @@ import {
 	DropdownMenuTrigger
 } from '../../ui/dropdown-menu'
 
-import type { User } from '@/src/types/user'
+import type { User } from '@/src/types'
 
 interface EmailFormProps {
 	user: User | undefined

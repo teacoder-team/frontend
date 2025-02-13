@@ -2,7 +2,7 @@ import { Card, CardContent } from '../../ui/card'
 
 import { EmailForm } from './email-form'
 import { PasswordForm } from './password-form'
-import { User } from '@/src/types/user'
+import { User } from '@/src/types'
 
 interface AccountFormProps {
 	user: User | undefined

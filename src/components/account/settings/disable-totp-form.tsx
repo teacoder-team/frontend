@@ -17,7 +17,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { mfaAPI } from '@/src/api/mfa'
+import { mfaAPI } from '@/src/api'
 
 const disableTotpSchema = z.object({
 	password: z

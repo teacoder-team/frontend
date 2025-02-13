@@ -20,7 +20,7 @@ import {
 import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
-import { sessionAPI } from '@/src/api/session'
+import { sessionAPI } from '@/src/api'
 
 const loginSchema = z.object({
 	email: z

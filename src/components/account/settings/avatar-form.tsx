@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 
-import { User } from '@/src/types/user'
+import { User } from '@/src/types'
 
 interface AvatarFormProps {
 	user: User | undefined

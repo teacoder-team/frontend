@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
 import { Toaster } from '../components/shared/sonner'
-import { TanstackQueryProvider } from '../providers/tanstack-query-provider'
+import { TanstackQueryProvider } from '../providers'
 
 import '@/src/styles/globals.css'
 

@@ -7,7 +7,7 @@ import { ConfirmDialog } from '../../shared/confirm-dialog'
 import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 
-import { sessionAPI } from '@/src/api/session'
+import { sessionAPI } from '@/src/api'
 
 export function AccountActions() {
 	const [isLogoutOpen, setIsLogoutOpen] = useState(false)

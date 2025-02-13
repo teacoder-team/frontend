@@ -1,8 +1,7 @@
 import type { Password } from '../components/account/settings/password-form'
 import type { Register } from '../components/auth/register-form'
 import { sessionCookies } from '../lib/cookies/session'
-import type { AuthResponse } from '../types/auth'
-import type { User } from '../types/user'
+import type { AuthResponse, User } from '../types'
 
 import { api, instance } from './api'
 

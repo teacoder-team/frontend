@@ -2,7 +2,7 @@ import { Card, CardContent } from '../../ui/card'
 
 import { AvatarForm } from './avatar-form'
 import { DisplayNameForm } from './display-name-form'
-import { User } from '@/src/types/user'
+import { User } from '@/src/types'
 
 interface ProfileForm {
 	user: User | undefined

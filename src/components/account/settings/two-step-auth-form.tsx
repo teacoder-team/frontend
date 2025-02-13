@@ -6,7 +6,7 @@ import { Card, CardContent } from '../../ui/card'
 
 import { DisableTotpForm } from './disable-totp-form'
 import { RecoveryCodesModal } from './recovery-codes-modal'
-import type { MfaStatus } from '@/src/types/mfa'
+import type { MfaStatus } from '@/src/types'
 
 interface TwoFactorAuthFormProps {
 	status: MfaStatus | undefined

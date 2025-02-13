@@ -2,7 +2,7 @@ import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 
 import { formatDate, getBrowserIcon } from '@/src/lib/utils'
-import type { Session } from '@/src/types/session'
+import type { Session } from '@/src/types'
 
 interface SessionItemProps {
 	session: Session

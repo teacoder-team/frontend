@@ -7,7 +7,7 @@ import { Button } from '../ui/button'
 
 import { NavLinks } from './nav-links'
 import { ProfileMenu } from './profile-menu'
-import { useAuth } from '@/src/hooks/use-auth'
+import { useAuth } from '@/src/hooks'
 
 export function Header() {
 	const { isAuthorized } = useAuth()

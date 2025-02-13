@@ -1,5 +1,5 @@
 import type { DisableTotp } from '../components/account/settings/disable-totp-form'
-import type { MfaStatus } from '../types/mfa'
+import type { MfaStatus } from '../types'
 
 import { instance } from './api'
 

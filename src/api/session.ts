@@ -1,7 +1,6 @@
 import type { Login } from '../components/auth/login-form'
 import { sessionCookies } from '../lib/cookies/session'
-import type { AuthResponse } from '../types/auth'
-import type { Session } from '../types/session'
+import type { AuthResponse, Session } from '../types'
 
 import { api, instance } from './api'
 
