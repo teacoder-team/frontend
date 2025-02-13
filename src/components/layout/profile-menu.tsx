@@ -4,6 +4,7 @@ import { LogOut, Settings } from 'lucide-react'
 import Link from 'next/link'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { Button } from '../ui/button'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -22,12 +23,17 @@ export function ProfileMenu() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Avatar>
-					<AvatarImage src={user?.avatar} alt='Аватарка' />
-					<AvatarFallback>
-						{user?.displayName.slice(0, 1)}
-					</AvatarFallback>
-				</Avatar>
+				<Button
+					variant='ghost'
+					className='relative size-10 rounded-full'
+				>
+					<Avatar>
+						<AvatarImage src={user?.avatar} alt='Аватарка' />
+						<AvatarFallback>
+							{user?.displayName.slice(0, 1)}
+						</AvatarFallback>
+					</Avatar>
+				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='w-56' align='end'>
 				<DropdownMenuLabel className='font-normal'>

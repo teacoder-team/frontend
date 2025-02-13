@@ -33,8 +33,8 @@ export function AccountActions() {
 
 	return (
 		<div className='flex flex-col gap-y-3 pb-10'>
-			<h2 className='text-[19px] font-medium shadow-none'>Действия</h2>
-			<Card className='border-rose-500'>
+			<h2 className='text-[19px] font-medium'>Действия</h2>
+			<Card className='border-rose-500 shadow-none'>
 				<CardContent className='p-4'>
 					<div className='space-y-8'>
 						<div className='flex items-center justify-between'>

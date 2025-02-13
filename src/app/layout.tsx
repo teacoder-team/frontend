@@ -14,11 +14,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
-		<html lang='ru'>
+		<html lang='ru' suppressHydrationWarning>
 			<body className={GeistSans.variable}>
 				<TanstackQueryProvider>
+					{/* <ThemeProvider
+						attribute='class'
+						defaultTheme='dark'
+						enableSystem
+						disableTransitionOnChange
+					> */}
 					<Toaster duration={2000} />
 					{children}
+					{/* </ThemeProvider> */}
 				</TanstackQueryProvider>
 			</body>
 		</html>

@@ -1,6 +1,7 @@
 import type { Login } from '../components/auth/login-form'
 import { sessionCookies } from '../lib/cookies/session'
 import type { AuthResponse } from '../types/auth'
+import type { Session } from '../types/session'
 
 import { api, instance } from './api'
 
@@ -18,6 +19,18 @@ class SessionAPI {
 				'X-Session-Token': response.token
 			}
 		}
+
+		return response
+	}
+
+	public async all() {
+		const response = await instance.get<Session[]>('/auth/session/all')
+
+		return response
+	}
+
+	public async current() {
+		const response = await instance.get<Session>('/auth/session/current')
 
 		return response
 	}

@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -37,12 +37,18 @@ export type Login = z.infer<typeof loginSchema>
 export function LoginForm() {
 	const { push } = useRouter()
 
+	const [methods, setMethods] = useState<string[]>([])
+
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['login'],
 		mutationFn: async (data: Login) => await sessionAPI.login(data),
-		onSuccess() {
-			toast.success('Вы успешно вошли в аккаунт')
-			push('/account')
+		onSuccess(data) {
+			if (data.methods) {
+				setMethods(data.methods)
+			} else {
+				toast.success('Вы успешно вошли в аккаунт')
+				push('/account')
+			}
 		},
 		onError(error) {
 			if (error.message) {
@@ -78,59 +84,72 @@ export function LoginForm() {
 					backButtonLabel='Еще нет аккаунта? Регистрация'
 					backButtonHref='/auth/register'
 				>
-					<Form {...form}>
-						<form
-							onSubmit={form.handleSubmit(onSubmit)}
-							className='grid gap-4'
-						>
-							<div className='space-y-4'>
-								<FormField
-									control={form.control}
-									name='email'
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Почта</FormLabel>
-											<FormControl>
-												<Input
-													placeholder='email@teacoder.com'
-													disabled={isPending}
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name='password'
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Пароль</FormLabel>
-											<FormControl>
-												<Input
-													type='password'
-													placeholder='******'
-													disabled={isPending}
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+					{methods.length ? (
+						<div>
+							<h3>
+								Выберите метод двухфакторной аутентификации:
+							</h3>
+							<ul>
+								{methods.map(method => (
+									<li key={method}>{method}</li>
+								))}
+							</ul>
+						</div>
+					) : (
+						<Form {...form}>
+							<form
+								onSubmit={form.handleSubmit(onSubmit)}
+								className='grid gap-4'
+							>
+								<div className='space-y-4'>
+									<FormField
+										control={form.control}
+										name='email'
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Почта</FormLabel>
+												<FormControl>
+													<Input
+														placeholder='email@teacoder.com'
+														disabled={isPending}
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name='password'
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Пароль</FormLabel>
+												<FormControl>
+													<Input
+														type='password'
+														placeholder='******'
+														disabled={isPending}
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
 
-								<Button
-									type='submit'
-									variant='primary'
-									isLoading={isPending}
-									className='w-full'
-								>
-									Продолжить
-								</Button>
-							</div>
-						</form>
-					</Form>
+									<Button
+										type='submit'
+										variant='primary'
+										isLoading={isPending}
+										className='w-full'
+									>
+										Продолжить
+									</Button>
+								</div>
+							</form>
+						</Form>
+					)}
 				</AuthWrapper>
 			</div>
 		</div>

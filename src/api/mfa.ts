@@ -1,18 +1,29 @@
-import type { EnableTwoFactor } from '../components/account/settings/two-factor-enable'
-import type { GenerateTotpResponse } from '../types/mfa'
+import type { DisableTotp } from '../components/account/settings/disable-totp-form'
+import type { MfaStatus } from '../types/mfa'
 
 import { instance } from './api'
 
 class MfaAPI {
-	public async generateTotp() {
-		const response =
-			await instance.post<GenerateTotpResponse>('/auth/mfa/totp')
+	public async fetchStatus() {
+		const response = await instance.get<MfaStatus>('/auth/mfa')
 
 		return response
 	}
 
-	public async enableTotp(data: EnableTwoFactor) {
-		const response = await instance.put('/auth/mfa/totp', data)
+	public async fetchRecovery() {
+		const response = await instance.get<string[]>('/auth/mfa/recovery')
+
+		return response
+	}
+
+	public async regenerateRecovery() {
+		const response = await instance.patch('/auth/mfa/recovery')
+
+		return response
+	}
+
+	public async totpDisable(data: DisableTotp) {
+		const response = await instance.delete('/auth/mfa/totp', data)
 
 		return response
 	}

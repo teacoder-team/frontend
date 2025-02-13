@@ -12,8 +12,7 @@ const badgeVariants = cva(
 				neutral: 'bg-gray-50 text-gray-900 ring-gray-500/30',
 				success: 'bg-emerald-50 text-emerald-900 ring-emerald-600/30 ',
 				error: 'bg-red-50 text-red-900 ring-red-600/20',
-				warning:
-					'bg-yellow-50 text-yellow-900 ring-yellow-600/30 dark:bg-yellow-400/10'
+				warning: 'bg-yellow-50 text-yellow-900 ring-yellow-600/30'
 			}
 		},
 		defaultVariants: {

@@ -6,7 +6,7 @@ import { type ButtonHTMLAttributes, type ReactNode, forwardRef } from 'react'
 import { cn } from '@/src/lib/utils'
 
 const buttonVariants = cva(
-	'inline-flex items-center justify-center whitespace-nowrap select-none rounded-lg transition-all will-change-transform active:hover:scale-[0.98] active:hover:transform text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+	'inline-flex items-center justify-center gap-2 whitespace-nowrap select-none rounded-lg transition-all will-change-transform active:hover:scale-[0.98] active:hover:transform text-sm font-medium ring-offset-background focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
 	{
 		variants: {
 			variant: {
@@ -15,7 +15,7 @@ const buttonVariants = cva(
 				destructive:
 					'bg-destructive text-destructive-foreground hover:bg-destructive/70',
 				outline:
-					'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+					'border border-input bg-transparent hover:bg-accent hover:text-accent-foreground',
 				secondary:
 					'bg-secondary text-secondary-foreground hover:bg-secondary/80',
 				ghost: 'hover:bg-accent hover:text-accent-foreground',
@@ -25,8 +25,9 @@ const buttonVariants = cva(
 			},
 			size: {
 				default: 'h-10 px-4 py-2',
-				sm: 'h-9 rounded-md px-3 text-xs',
-				lg: 'h-11 rounded-md px-8',
+				sm: 'h-9 px-4 py-2',
+				xs: 'h-9 rounded-md px-3 text-xs',
+				lg: 'h-11 rounded-lg px-8',
 				icon: 'h-10 w-10'
 			}
 		},
@@ -78,4 +79,3 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 
 export { Button, buttonVariants }
-

@@ -44,6 +44,7 @@ export function UserNavigation() {
 									variant: 'ghost',
 									size: 'lg'
 								}),
+								'hover:bg-muted',
 								isActive && 'h-10 bg-muted',
 								'h-10 justify-start'
 							)}

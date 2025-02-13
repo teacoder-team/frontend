@@ -2,21 +2,21 @@ import Link from 'next/link'
 
 const navLinks = [
 	{ href: '/courses', label: 'Курсы' },
-	{ href: '/about', label: 'О основателе' }
+	{ href: '/about', label: 'Об основателе' }
 ]
 
 export function NavLinks() {
 	return (
-		<div className='hidden items-center gap-4 lg:flex'>
+		<nav className='flex flex-1 items-center space-x-6 text-sm font-medium'>
 			{navLinks.map(({ href, label }) => (
 				<Link
 					key={href}
 					href={href}
-					className='cursor-pointer py-1 pl-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground'
+					className='transition-colors hover:text-primary'
 				>
 					{label}
 				</Link>
 			))}
-		</div>
+		</nav>
 	)
 }

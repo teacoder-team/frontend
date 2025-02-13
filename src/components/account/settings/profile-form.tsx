@@ -11,8 +11,8 @@ interface ProfileForm {
 export function ProfileForm({ user }: ProfileForm) {
 	return (
 		<div className='flex flex-col gap-y-3'>
-			<h2 className='text-[19px] font-medium shadow-none'>Профиль</h2>
-			<Card>
+			<h2 className='text-[19px] font-medium'>Профиль</h2>
+			<Card className='shadow-none'>
 				<CardContent className='p-4'>
 					<div className='space-y-4'>
 						<AvatarForm user={user} />
