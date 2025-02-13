@@ -10,6 +10,8 @@ import {
 } from 'react-icons/fa'
 import { twMerge } from 'tailwind-merge'
 
+import { APP_CONFIG } from '../constants/app'
+
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
@@ -45,4 +47,8 @@ export function formatDate(date: string | Date): string {
 	const [day, month, year, time] = formattedDate.split(' ')
 
 	return `${day} ${month} в ${time}`
+}
+
+export function getMediaSource(path: string) {
+	return APP_CONFIG.storageUrl + path
 }

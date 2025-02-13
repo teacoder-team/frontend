@@ -20,7 +20,8 @@ const config: NextConfig = {
 	env: {
 		APP_PORT: process.env['APP_PORT'],
 		APP_URL: process.env['APP_URL'],
-		API_URL: process.env['API_URL']
+		API_URL: process.env['API_URL'],
+		STORAGE_URL: process.env['STORAGE_URL']
 	}
 }
 

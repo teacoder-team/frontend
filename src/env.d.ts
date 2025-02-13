@@ -6,5 +6,6 @@ declare namespace NodeJS {
 		APP_PORT: string
 		APP_URL: string
 		API_URL: string
+		STORAGE_URL: string
 	}
 }

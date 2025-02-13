@@ -1,4 +1,5 @@
 import { Terminal } from 'lucide-react'
+import Link from 'next/link'
 
 import { Button } from '../ui/button'
 
@@ -18,9 +19,16 @@ export function Hero() {
 				</p>
 			</div>
 			<div className='flex gap-4'>
-				<Button variant='primary' size='lg' className='rounded-full'>
-					<Terminal />
-					Начать обучение
+				<Button
+					variant='primary'
+					size='lg'
+					className='rounded-full'
+					asChild
+				>
+					<Link href='/courses'>
+						<Terminal />
+						Начать обучение
+					</Link>
 				</Button>
 			</div>
 		</section>
