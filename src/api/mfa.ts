@@ -1,5 +1,6 @@
 import type { DisableTotp } from '../components/account/settings/disable-totp-form'
-import type { MfaStatus } from '../types'
+import type { EnableTotp } from '../components/account/settings/enable-totp-form'
+import type { MfaStatus, TotpGenerateResponse } from '../types'
 
 import { instance } from './api'
 
@@ -18,6 +19,19 @@ class MfaAPI {
 
 	public async regenerateRecovery() {
 		const response = await instance.patch('/auth/mfa/recovery')
+
+		return response
+	}
+
+	public async totpEnable(data: EnableTotp) {
+		const response = await instance.put('/auth/mfa/totp', data)
+
+		return response
+	}
+
+	public async totpGenerateSecret() {
+		const response =
+			await instance.post<TotpGenerateResponse>('/auth/mfa/totp')
 
 		return response
 	}

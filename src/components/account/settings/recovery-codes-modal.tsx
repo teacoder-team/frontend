@@ -46,9 +46,14 @@ export function RecoveryCodesModal({}: RecoveryCodesModalProps) {
 	})
 
 	function splitArrayIntoColumns(arr: string[]) {
-		const mid = Math.ceil(arr.length / 2)
+		if (!arr || arr.length === 0) return [[], [], []]
 
-		return [arr.slice(0, mid), arr.slice(mid)]
+		const mid = Math.ceil(arr.length / 3)
+		const first = arr.slice(0, mid)
+		const second = arr.slice(mid, mid * 2)
+		const third = arr.slice(mid * 2)
+
+		return [first, second, third]
 	}
 
 	function handleDownload() {
@@ -67,7 +72,7 @@ export function RecoveryCodesModal({}: RecoveryCodesModalProps) {
 		setTimeout(() => window.URL.revokeObjectURL(fileURL), 0)
 	}
 
-	const recoveryCodes = data ? splitArrayIntoColumns(data) : [[], []]
+	const recoveryCodes = data ? splitArrayIntoColumns(data) : [[], [], []]
 
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -101,6 +106,13 @@ export function RecoveryCodesModal({}: RecoveryCodesModalProps) {
 					</div>
 					<div className='flex flex-col'>
 						{recoveryCodes[1].map((code, index) => (
+							<p key={index} className='text-[17px] font-medium'>
+								{code}
+							</p>
+						))}
+					</div>
+					<div className='flex flex-col'>
+						{recoveryCodes[2].map((code, index) => (
 							<p key={index} className='text-[17px] font-medium'>
 								{code}
 							</p>

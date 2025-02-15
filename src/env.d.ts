@@ -7,5 +7,6 @@ declare namespace NodeJS {
 		APP_URL: string
 		API_URL: string
 		STORAGE_URL: string
+		COOKIE_DOMAIN: string
 	}
 }

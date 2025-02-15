@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 class SessionCookies {
 	public set(token: string): string | undefined {
 		return Cookies.set('token', token, {
-			domain: '.teacoder.ru',
+			domain: process.env['COOKIE_DOMAIN'],
 			expires: 30
 		})
 	}
@@ -13,7 +13,7 @@ class SessionCookies {
 	}
 
 	public remove(): void {
-		return Cookies.remove('token', { domain: '.teacoder.ru' })
+		return Cookies.remove('token', { domain: process.env['COOKIE_DOMAIN'] })
 	}
 }
 

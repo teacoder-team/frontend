@@ -36,9 +36,9 @@ export default async function CoursesPage() {
 						<Link
 							key={index}
 							href={`/courses/${course.slug}`}
-							className='group flex h-full flex-col overflow-hidden rounded-lg border bg-transparent transition hover:shadow-sm'
+							className='group relative rounded-lg'
 						>
-							<div className='relative aspect-video w-full overflow-hidden rounded-t-md border-b'>
+							<div className='relative aspect-video overflow-hidden rounded-md transition-all'>
 								<Image
 									src={getMediaSource(
 										`/courses/${course.thumbnail}`
@@ -47,12 +47,12 @@ export default async function CoursesPage() {
 									fill
 								/>
 							</div>
-							<div className='mb-4 mt-2 px-3'>
-								<h2 className='text-base font-medium'>
+							<div className='px-0 py-3'>
+								<h3 className='font-medium text-slate-900 transition group-hover:text-blue-500'>
 									{course.title}
-								</h2>
+								</h3>
 								<p
-									className='overflow-hidden text-sm text-muted-foreground'
+									className='mt-1 overflow-hidden text-sm text-muted-foreground'
 									style={{
 										display: '-webkit-box',
 

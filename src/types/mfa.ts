@@ -4,7 +4,7 @@ export interface MfaStatus {
 	recoveryActive: boolean
 }
 
-export interface GenerateTotpResponse {
+export interface TotpGenerateResponse {
 	secret: string
 	qrCodeUrl: string
 }

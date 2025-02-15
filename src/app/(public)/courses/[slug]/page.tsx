@@ -2,6 +2,19 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { courseAPI } from '@/src/api/course'
+import { Course } from '@/src/components/course'
+
+export async function generateStaticParams() {
+	const courses = await courseAPI.findAll()
+
+	const paths = courses.map(course => {
+		return {
+			params: { slug: course.slug }
+		}
+	})
+
+	return paths
+}
 
 async function fetchCourse(slug: string) {
 	try {
@@ -37,5 +50,5 @@ export default async function CoursePage({
 
 	const { course } = await fetchCourse(slug)
 
-	return <div>{JSON.stringify(course)}</div>
+	return <Course course={course} />
 }

@@ -30,13 +30,13 @@ export type DisableTotp = z.infer<typeof disableTotpSchema>
 export function DisableTotpForm() {
 	const [isOpen, setIsOpen] = useState(false)
 
-	const { invalidateQueries } = useQueryClient()
+	const queryClient = useQueryClient()
 
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['totp disable'],
 		mutationFn: (data: DisableTotp) => mfaAPI.totpDisable(data),
 		onSuccess() {
-			invalidateQueries({ queryKey: ['mfa status'] })
+			queryClient.invalidateQueries({ queryKey: ['mfa status'] })
 			setIsOpen(false)
 			toast.success('Метод успешно отключён')
 		},

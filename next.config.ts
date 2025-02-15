@@ -21,7 +21,8 @@ const config: NextConfig = {
 		APP_PORT: process.env['APP_PORT'],
 		APP_URL: process.env['APP_URL'],
 		API_URL: process.env['API_URL'],
-		STORAGE_URL: process.env['STORAGE_URL']
+		STORAGE_URL: process.env['STORAGE_URL'],
+		COOKIE_DOMAIN: process.env['COOKIE_DOMAIN']
 	}
 }
 

@@ -1,10 +1,10 @@
 import { ListOrdered, Smartphone } from 'lucide-react'
 
 import { Badge } from '../../ui/badge'
-import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 
 import { DisableTotpForm } from './disable-totp-form'
+import { EnableTotpForm } from './enable-totp-form'
 import { RecoveryCodesModal } from './recovery-codes-modal'
 import type { MfaStatus } from '@/src/types'
 
@@ -52,7 +52,7 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 								{status?.totpMfa ? (
 									<DisableTotpForm />
 								) : (
-									<Button variant='primary'>Включить</Button>
+									<EnableTotpForm />
 								)}
 							</div>
 						</div>

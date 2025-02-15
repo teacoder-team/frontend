@@ -8,8 +8,11 @@ export function TanstackQueryProvider({ children }: { children: ReactNode }) {
 		new QueryClient({
 			defaultOptions: {
 				queries: {
-					refetchOnWindowFocus: true,
-					staleTime: 0
+					staleTime: Infinity,
+					refetchInterval: false,
+					refetchOnWindowFocus: false,
+					refetchOnReconnect: false,
+					refetchOnMount: false
 				}
 			}
 		})

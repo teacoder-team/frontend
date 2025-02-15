@@ -29,6 +29,15 @@ class AccountAPI {
 		return response
 	}
 
+	// public async changeEmail(data: Email) {
+	// 	const response = await instance.patch(
+	// 		'/auth/account/change/email',
+	// 		data
+	// 	)
+
+	// 	return response
+	// }
+
 	public async changePassword(data: Password) {
 		const response = await instance.patch(
 			'/auth/account/change/password',
