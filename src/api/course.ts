@@ -1,19 +1,8 @@
-import type { Course } from '../types'
+import type { CourseResponse } from '../generated'
 
-import { api } from './api'
+import { api } from './instance'
 
-class CourseAPI {
-	public async findAll() {
-		const response = await api.get<Course[]>('/course/all')
+export const getAllCourses = () => api.get<CourseResponse[]>('/courses')
 
-		return response
-	}
-
-	public async findBySlug(slug: string) {
-		const response = await api.get<Course>(`/course/${slug}`)
-
-		return response
-	}
-}
-
-export const courseAPI = new CourseAPI()
+export const getCourseBySlug = (slug: string) =>
+	api.get<CourseResponse>(`/courses/${slug}`)

@@ -27,7 +27,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { accountAPI } from '@/src/api'
+import { changePassword } from '@/src/api'
 
 const passwordSchema = z.object({
 	currentPassword: z.string().min(6).max(128),
@@ -41,7 +41,7 @@ export function PasswordForm() {
 
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['change password'],
-		mutationFn: (data: Password) => accountAPI.changePassword(data),
+		mutationFn: (data: Password) => changePassword(data),
 		onSuccess() {
 			setIsOpen(false)
 			toast.success('Пароль успешно изменён')

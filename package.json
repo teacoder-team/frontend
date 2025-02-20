@@ -6,7 +6,8 @@
 		"dev": "tsx -r dotenv/config ./src/server/server.ts",
 		"build": "next build",
 		"start": "next start -p 14701",
-		"lint": "next lint"
+		"lint": "next lint",
+		"generate": "orval --config ./orval.config.ts"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.10.0",
@@ -43,6 +44,7 @@
 		"@types/node": "^20",
 		"@types/react": "19",
 		"@types/react-dom": "19",
+		"orval": "7.4.1",
 		"postcss": "^8",
 		"prettier": "^3.4.2",
 		"prettier-plugin-tailwindcss": "^0.6.11",

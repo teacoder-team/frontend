@@ -6,10 +6,10 @@ import { Card, CardContent } from '../../ui/card'
 import { DisableTotpForm } from './disable-totp-form'
 import { EnableTotpForm } from './enable-totp-form'
 import { RecoveryCodesModal } from './recovery-codes-modal'
-import type { MfaStatus } from '@/src/types'
+import type { MfaStatusResponse } from '@/src/generated'
 
 interface TwoFactorAuthFormProps {
-	status: MfaStatus | undefined
+	status: MfaStatusResponse | undefined
 }
 
 export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {

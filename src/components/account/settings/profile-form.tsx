@@ -2,10 +2,10 @@ import { Card, CardContent } from '../../ui/card'
 
 import { AvatarForm } from './avatar-form'
 import { DisplayNameForm } from './display-name-form'
-import { User } from '@/src/types'
+import type { AccountResponse } from '@/src/generated'
 
 interface ProfileForm {
-	user: User | undefined
+	user: AccountResponse | undefined
 }
 
 export function ProfileForm({ user }: ProfileForm) {

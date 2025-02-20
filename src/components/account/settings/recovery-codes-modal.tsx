@@ -17,7 +17,7 @@ import {
 } from '../../ui/dialog'
 import { Separator } from '../../ui/separator'
 
-import { mfaAPI } from '@/src/api'
+import { fetchRecovery, regenerateRecovery } from '@/src/api'
 
 interface RecoveryCodesModalProps {}
 
@@ -26,13 +26,13 @@ export function RecoveryCodesModal({}: RecoveryCodesModalProps) {
 
 	const { data, isLoading, refetch } = useQuery({
 		queryKey: ['fetch recovery codes'],
-		queryFn: () => mfaAPI.fetchRecovery(),
+		queryFn: () => fetchRecovery(),
 		enabled: isOpen
 	})
 
 	const { mutate: regenerate, isPending } = useMutation({
 		mutationKey: ['regenerate recovery codes'],
-		mutationFn: () => mfaAPI.regenerateRecovery(),
+		mutationFn: () => regenerateRecovery(),
 		onSuccess() {
 			refetch()
 		},

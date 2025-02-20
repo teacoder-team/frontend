@@ -13,7 +13,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import type { User } from '@/src/types'
+import type { AccountResponse } from '@/src/generated'
 
 const displayNameSchema = z.object({
 	name: z.string({ message: 'Имя обязательно' })
@@ -22,7 +22,7 @@ const displayNameSchema = z.object({
 export type DisplayName = z.infer<typeof displayNameSchema>
 
 interface DisplayNameFormProps {
-	user: User | undefined
+	user: AccountResponse | undefined
 }
 
 export function DisplayNameForm({ user }: DisplayNameFormProps) {

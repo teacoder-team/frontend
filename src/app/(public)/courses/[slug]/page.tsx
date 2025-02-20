@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { courseAPI } from '@/src/api/course'
+import { getAllCourses, getCourseBySlug } from '@/src/api/course'
 import { Course } from '@/src/components/course'
 
 export async function generateStaticParams() {
-	const courses = await courseAPI.findAll()
+	const courses = await getAllCourses()
 
 	const paths = courses.map(course => {
 		return {
@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 
 async function fetchCourse(slug: string) {
 	try {
-		const course = await courseAPI.findBySlug(slug)
+		const course = await getCourseBySlug(slug)
 
 		return { course }
 	} catch (error) {

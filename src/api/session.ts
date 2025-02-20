@@ -1,46 +1,23 @@
-import type { Login } from '../components/auth/login-form'
-import { sessionCookies } from '../lib/cookies/session'
-import type { AuthResponse, Session } from '../types'
+import type { LoginRequest, LoginResponse } from '../generated'
+import { removeSessionToken, setSessionToken } from '../lib/cookies/session'
 
-import { api, instance } from './api'
+import { api, instance } from './instance'
 
-class SessionAPI {
-	public async login(data: Login) {
-		const response = await api.post<AuthResponse>(
-			'/auth/session/login',
-			data
-		)
+export const login = async (data: LoginRequest) => {
+	const response = await api.post<LoginResponse>('/auth/session/login', data)
 
-		if (response.token) {
-			sessionCookies.set(response.token)
+	if (response.token) {
+		setSessionToken(response.token)
 
-			instance.headers = {
-				'X-Session-Token': response.token
-			}
+		instance.headers = {
+			'X-Session-Token': response.token
 		}
-
-		return response
 	}
 
-	public async all() {
-		const response = await instance.get<Session[]>('/auth/session/all')
-
-		return response
-	}
-
-	public async current() {
-		const response = await instance.get<Session>('/auth/session/current')
-
-		return response
-	}
-
-	public async logout() {
-		const response = await instance
-			.post<boolean>('/auth/session/logout')
-			.then(() => sessionCookies.remove())
-
-		return response
-	}
+	return response
 }
 
-export const sessionAPI = new SessionAPI()
+export const logout = async () =>
+	await instance
+		.post<boolean>('/auth/session/logout')
+		.then(() => removeSessionToken())

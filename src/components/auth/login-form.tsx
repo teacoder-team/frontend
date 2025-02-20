@@ -20,7 +20,7 @@ import {
 import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
-import { sessionAPI } from '@/src/api'
+import { login } from '@/src/api'
 
 const loginSchema = z.object({
 	email: z
@@ -41,14 +41,15 @@ export function LoginForm() {
 
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['login'],
-		mutationFn: async (data: Login) => await sessionAPI.login(data),
-		onSuccess(data) {
-			if (data.methods) {
-				setMethods(data.methods)
-			} else {
-				toast.success('Вы успешно вошли в аккаунт')
-				push('/account')
-			}
+		mutationFn: (data: Login) => login(data),
+		onSuccess() {
+			// if (data.methods) {
+			// 	setMethods(data.methods)
+			// } else {
+
+			// }
+			toast.success('Вы успешно вошли в аккаунт')
+			push('/account')
 		},
 		onError(error) {
 			if (error.message) {

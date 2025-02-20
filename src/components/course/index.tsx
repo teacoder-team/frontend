@@ -2,11 +2,11 @@ import Image from 'next/image'
 
 import { Button } from '../ui/button'
 
+import { CourseResponse } from '@/src/generated'
 import { getMediaSource } from '@/src/lib/utils'
-import type { Course } from '@/src/types'
 
 interface CourseProps {
-	course: Course
+	course: CourseResponse
 }
 
 export function Course({ course }: CourseProps) {

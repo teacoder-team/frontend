@@ -17,7 +17,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { mfaAPI } from '@/src/api'
+import { totpDisable } from '@/src/api'
 
 const disableTotpSchema = z.object({
 	password: z
@@ -34,7 +34,7 @@ export function DisableTotpForm() {
 
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['totp disable'],
-		mutationFn: (data: DisableTotp) => mfaAPI.totpDisable(data),
+		mutationFn: (data: DisableTotp) => totpDisable(data),
 		onSuccess() {
 			queryClient.invalidateQueries({ queryKey: ['mfa status'] })
 			setIsOpen(false)

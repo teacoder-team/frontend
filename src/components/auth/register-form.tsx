@@ -20,7 +20,7 @@ import {
 import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
-import { accountAPI } from '@/src/api'
+import { createAccount } from '@/src/api'
 
 const registerSchema = z.object({
 	name: z.string({ message: 'Имя обязательно' }),
@@ -40,7 +40,7 @@ export function RegisterForm() {
 
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['register'],
-		mutationFn: (data: Register) => accountAPI.create(data),
+		mutationFn: (data: Register) => createAccount(data),
 		onSuccess() {
 			toast.success('Вы успешно зарегистрировались')
 			push('/account')

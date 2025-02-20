@@ -4,7 +4,7 @@ import { type ComponentPropsWithoutRef, forwardRef } from 'react'
 import { cn } from '@/src/lib/utils'
 
 const badgeVariants = cva(
-	'inline-flex items-center gap-x-1 whitespace-nowrap rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset',
+	'inline-flex items-center gap-x-1 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset',
 	{
 		variants: {
 			variant: {

@@ -1,51 +1,40 @@
-import type { Password } from '../components/account/settings/password-form'
-import type { Register } from '../components/auth/register-form'
-import { sessionCookies } from '../lib/cookies/session'
-import type { AuthResponse, User } from '../types'
+import type {
+	AccountResponse,
+	ChangeEmailRequest,
+	ChangePasswordRequest,
+	CreateUserRequest,
+	LoginResponse,
+	PasswordResetRequest,
+	SendPasswordResetRequest
+} from '../generated'
+import { setSessionToken } from '../lib/cookies/session'
 
-import { api, instance } from './api'
+import { api, instance } from './instance'
 
-class AccountAPI {
-	public async me() {
-		const response = await instance.get<User>('/auth/account')
+export const getMe = () => instance.get<AccountResponse>('/auth/account')
 
-		return response
-	}
+export const createAccount = async (data: CreateUserRequest) => {
+	const response = await api.post<LoginResponse>('/auth/account/create', data)
 
-	public async create(data: Register) {
-		const response = await api.post<AuthResponse>(
-			'/auth/account/create',
-			data
-		)
+	if (response.token) {
+		setSessionToken(response.token)
 
-		if (response.token) {
-			sessionCookies.set(response.token)
-
-			instance.headers = {
-				'X-Session-Token': response.token
-			}
+		instance.headers = {
+			'X-Session-Token': response.token
 		}
-
-		return response
 	}
 
-	// public async changeEmail(data: Email) {
-	// 	const response = await instance.patch(
-	// 		'/auth/account/change/email',
-	// 		data
-	// 	)
-
-	// 	return response
-	// }
-
-	public async changePassword(data: Password) {
-		const response = await instance.patch(
-			'/auth/account/change/password',
-			data
-		)
-
-		return response
-	}
+	return response
 }
 
-export const accountAPI = new AccountAPI()
+export const sendPasswordReset = (data: SendPasswordResetRequest) =>
+	api.post('/auth/account/reset_password', data)
+
+export const passwordReset = (data: PasswordResetRequest) =>
+	api.patch('/auth/account/reset_password', data)
+
+export const changeEmail = (data: ChangeEmailRequest) =>
+	instance.patch('/auth/account/change/email', data)
+
+export const changePassword = (data: ChangePasswordRequest) =>
+	instance.patch('/auth/account/change/password', data)

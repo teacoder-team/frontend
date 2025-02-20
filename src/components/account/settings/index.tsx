@@ -10,7 +10,7 @@ import { AccountActions } from './account-actions'
 import { AccountForm } from './account-form'
 import { ProfileForm } from './profile-form'
 import { TwoStepAuthForm } from './two-step-auth-form'
-import { mfaAPI } from '@/src/api'
+import { fetchMfaStatus } from '@/src/api'
 import { useCurrent } from '@/src/hooks'
 
 export function Settings() {
@@ -18,7 +18,7 @@ export function Settings() {
 
 	const { data: status, isLoading: isLoadingStatus } = useQuery({
 		queryKey: ['mfa status'],
-		queryFn: () => mfaAPI.fetchStatus()
+		queryFn: () => fetchMfaStatus()
 	})
 
 	return (

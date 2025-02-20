@@ -1,29 +1,22 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { Loader2 } from 'lucide-react'
-import { Fragment } from 'react'
-
 import { Heading } from '../../shared/heading'
 
-import { SessionItem } from './session-item'
-import { sessionAPI } from '@/src/api/session'
-
 export function Sessions() {
-	const { data: session, isLoading: isLoadingSession } = useQuery({
-		queryKey: ['current session'],
-		queryFn: () => sessionAPI.current()
-	})
+	// const { data: session, isLoading: isLoadingSession } = useQuery({
+	// 	queryKey: ['current session'],
+	// 	queryFn: () => sessionAPI.current()
+	// })
 
-	const { data: sessions, isLoading: isLoadingSessions } = useQuery({
-		queryKey: ['all sessions'],
-		queryFn: () => sessionAPI.all()
-	})
+	// const { data: sessions, isLoading: isLoadingSessions } = useQuery({
+	// 	queryKey: ['all sessions'],
+	// 	queryFn: () => sessionAPI.all()
+	// })
 
 	return (
 		<div className='w-full'>
 			<div className='mx-auto flex h-full max-w-5xl flex-col gap-4 rounded-xl'>
-				{isLoadingSession || isLoadingSessions || !session ? (
+				{/* {isLoadingSession || isLoadingSessions || !session ? (
 					<div className='flex h-[75vh] items-center justify-center'>
 						<Loader2 className='size-10 animate-spin text-muted-foreground' />
 					</div>
@@ -62,7 +55,11 @@ export function Sessions() {
 							</div>
 						</div>
 					</Fragment>
-				)}
+				)} */}
+				<Heading
+					title='Управление сессиями'
+					description='Здесь отображаются устройства, с которых выполнен вход в вашу учетную запись. Вы можете завершить любые сессии, кроме текущей, чтобы защитить свой аккаунт.'
+				/>
 			</div>
 		</div>
 	)

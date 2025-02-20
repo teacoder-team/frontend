@@ -5,8 +5,9 @@ declare namespace NodeJS {
 		NODE_ENV: 'development' | 'production' | 'test'
 		APP_PORT: string
 		APP_URL: string
-		API_URL: string
-		STORAGE_URL: string
 		COOKIE_DOMAIN: string
+		API_URL: string
+		API_DOCS: string
+		STORAGE_URL: string
 	}
 }

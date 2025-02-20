@@ -1,46 +1,24 @@
-import type { DisableTotp } from '../components/account/settings/disable-totp-form'
-import type { EnableTotp } from '../components/account/settings/enable-totp-form'
-import type { MfaStatus, TotpGenerateResponse } from '../types'
+import type {
+	MfaStatusResponse,
+	TotpDisableRequest,
+	TotpEnableRequest,
+	TotpGenerateSecretResponse
+} from '../generated'
 
-import { instance } from './api'
+import { instance } from './instance'
 
-class MfaAPI {
-	public async fetchStatus() {
-		const response = await instance.get<MfaStatus>('/auth/mfa')
+export const fetchMfaStatus = () => instance.get<MfaStatusResponse>('/auth/mfa')
 
-		return response
-	}
+export const fetchRecovery = () => instance.get<string[]>('/auth/mfa/recovery')
 
-	public async fetchRecovery() {
-		const response = await instance.get<string[]>('/auth/mfa/recovery')
+export const regenerateRecovery = () =>
+	instance.patch<string>('/auth/mfa/recovery')
 
-		return response
-	}
+export const totpEnable = (data: TotpEnableRequest) =>
+	instance.put('/auth/mfa/totp', data)
 
-	public async regenerateRecovery() {
-		const response = await instance.patch('/auth/mfa/recovery')
+export const totpGenerateSecret = () =>
+	instance.post<TotpGenerateSecretResponse>('/auth/mfa/totp')
 
-		return response
-	}
-
-	public async totpEnable(data: EnableTotp) {
-		const response = await instance.put('/auth/mfa/totp', data)
-
-		return response
-	}
-
-	public async totpGenerateSecret() {
-		const response =
-			await instance.post<TotpGenerateResponse>('/auth/mfa/totp')
-
-		return response
-	}
-
-	public async totpDisable(data: DisableTotp) {
-		const response = await instance.delete('/auth/mfa/totp', data)
-
-		return response
-	}
-}
-
-export const mfaAPI = new MfaAPI()
+export const totpDisable = (data: TotpDisableRequest) =>
+	instance.delete('/auth/mfa/totp', data)

@@ -31,7 +31,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { mfaAPI } from '@/src/api'
+import { fetchRecovery, totpEnable, totpGenerateSecret } from '@/src/api'
 
 const EnableTotpSchema = z.object({
 	pin: z.string().min(6, {
@@ -50,18 +50,18 @@ export function EnableTotpForm() {
 
 	const { mutate, data: totp } = useMutation({
 		mutationKey: ['totp generate secret'],
-		mutationFn: () => mfaAPI.totpGenerateSecret()
+		mutationFn: () => totpGenerateSecret()
 	})
 
 	const { data, isLoading, refetch } = useQuery({
 		queryKey: ['fetch recovery codes'],
-		queryFn: () => mfaAPI.fetchRecovery(),
+		queryFn: () => fetchRecovery(),
 		enabled: step === 2
 	})
 
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['totp enable'],
-		mutationFn: (data: EnableTotp) => mfaAPI.totpEnable(data),
+		mutationFn: (data: EnableTotp) => totpEnable(data),
 		onSuccess() {
 			refetch()
 			setStep(2)

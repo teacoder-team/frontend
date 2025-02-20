@@ -1,6 +1,5 @@
-import { Check, Mail, MoreHorizontal, Pencil } from 'lucide-react'
+import { Mail, MoreHorizontal, Pencil } from 'lucide-react'
 
-import { Badge } from '../../ui/badge'
 import { Button } from '../../ui/button'
 import {
 	DropdownMenu,
@@ -10,10 +9,10 @@ import {
 	DropdownMenuTrigger
 } from '../../ui/dropdown-menu'
 
-import type { User } from '@/src/types'
+import type { AccountResponse } from '@/src/generated'
 
 interface EmailFormProps {
-	user: User | undefined
+	user: AccountResponse | undefined
 }
 
 export function EmailForm({ user }: EmailFormProps) {
@@ -26,11 +25,11 @@ export function EmailForm({ user }: EmailFormProps) {
 				<div className='mr-5 flex flex-1 flex-col'>
 					<div className='mb-1 flex items-center gap-2'>
 						<h2 className='font-semibold'>Почта</h2>
-						{user?.isEmailVerified ? (
+						{/* {user?.isEmailVerified ? (
 							<Badge variant='success'>Подтверждёна</Badge>
 						) : (
 							<Badge variant='error'>Не подтверждёна</Badge>
-						)}
+						)} */}
 					</div>
 					<p className='text-sm text-muted-foreground'>
 						Ваша учетная запись привязана к адресу{' '}
@@ -51,12 +50,12 @@ export function EmailForm({ user }: EmailFormProps) {
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align='end' side='top'>
 						<DropdownMenuGroup>
-							{!user?.isEmailVerified && (
+							{/* {!user?.isEmailVerified && (
 								<DropdownMenuItem>
 									<Check />
 									Подтвердить
 								</DropdownMenuItem>
-							)}
+							)} */}
 							<DropdownMenuItem>
 								<Pencil />
 								Изменить

@@ -7,7 +7,7 @@ import { ConfirmDialog } from '../../shared/confirm-dialog'
 import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 
-import { sessionAPI } from '@/src/api'
+import { logout } from '@/src/api'
 
 export function AccountActions() {
 	const [isLogoutOpen, setIsLogoutOpen] = useState(false)
@@ -16,7 +16,7 @@ export function AccountActions() {
 
 	const { mutate } = useMutation({
 		mutationKey: ['logout'],
-		mutationFn: () => sessionAPI.logout(),
+		mutationFn: () => logout(),
 		onSuccess() {
 			setIsLogoutOpen(false)
 			toast.success('Вы успешно вышли из системы')

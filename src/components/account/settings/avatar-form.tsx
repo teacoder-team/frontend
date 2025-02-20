@@ -1,9 +1,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 
-import { User } from '@/src/types'
+import type { AccountResponse } from '@/src/generated'
 
 interface AvatarFormProps {
-	user: User | undefined
+	user: AccountResponse | undefined
 }
 
 export function AvatarForm({ user }: AvatarFormProps) {

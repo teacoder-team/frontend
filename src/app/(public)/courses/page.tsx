@@ -1,13 +1,15 @@
+import { BookOpen } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { FaYoutube } from 'react-icons/fa6'
 
-import { courseAPI } from '@/src/api/course'
+import { getAllCourses } from '@/src/api/course'
 import { Badge } from '@/src/components/ui/badge'
 import { getMediaSource } from '@/src/lib/utils'
 
 async function fetchCourses() {
-	const courses = await courseAPI.findAll()
+	const courses = await getAllCourses()
 
 	return { courses }
 }
@@ -30,7 +32,7 @@ export default async function CoursesPage() {
 					<br /> Eos perspiciatis vitae architecto totam hic.
 				</p>
 			</div>
-			<div className='mb-32 mt-16 grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4'>
+			<div className='mb-32 mt-16 grid gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4'>
 				{courses.length ? (
 					courses.map((course, index) => (
 						<Link
@@ -62,7 +64,24 @@ export default async function CoursesPage() {
 								>
 									{course.description}
 								</p>
-								<Badge className='mt-3'>20 глав</Badge>
+								<Badge
+									variant={
+										course.lessons > 0 ? 'default' : 'error'
+									}
+									className='mt-3'
+								>
+									{course.lessons > 0 ? (
+										<>
+											<BookOpen className='mr-0.5 size-3.5' />
+											{course.lessons} уроков`
+										</>
+									) : (
+										<>
+											<FaYoutube className='mr-0.5 size-3.5' />
+											Youtube
+										</>
+									)}
+								</Badge>
 							</div>
 						</Link>
 					))
