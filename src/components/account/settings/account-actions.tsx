@@ -19,7 +19,6 @@ export function AccountActions() {
 		mutationFn: () => logout(),
 		onSuccess() {
 			setIsLogoutOpen(false)
-			toast.success('Вы успешно вышли из системы')
 			push('/auth/login')
 		},
 		onError(error) {

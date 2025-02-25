@@ -6,11 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface LoginResponse {
-  /** Unique session identifier */
+export interface CreateCourseResponse {
+  /** Unique identifier */
   id: string;
-  /** Session token */
-  token: string;
-  /** Unique user identifier */
-  userId: string;
 }

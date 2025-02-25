@@ -1,15 +1,37 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
+
 import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 
+import { revokeSession } from '@/src/api'
+import { SessionResponse } from '@/src/generated'
 import { formatDate, getBrowserIcon } from '@/src/lib/utils'
 
 interface SessionItemProps {
-	session: any
+	session: SessionResponse
 	isCurrentSession?: boolean
 }
 
 export function SessionItem({ session, isCurrentSession }: SessionItemProps) {
 	const Icon = getBrowserIcon(session.browser)
+
+	const queryClient = useQueryClient()
+
+	const { mutate, isPending } = useMutation({
+		mutationKey: ['revoke session'],
+		mutationFn: () => revokeSession(session.id),
+		onSuccess() {
+			queryClient.invalidateQueries({ queryKey: ['get sessions'] })
+		},
+		onError(error) {
+			if (error.message) {
+				toast.error(error.message)
+			} else {
+				toast.error('Ошибка при удалении сессии')
+			}
+		}
+	})
 
 	return (
 		<Card className='shadow-none'>
@@ -28,9 +50,18 @@ export function SessionItem({ session, isCurrentSession }: SessionItemProps) {
 						</p>
 					</div>
 				</div>
-				<div className='space-x-2'>
-					<Button variant='primary'>Подробнее</Button>
-				</div>
+				{!isCurrentSession && (
+					<div className='space-x-2'>
+						<Button
+							onClick={() => mutate()}
+							variant='outline'
+							size='sm'
+							isLoading={isPending}
+						>
+							Выйти
+						</Button>
+					</div>
+				)}
 			</CardContent>
 		</Card>
 	)

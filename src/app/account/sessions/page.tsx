@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { Sessions } from '@/src/components/account/sessions'
+import { Sessions } from '@/src/components/account/sessions/sessions'
 
 export const metadata: Metadata = {
 	title: 'Управление сессиями'

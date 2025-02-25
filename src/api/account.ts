@@ -3,7 +3,7 @@ import type {
 	ChangeEmailRequest,
 	ChangePasswordRequest,
 	CreateUserRequest,
-	LoginResponse,
+	CreateUserResponse,
 	PasswordResetRequest,
 	SendPasswordResetRequest
 } from '../generated'
@@ -14,7 +14,10 @@ import { api, instance } from './instance'
 export const getMe = () => instance.get<AccountResponse>('/auth/account')
 
 export const createAccount = async (data: CreateUserRequest) => {
-	const response = await api.post<LoginResponse>('/auth/account/create', data)
+	const response = await api.post<CreateUserResponse>(
+		'/auth/account/create',
+		data
+	)
 
 	if (response.token) {
 		setSessionToken(response.token)

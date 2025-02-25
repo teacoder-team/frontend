@@ -59,7 +59,8 @@ export function ConfirmDialog({
 					<Button
 						variant={destructive ? 'destructive' : 'primary'}
 						onClick={handleConfirm}
-						disabled={isDisabled || isLoading}
+						isLoading={isLoading}
+						disabled={isDisabled}
 					>
 						{confirmText ?? 'Продолжить'}
 					</Button>

@@ -44,7 +44,6 @@ export function PasswordForm() {
 		mutationFn: (data: Password) => changePassword(data),
 		onSuccess() {
 			setIsOpen(false)
-			toast.success('Пароль успешно изменён')
 		},
 		onError(error) {
 			if (error.message) {

@@ -42,7 +42,6 @@ export function RegisterForm() {
 		mutationKey: ['register'],
 		mutationFn: (data: Register) => createAccount(data),
 		onSuccess() {
-			toast.success('Вы успешно зарегистрировались')
 			push('/account')
 		},
 		onError(error) {
@@ -72,86 +71,82 @@ export function RegisterForm() {
 	}
 
 	return (
-		<div className='flex h-[100vh] w-full items-center justify-center'>
-			<div className='flex w-full flex-col items-center gap-4'>
-				<AuthWrapper
-					heading='Создать аккаунт'
-					description='Для регистрации достаточно ввести своё имя, email и придумать пароль'
-					backButtonLabel='Уже есть аккаунт? Войти'
-					backButtonHref='/auth/login'
+		<AuthWrapper
+			heading='Создать аккаунт'
+			description='Для регистрации достаточно ввести своё имя, email и придумать пароль'
+			backButtonLabel='Уже есть аккаунт? Войти'
+			backButtonHref='/auth/login'
+		>
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className='grid gap-4'
 				>
-					<Form {...form}>
-						<form
-							onSubmit={form.handleSubmit(onSubmit)}
-							className='grid gap-4'
-						>
-							<div className='space-y-4'>
-								<FormField
-									control={form.control}
-									name='name'
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Имя</FormLabel>
-											<FormControl>
-												<Input
-													placeholder='TeaCoder'
-													disabled={isPending}
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name='email'
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Почта</FormLabel>
-											<FormControl>
-												<Input
-													placeholder='email@teacoder.com'
-													disabled={isPending}
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name='password'
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Пароль</FormLabel>
-											<FormControl>
-												<Input
-													type='password'
-													placeholder='******'
-													disabled={isPending}
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+					<div className='space-y-4'>
+						<FormField
+							control={form.control}
+							name='name'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Имя</FormLabel>
+									<FormControl>
+										<Input
+											placeholder='TeaCoder'
+											disabled={isPending}
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name='email'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Почта</FormLabel>
+									<FormControl>
+										<Input
+											placeholder='email@teacoder.com'
+											disabled={isPending}
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name='password'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Пароль</FormLabel>
+									<FormControl>
+										<Input
+											type='password'
+											placeholder='******'
+											disabled={isPending}
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 
-								<Button
-									type='submit'
-									variant='primary'
-									isLoading={isPending}
-									className='w-full'
-								>
-									Продолжить
-								</Button>
-							</div>
-						</form>
-					</Form>
-				</AuthWrapper>
-			</div>
-		</div>
+						<Button
+							type='submit'
+							variant='primary'
+							isLoading={isPending}
+							className='w-full'
+						>
+							Продолжить
+						</Button>
+					</div>
+				</form>
+			</Form>
+		</AuthWrapper>
 	)
 }

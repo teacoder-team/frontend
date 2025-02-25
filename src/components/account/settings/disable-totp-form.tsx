@@ -38,7 +38,6 @@ export function DisableTotpForm() {
 		onSuccess() {
 			queryClient.invalidateQueries({ queryKey: ['mfa status'] })
 			setIsOpen(false)
-			toast.success('Метод успешно отключён')
 		},
 		onError(error) {
 			if (error.message) {

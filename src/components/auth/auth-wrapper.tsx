@@ -26,41 +26,45 @@ export function AuthWrapper({
 	backButtonHref
 }: Props) {
 	return (
-		<Card className='w-[420px] border-none'>
-			<CardHeader className='mt-2 grid gap-y-2 text-center'>
-				<CardTitle className='text-3xl'>{heading}</CardTitle>
-				<CardDescription>{description}</CardDescription>
-			</CardHeader>
-			<CardContent>
-				{/* {isShowSocial && <Social />} */}
-				{children}
-			</CardContent>
-			<CardFooter className='flex-col'>
-				{/* {backButtonLabel && backButtonHref && (
+		<div className='flex h-[100vh] w-full items-center justify-center'>
+			<div className='flex w-full flex-col items-center gap-4'>
+				<Card className='w-[420px] border-none'>
+					<CardHeader className='mt-2 grid gap-y-2 text-center'>
+						<CardTitle className='text-3xl'>{heading}</CardTitle>
+						<CardDescription>{description}</CardDescription>
+					</CardHeader>
+					<CardContent>
+						{/* {isShowSocial && <Social />} */}
+						{children}
+					</CardContent>
+					<CardFooter className='flex-col'>
+						{/* {backButtonLabel && backButtonHref && (
 					<Button variant='link' className='w-full font-normal'>
 						<Link href={backButtonHref}>{backButtonLabel}</Link>
 					</Button>
 				)} */}
-				<p className='text-center text-xs text-muted-foreground'>
-					Нажимая продолжить, вы соглашаетесь с нашим{' '}
-					<Link
-						href='/docs/agreement'
-						className='text-primary hover:underline'
-						target='_blank'
-					>
-						Пользовательским соглашением
-					</Link>{' '}
-					и{' '}
-					<Link
-						href='/docs/privacy'
-						className='text-primary hover:underline'
-						target='_blank'
-					>
-						Политикой Конфиденциальности
-					</Link>
-					.
-				</p>
-			</CardFooter>
-		</Card>
+						<p className='text-center text-xs text-muted-foreground'>
+							Нажимая продолжить, вы соглашаетесь с нашим{' '}
+							<Link
+								href='/docs/agreement'
+								className='text-primary hover:underline'
+								target='_blank'
+							>
+								Пользовательским соглашением
+							</Link>{' '}
+							и{' '}
+							<Link
+								href='/docs/privacy'
+								className='text-primary hover:underline'
+								target='_blank'
+							>
+								Политикой Конфиденциальности
+							</Link>
+							.
+						</p>
+					</CardFooter>
+				</Card>
+			</div>
+		</div>
 	)
 }

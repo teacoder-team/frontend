@@ -6,4 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface CreateCourseDto { [key: string]: unknown }
+export interface CreateLessonResponse {
+  /** Unique lesson identifier */
+  id: string;
+}

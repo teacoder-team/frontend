@@ -1,6 +1,6 @@
 'use client'
 
-import { ChartArea, Monitor, Settings } from 'lucide-react'
+import { ChartArea, MonitorSmartphone, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -20,9 +20,9 @@ export const links = [
 		icon: Settings
 	},
 	{
-		title: 'Управление сессиями',
+		title: 'Устройства',
 		href: '/account/sessions',
-		icon: Monitor
+		icon: MonitorSmartphone
 	}
 ]
 
@@ -30,7 +30,7 @@ export function UserNavigation() {
 	const pathname = usePathname()
 
 	return (
-		<div className='group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2'>
+		<div className='group flex flex-col gap-4 py-2'>
 			<nav className='grid gap-3 px-2'>
 				{links.map((link, index) => {
 					const isActive = pathname === link.href
