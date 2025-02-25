@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { getAllCourses, getCourseBySlug } from '@/src/api/course'
+import { getAllCourses, getCourseBySlug } from '@/src/api'
 import { Course } from '@/src/components/course'
+import { getMediaSource } from '@/src/lib/utils'
 
 export async function generateStaticParams() {
 	const courses = await getAllCourses()
@@ -37,7 +38,25 @@ export async function generateMetadata({
 
 	return {
 		title: course.title,
-		description: course.description
+		description: course.description,
+		openGraph: {
+			images: [
+				{
+					url: getMediaSource(course.thumbnail ?? ''),
+					alt: course.title
+				}
+			]
+		},
+		twitter: {
+			title: course.title,
+			description: course.description ?? '',
+			images: [
+				{
+					url: getMediaSource(course.thumbnail ?? ''),
+					alt: course.title
+				}
+			]
+		}
 	}
 }
 

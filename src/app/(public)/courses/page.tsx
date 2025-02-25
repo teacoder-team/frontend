@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FaYoutube } from 'react-icons/fa6'
 
-import { getAllCourses } from '@/src/api/course'
+import { getAllCourses } from '@/src/api'
 import { Badge } from '@/src/components/ui/badge'
 import { getMediaSource } from '@/src/lib/utils'
 
@@ -15,7 +15,9 @@ async function fetchCourses() {
 }
 
 export const metadata: Metadata = {
-	title: 'Курсы'
+	title: 'Курсы',
+	description:
+		'Здесь собраны курсы по веб-разработке, которые помогут вам освоить самые востребованные технологии и инструменты.'
 }
 
 export default async function CoursesPage() {
@@ -27,9 +29,9 @@ export default async function CoursesPage() {
 				<h1 className='mt-4 max-w-2xl text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl'>
 					Все курсы
 				</h1>
-				<p className='mt-4 max-w-5xl leading-7 text-slate-600 sm:text-lg sm:leading-8'>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					<br /> Eos perspiciatis vitae architecto totam hic.
+				<p className='mt-4 max-w-2xl leading-7 text-slate-600 sm:text-lg sm:leading-8'>
+					Здесь собраны курсы по веб-разработке, которые помогут вам
+					освоить самые востребованные технологии и инструменты.
 				</p>
 			</div>
 			<div className='mb-32 mt-16 grid gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4'>

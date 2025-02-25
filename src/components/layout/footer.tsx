@@ -83,13 +83,17 @@ export function Footer() {
 							<Link
 								href='https://t.me/TeaCoder_official'
 								className='text-muted-foreground transition-colors hover:text-primary'
+								target='_blank'
+								referrerPolicy='no-referrer'
 							>
 								<FaTelegram className='size-6' />
 								<span className='sr-only'>Telegram</span>
 							</Link>
 							<Link
-								href='https://github.com/TeaCoder52'
+								href='https://github.com/teacoder-team'
 								className='text-muted-foreground transition-colors hover:text-primary'
+								target='_blank'
+								referrerPolicy='no-referrer'
 							>
 								<FaGithub className='size-6' />
 								<span className='sr-only'>Github</span>
@@ -97,6 +101,8 @@ export function Footer() {
 							<Link
 								href='https://boosty.to/teacoder'
 								className='text-muted-foreground transition-colors hover:text-primary'
+								target='_blank'
+								referrerPolicy='no-referrer'
 							>
 								<SiBoosty className='size-6' />
 								<span className='sr-only'>Boosty</span>

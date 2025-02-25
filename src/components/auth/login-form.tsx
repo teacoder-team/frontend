@@ -21,8 +21,7 @@ import {
 import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
-import { login } from '@/src/api'
-import { instance } from '@/src/api/instance'
+import { instance, login } from '@/src/api'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
 const loginSchema = z.object({
