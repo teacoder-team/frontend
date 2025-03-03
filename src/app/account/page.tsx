@@ -4,6 +4,6 @@ export const metadata: Metadata = {
 	title: 'Мой прогресс'
 }
 
-export default function AccountPage() {
+export default function ProgressPage() {
 	return <div>Мой прогресс</div>
 }

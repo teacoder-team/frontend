@@ -47,7 +47,7 @@ export function PasswordForm() {
 		},
 		onError(error) {
 			if (error.message) {
-				toast.error(error.message)
+				toast.warning(error.message)
 			} else {
 				toast.error('Ошибка при смене пароля')
 			}
@@ -100,8 +100,7 @@ export function PasswordForm() {
 						<DialogHeader>
 							<DialogTitle>Обновление пароля</DialogTitle>
 							<DialogDescription>
-								Choose a new and secure password to protect your
-								account.
+								Введите текущий и новый пароль для обновления.
 							</DialogDescription>
 						</DialogHeader>
 						<Form {...form}>
@@ -120,7 +119,7 @@ export function PasswordForm() {
 											<FormControl>
 												<Input
 													type='password'
-													placeholder='Введите ваш текущий пароль'
+													placeholder='******'
 													disabled={isPending}
 													{...field}
 												/>
@@ -138,7 +137,7 @@ export function PasswordForm() {
 											<FormControl>
 												<Input
 													type='password'
-													placeholder='Введите ваш новый пароль'
+													placeholder='******'
 													disabled={isPending}
 													{...field}
 												/>

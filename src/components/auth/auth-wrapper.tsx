@@ -28,7 +28,7 @@ export function AuthWrapper({
 	return (
 		<div className='flex h-[100vh] w-full items-center justify-center'>
 			<div className='flex w-full flex-col items-center gap-4'>
-				<Card className='w-[420px] border-none'>
+				<Card className='w-[440px] border-none'>
 					<CardHeader className='mt-2 grid gap-y-2 text-center'>
 						<CardTitle className='text-3xl'>{heading}</CardTitle>
 						<CardDescription>{description}</CardDescription>

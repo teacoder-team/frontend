@@ -17,4 +17,6 @@ export interface CreateUserRequest {
    * @maxLength 128
    */
   password: string;
+  /** Captcha verification code */
+  captcha: string;
 }

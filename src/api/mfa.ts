@@ -5,7 +5,7 @@ import type {
 	TotpGenerateSecretResponse
 } from '../generated'
 
-import { instance } from './instance'
+import { api, instance } from './instance'
 
 export const fetchMfaStatus = () => instance.get<MfaStatusResponse>('/auth/mfa')
 

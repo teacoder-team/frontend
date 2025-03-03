@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import Turnstile from 'react-turnstile'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -23,7 +24,7 @@ import { AuthWrapper } from './auth-wrapper'
 import { createAccount } from '@/src/api'
 
 const registerSchema = z.object({
-	name: z.string({ message: 'Имя обязательно' }),
+	name: z.string().min(1, { message: 'Имя обязательно' }),
 	email: z
 		.string()
 		.min(1, { message: 'Email обязателен' })
@@ -31,6 +32,8 @@ const registerSchema = z.object({
 	password: z
 		.string()
 		.min(6, { message: 'Пароль должен содержать хотя бы 6 символов' })
+		.max(128, { message: 'Пароль должен содержать не более 128 символов' }),
+	captcha: z.string()
 })
 
 export type Register = z.infer<typeof registerSchema>
@@ -58,15 +61,23 @@ export function RegisterForm() {
 		defaultValues: {
 			name: '',
 			email: '',
-			password: ''
+			password: '',
+			captcha: ''
 		}
 	})
 
 	useEffect(() => {
-		form.reset()
+		if (form.formState.isSubmitSuccessful && form.getValues('captcha')) {
+			form.reset()
+		}
 	}, [form, form.reset, form.formState.isSubmitSuccessful])
 
 	async function onSubmit(data: Register) {
+		if (!data.captcha) {
+			toast.warning('Пройдите капчу!')
+			return
+		}
+
 		await mutateAsync(data)
 	}
 
@@ -78,10 +89,7 @@ export function RegisterForm() {
 			backButtonHref='/auth/login'
 		>
 			<Form {...form}>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className='grid gap-4'
-				>
+				<form onSubmit={form.handleSubmit(onSubmit)}>
 					<div className='space-y-4'>
 						<FormField
 							control={form.control}
@@ -91,7 +99,7 @@ export function RegisterForm() {
 									<FormLabel>Имя</FormLabel>
 									<FormControl>
 										<Input
-											placeholder='TeaCoder'
+											placeholder='John Doe'
 											disabled={isPending}
 											{...field}
 										/>
@@ -108,7 +116,7 @@ export function RegisterForm() {
 									<FormLabel>Почта</FormLabel>
 									<FormControl>
 										<Input
-											placeholder='email@teacoder.com'
+											placeholder='email@teacoder.ru'
 											disabled={isPending}
 											{...field}
 										/>
@@ -135,7 +143,28 @@ export function RegisterForm() {
 								</FormItem>
 							)}
 						/>
-
+						<FormField
+							control={form.control}
+							name='captcha'
+							render={({ field }) => (
+								<FormItem className='flex flex-col items-center justify-center'>
+									<FormControl>
+										<Turnstile
+											sitekey={
+												process.env[
+													'TURNSTILE_SITE_KEY'
+												]
+											}
+											onVerify={token =>
+												form.setValue('captcha', token)
+											}
+											theme='light'
+											{...field}
+										/>
+									</FormControl>
+								</FormItem>
+							)}
+						/>
 						<Button
 							type='submit'
 							variant='primary'

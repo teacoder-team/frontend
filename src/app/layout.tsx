@@ -70,7 +70,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			<body className='min-h-screen font-sans antialiased'>
 				<TanstackQueryProvider>
 					{children}
-					<Toaster duration={2000} />
+					<Toaster
+						toastOptions={{
+							classNames: {
+								error: 'bg-red-100 text-red-800',
+								success: 'bg-emerald-100 text-emerald-800',
+								warning: 'bg-yellow-100 text-yellow-800',
+								info: 'bg-sky-100 text-sky-800'
+							}
+						}}
+					/>
 
 					{process.env['NODE_ENV'] === 'production' && (
 						<>

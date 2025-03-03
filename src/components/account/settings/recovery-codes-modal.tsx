@@ -19,9 +19,7 @@ import { Separator } from '../../ui/separator'
 
 import { fetchRecovery, regenerateRecovery } from '@/src/api'
 
-interface RecoveryCodesModalProps {}
-
-export function RecoveryCodesModal({}: RecoveryCodesModalProps) {
+export function RecoveryCodesModal() {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const { data, isLoading, refetch } = useQuery({

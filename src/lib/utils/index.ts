@@ -1,4 +1,5 @@
 export * from './format-date'
 export * from './get-browser-icon'
+export * from './focus-ring'
 export * from './get-media-source'
 export * from './tw-merge'

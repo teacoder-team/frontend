@@ -54,22 +54,6 @@ export function AccountActions() {
 								<Button variant='outline'>Выйти</Button>
 							</ConfirmDialog>
 						</div>
-
-						<div className='flex items-center justify-between'>
-							<div className='mr-5'>
-								<h2 className='font-semibold'>
-									Отметить аккаунт для удаления
-								</h2>
-								<p className='text-sm text-muted-foreground'>
-									Если вы отметите аккаунт для удаления, все
-									данные, включая ваш прогресс в курсах, будут
-									подготовлены к удалению. В течение 7 дней вы
-									сможете отменить удаление, обратившись в
-									службу поддержки.
-								</p>
-							</div>
-							<Button variant='destructive'>Удалить</Button>
-						</div>
 					</div>
 				</CardContent>
 			</Card>

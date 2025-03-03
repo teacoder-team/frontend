@@ -1,7 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { Button } from '../../ui/button'
 import {
 	Form,
 	FormControl,
@@ -13,10 +16,11 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
+import { patchUser } from '@/src/api/users'
 import type { AccountResponse } from '@/src/generated'
 
 const displayNameSchema = z.object({
-	name: z.string({ message: 'Имя обязательно' })
+	displayName: z.string({ message: 'Имя обязательно' })
 })
 
 export type DisplayName = z.infer<typeof displayNameSchema>
@@ -26,15 +30,25 @@ interface DisplayNameFormProps {
 }
 
 export function DisplayNameForm({ user }: DisplayNameFormProps) {
-	const form = useForm<DisplayName>({
-		resolver: zodResolver(displayNameSchema),
-		values: {
-			name: user?.displayName ?? ''
+	const { mutateAsync, isPending } = useMutation({
+		mutationKey: ['patch user'],
+		mutationFn: (data: DisplayName) => patchUser(data),
+		onError(error) {
+			toast.error(error.message ?? 'Ошибка при смене пароля')
 		}
 	})
 
+	const form = useForm<DisplayName>({
+		resolver: zodResolver(displayNameSchema),
+		values: {
+			displayName: user?.displayName ?? ''
+		}
+	})
+
+	const { isDirty } = form.formState
+
 	async function onSubmit(data: DisplayName) {
-		// await mutateAsync(data)
+		await mutateAsync(data)
 	}
 
 	return (
@@ -46,16 +60,29 @@ export function DisplayNameForm({ user }: DisplayNameFormProps) {
 				>
 					<FormField
 						control={form.control}
-						name='name'
+						name='displayName'
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Ваше имя</FormLabel>
 								<FormControl>
-									<Input
-										placeholder='Elon Musk'
-										// disabled={isPending}
-										{...field}
-									/>
+									<div className='relative'>
+										<Input
+											placeholder='John Doe'
+											disabled={isPending}
+											{...field}
+										/>
+										{isDirty && (
+											<div className='absolute bottom-0 right-0 flex h-full items-center justify-center px-2'>
+												<Button
+													variant='primary'
+													className='h-6 rounded-lg px-3 text-xs'
+													isLoading={isPending}
+												>
+													Сохранить
+												</Button>
+											</div>
+										)}
+									</div>
 								</FormControl>
 								<FormDescription>
 									Измените ваше имя на любое, какое захотите.

@@ -16,6 +16,7 @@ import {
 } from '../ui/dropdown-menu'
 
 import { useCurrent } from '@/src/hooks/use-current'
+import { getMediaSource } from '@/src/lib/utils'
 
 export function ProfileMenu() {
 	const { user } = useCurrent()
@@ -28,7 +29,10 @@ export function ProfileMenu() {
 					className='relative size-10 rounded-full'
 				>
 					<Avatar>
-						<AvatarImage src={user?.avatar} alt='Аватарка' />
+						<AvatarImage
+							src={getMediaSource(`/avatars/${user?.avatar}`)}
+							alt='Аватарка'
+						/>
 						<AvatarFallback>
 							{user?.displayName.slice(0, 1)}
 						</AvatarFallback>
@@ -49,7 +53,7 @@ export function ProfileMenu() {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem asChild>
-						<Link href='/account'>
+						<Link href='/account/settings'>
 							<Settings />
 							Настройки
 						</Link>

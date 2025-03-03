@@ -36,7 +36,7 @@ export function Footer() {
 							</li>
 							<li>
 								<Link
-									href='https://docs.teacoder.com'
+									href='https://docs.teacoder.ru'
 									className='inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary'
 									target='_blank'
 									referrerPolicy='no-referrer'

@@ -23,7 +23,7 @@ export function Settings() {
 
 	return (
 		<div className='w-full'>
-			<div className='mx-auto flex h-full max-w-5xl flex-col gap-4 rounded-xl'>
+			<div className='mx-auto flex h-full max-w-5xl flex-col gap-4'>
 				{isLoading || isLoadingStatus ? (
 					<div className='flex h-[75vh] items-center justify-center'>
 						<Loader2 className='size-10 animate-spin text-muted-foreground' />

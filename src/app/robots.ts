@@ -10,6 +10,7 @@ export default function robots(): MetadataRoute.Robots {
 			disallow: [
 				'/*?',
 				'/*.html',
+				'/auth/recovery/*',
 				'/account/*',
 				'/lesson/*',
 				'*?*=*',
