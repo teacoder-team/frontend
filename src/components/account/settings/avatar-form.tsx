@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 import { Input } from '../../ui/input'
 
-import { changeAvatar } from '@/src/api/users'
+import { changeAvatar } from '@/src/api'
 import type { AccountResponse } from '@/src/generated'
 import { getMediaSource } from '@/src/lib/utils'
 
@@ -18,27 +18,25 @@ export function AvatarForm({ user }: AvatarFormProps) {
 		user?.avatar ? getMediaSource(`/avatars/${user.avatar}`) : null
 	)
 
-	const { mutateAsync } = useMutation({
-		mutationKey: ['uploadAvatar'],
+	const { mutate } = useMutation({
+		mutationKey: ['change user avatar'],
 		mutationFn: (data: FormData) => changeAvatar(data),
 		onSuccess: () => {
-			toast.success('Аватар успешно обновлён!')
+			toast.success('Аватар успешно обновлён')
 		},
 		onError(error) {
-			toast.error(error.message || 'Ошибка при обновлении аватара')
+			toast.error(error.message ?? 'Ошибка при обновлении аватара')
 		}
 	})
 
 	async function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
-		const files = event.target.files
+		const file = event.target.files?.[0]
 
-		if (files?.length) {
+		if (file) {
 			const formData = new FormData()
+			formData.append('file', file)
 
-			formData.append('file', files[0])
-			console.log(formData)
-
-			await mutateAsync(formData)
+			mutate(formData)
 		}
 	}
 

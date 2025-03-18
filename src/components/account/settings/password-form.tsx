@@ -46,11 +46,7 @@ export function PasswordForm() {
 			setIsOpen(false)
 		},
 		onError(error) {
-			if (error.message) {
-				toast.warning(error.message)
-			} else {
-				toast.error('Ошибка при смене пароля')
-			}
+			toast.error(error.message ?? 'Ошибка при смене пароля')
 		}
 	})
 

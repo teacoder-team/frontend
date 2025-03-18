@@ -16,7 +16,7 @@ import { useCurrent } from '@/src/hooks'
 export function Settings() {
 	const { user, isLoading } = useCurrent()
 
-	const { data: status, isLoading: isLoadingStatus } = useQuery({
+	const { data: status } = useQuery({
 		queryKey: ['mfa status'],
 		queryFn: () => fetchMfaStatus()
 	})
@@ -24,24 +24,18 @@ export function Settings() {
 	return (
 		<div className='w-full'>
 			<div className='mx-auto flex h-full max-w-5xl flex-col gap-4'>
-				{isLoading || isLoadingStatus ? (
-					<div className='flex h-[75vh] items-center justify-center'>
-						<Loader2 className='size-10 animate-spin text-muted-foreground' />
+				<Fragment>
+					<Heading
+						title='Настройки аккаунта'
+						description=' Управление настройками вашего аккаунта'
+					/>
+					<div className='mt-2 space-y-9'>
+						<ProfileForm user={user} />
+						<AccountForm user={user} />
+						<TwoStepAuthForm status={status} />
+						<AccountActions />
 					</div>
-				) : (
-					<Fragment>
-						<Heading
-							title='Настройки аккаунта'
-							description=' Управление настройками вашего аккаунта'
-						/>
-						<div className='mt-2 space-y-9'>
-							<ProfileForm user={user} />
-							<AccountForm user={user} />
-							<TwoStepAuthForm status={status} />
-							<AccountActions />
-						</div>
-					</Fragment>
-				)}
+				</Fragment>
 			</div>
 		</div>
 	)

@@ -1,8 +1,59 @@
 import { ExternalLink } from 'lucide-react'
 import Link from 'next/link'
+import { JSX } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { FaTelegram, FaYoutube } from 'react-icons/fa6'
 import { SiBoosty } from 'react-icons/si'
+
+interface NavLink {
+	title: string
+	href: string
+	isExternal?: boolean
+}
+
+interface SocialLink {
+	href: string
+	icon: JSX.Element
+	label: string
+}
+
+const generalLinks: NavLink[] = [
+	{ title: 'Курсы', href: '/courses' },
+	{ title: 'Об основателе', href: '/about' },
+	{
+		title: 'API документация',
+		href: 'https://docs.teacoder.ru',
+		isExternal: true
+	}
+]
+
+const documentsLinks: NavLink[] = [
+	{ title: 'Пользовательское соглашение', href: '/docs/agreement' },
+	{ title: 'Политика конфиденциальности', href: '/docs/privacy' }
+]
+
+const socialLinks: SocialLink[] = [
+	{
+		href: 'https://youtube.com/@TeaCoder52',
+		icon: <FaYoutube className='size-6' />,
+		label: 'YouTube'
+	},
+	{
+		href: 'https://t.me/TeaCoder_official',
+		icon: <FaTelegram className='size-6' />,
+		label: 'Telegram'
+	},
+	{
+		href: 'https://github.com/teacoder-team',
+		icon: <FaGithub className='size-6' />,
+		label: 'GitHub'
+	},
+	{
+		href: 'https://boosty.to/teacoder',
+		icon: <SiBoosty className='size-6' />,
+		label: 'Boosty'
+	}
+]
 
 export function Footer() {
 	return (
@@ -18,95 +69,27 @@ export function Footer() {
 					<div className='space-y-4'>
 						<h3 className='text-sm font-medium'>Общие ссылки</h3>
 						<ul className='space-y-3 text-sm'>
-							<li>
-								<Link
-									href='/courses'
-									className='text-muted-foreground transition-colors hover:text-primary'
-								>
-									Курсы
-								</Link>
-							</li>
-							<li>
-								<Link
-									href='/about'
-									className='text-muted-foreground transition-colors hover:text-primary'
-								>
-									Об основателе
-								</Link>
-							</li>
-							<li>
-								<Link
-									href='https://docs.teacoder.ru'
-									className='inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary'
-									target='_blank'
-									referrerPolicy='no-referrer'
-								>
-									<ExternalLink className='size-4' />
-									API документация
-								</Link>
-							</li>
+							{generalLinks.map(link => (
+								<FooterLink key={link.href} {...link} />
+							))}
 						</ul>
 					</div>
+
 					<div className='space-y-4'>
 						<h3 className='text-sm font-medium'>Информация</h3>
 						<ul className='space-y-3 text-sm'>
-							<li>
-								<Link
-									href='/docs/agreement'
-									className='text-muted-foreground transition-colors hover:text-primary'
-								>
-									Пользовательское соглашение
-								</Link>
-							</li>
-							<li>
-								<Link
-									href='/docs/privacy'
-									className='text-muted-foreground transition-colors hover:text-primary'
-								>
-									Политика конфиденциальности
-								</Link>
-							</li>
+							{documentsLinks.map(link => (
+								<FooterLink key={link.href} {...link} />
+							))}
 						</ul>
 					</div>
+
 					<div className='space-y-4'>
 						<h3 className='text-sm font-medium'>Соц. сети</h3>
 						<div className='flex space-x-4'>
-							<Link
-								href='https://youtube.com/@TeaCoder52'
-								className='text-muted-foreground transition-colors hover:text-primary'
-								target='_blank'
-								referrerPolicy='no-referrer'
-							>
-								<FaYoutube className='size-6' />
-								<span className='sr-only'>YouTube</span>
-							</Link>
-							<Link
-								href='https://t.me/TeaCoder_official'
-								className='text-muted-foreground transition-colors hover:text-primary'
-								target='_blank'
-								referrerPolicy='no-referrer'
-							>
-								<FaTelegram className='size-6' />
-								<span className='sr-only'>Telegram</span>
-							</Link>
-							<Link
-								href='https://github.com/teacoder-team'
-								className='text-muted-foreground transition-colors hover:text-primary'
-								target='_blank'
-								referrerPolicy='no-referrer'
-							>
-								<FaGithub className='size-6' />
-								<span className='sr-only'>Github</span>
-							</Link>
-							<Link
-								href='https://boosty.to/teacoder'
-								className='text-muted-foreground transition-colors hover:text-primary'
-								target='_blank'
-								referrerPolicy='no-referrer'
-							>
-								<SiBoosty className='size-6' />
-								<span className='sr-only'>Boosty</span>
-							</Link>
+							{socialLinks.map(link => (
+								<SocialLink key={link.href} {...link} />
+							))}
 						</div>
 					</div>
 				</div>
@@ -119,3 +102,29 @@ export function Footer() {
 		</footer>
 	)
 }
+
+const FooterLink = ({ title, href, isExternal }: NavLink) => (
+	<li>
+		<Link
+			href={href}
+			className='inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary'
+			target={isExternal ? '_blank' : undefined}
+			referrerPolicy={isExternal ? 'no-referrer' : undefined}
+		>
+			{isExternal && <ExternalLink className='size-4' />}
+			{title}
+		</Link>
+	</li>
+)
+
+const SocialLink = ({ href, icon, label }: SocialLink) => (
+	<Link
+		href={href}
+		className='text-muted-foreground transition-colors hover:text-primary'
+		target='_blank'
+		referrerPolicy='no-referrer'
+	>
+		{icon}
+		<span className='sr-only'>{label}</span>
+	</Link>
+)

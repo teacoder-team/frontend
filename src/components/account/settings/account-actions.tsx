@@ -10,7 +10,7 @@ import { Card, CardContent } from '../../ui/card'
 import { logout } from '@/src/api'
 
 export function AccountActions() {
-	const [isLogoutOpen, setIsLogoutOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 
 	const { push } = useRouter()
 
@@ -18,15 +18,11 @@ export function AccountActions() {
 		mutationKey: ['logout'],
 		mutationFn: () => logout(),
 		onSuccess() {
-			setIsLogoutOpen(false)
+			setIsOpen(false)
 			push('/auth/login')
 		},
 		onError(error) {
-			if (error.message) {
-				toast.error(error.message)
-			} else {
-				toast.error('Ошибка при выходе')
-			}
+			toast.error(error.message ?? 'Ошибка при выходе')
 		}
 	})
 
@@ -45,8 +41,8 @@ export function AccountActions() {
 								</p>
 							</div>
 							<ConfirmDialog
-								open={isLogoutOpen}
-								onOpenChange={setIsLogoutOpen}
+								open={isOpen}
+								onOpenChange={setIsOpen}
 								title='Выход из аккаунта'
 								description='Вы уверены, что хотите завершить сеанс и выйти из аккаунта?'
 								handleConfirm={() => mutate()}

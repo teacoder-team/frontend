@@ -1,11 +1,12 @@
-import { Fragment, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { Header } from '@/src/components/layout/header'
 import { UserNavigation } from '@/src/components/layout/user-navigation'
+import { AccountProvider } from '@/src/components/providers/account-provider'
 
 export default function AccountLayout({ children }: { children: ReactNode }) {
 	return (
-		<Fragment>
+		<AccountProvider>
 			<Header />
 			<main className='flex w-full flex-col items-center pt-6'>
 				<div className='mx-auto w-full max-w-7xl'>
@@ -17,6 +18,6 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
 					</div>
 				</div>
 			</main>
-		</Fragment>
+		</AccountProvider>
 	)
 }

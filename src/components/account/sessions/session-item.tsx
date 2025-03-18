@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 
+import { RevokeSession } from './remove-session'
 import { revokeSession } from '@/src/api'
 import { SessionResponse } from '@/src/generated'
 import { formatDate, getBrowserIcon } from '@/src/lib/utils'
@@ -64,18 +65,7 @@ export function SessionItem({ session, isCurrentSession }: SessionItemProps) {
 						</p>
 					</div>
 				</div>
-				{!isCurrentSession && (
-					<div className='space-x-2'>
-						<Button
-							onClick={() => mutate()}
-							variant='outline'
-							size='sm'
-							isLoading={isPending}
-						>
-							Выйти
-						</Button>
-					</div>
-				)}
+				{!isCurrentSession && <RevokeSession id={session.id} />}
 			</CardContent>
 		</Card>
 	)

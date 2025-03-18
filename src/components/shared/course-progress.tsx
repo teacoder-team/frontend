@@ -36,7 +36,9 @@ export function CourseProgress({
 				className={cn(
 					'h-2 transition-all',
 					size === 'sm' && 'h-1',
-					variant === 'success' && '[&>div]:bg-emerald-600'
+					variant === 'success'
+						? '[&>div]:bg-emerald-600'
+						: '[&>div]:bg-blue-600'
 				)}
 			/>
 		</div>

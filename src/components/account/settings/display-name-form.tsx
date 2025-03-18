@@ -16,7 +16,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { patchUser } from '@/src/api/users'
+import { patchUser } from '@/src/api'
 import type { AccountResponse } from '@/src/generated'
 
 const displayNameSchema = z.object({
@@ -33,8 +33,11 @@ export function DisplayNameForm({ user }: DisplayNameFormProps) {
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['patch user'],
 		mutationFn: (data: DisplayName) => patchUser(data),
+		onSuccess() {
+			toast.success('Профиль обновлён')
+		},
 		onError(error) {
-			toast.error(error.message ?? 'Ошибка при смене пароля')
+			toast.error(error.message ?? 'Ошибка при обновлении профиля')
 		}
 	})
 

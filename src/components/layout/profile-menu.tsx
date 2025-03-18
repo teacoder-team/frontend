@@ -1,7 +1,10 @@
 'use client'
 
+import { useMutation } from '@tanstack/react-query'
 import { LogOut, Settings } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
@@ -15,11 +18,25 @@ import {
 	DropdownMenuTrigger
 } from '../ui/dropdown-menu'
 
+import { logout } from '@/src/api'
 import { useCurrent } from '@/src/hooks/use-current'
 import { getMediaSource } from '@/src/lib/utils'
 
 export function ProfileMenu() {
+	const { push } = useRouter()
+
 	const { user } = useCurrent()
+
+	const { mutate } = useMutation({
+		mutationKey: ['logout'],
+		mutationFn: () => logout(),
+		onSuccess() {
+			push('/auth/login')
+		},
+		onError(error) {
+			toast.error(error.message ?? 'Ошибка при выходе')
+		}
+	})
 
 	return (
 		<DropdownMenu>
@@ -58,7 +75,10 @@ export function ProfileMenu() {
 							Настройки
 						</Link>
 					</DropdownMenuItem>
-					<DropdownMenuItem className='!text-rose-600'>
+					<DropdownMenuItem
+						onClick={() => mutate()}
+						className='!text-rose-600'
+					>
 						<LogOut />
 						Выйти
 					</DropdownMenuItem>
