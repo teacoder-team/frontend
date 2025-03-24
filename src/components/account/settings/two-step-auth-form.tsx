@@ -1,0 +1,88 @@
+import { ListOrdered, Smartphone } from 'lucide-react'
+
+import { Badge } from '../../ui/badge'
+import { Card, CardContent } from '../../ui/card'
+
+import { DisableTotpForm } from './disable-totp-form'
+import { EnableTotpForm } from './enable-totp-form'
+import { RecoveryCodesModal } from './recovery-codes-modal'
+import type { MfaStatusResponse } from '@/src/generated'
+
+interface TwoFactorAuthFormProps {
+	status: MfaStatusResponse | undefined
+}
+
+export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
+	return (
+		<div className='flex flex-col gap-y-3'>
+			<h2 className='text-[19px] font-medium'>
+				Многофакторная аутентификация
+			</h2>
+			<Card className='shadow-none'>
+				<CardContent className='p-4'>
+					<div className='space-y-8'>
+						<div className='flex flex-row items-center justify-between'>
+							<div className='mr-5 flex items-center gap-x-4'>
+								<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
+									<Smartphone className='size-5 stroke-[1.7px] text-white' />
+								</div>
+								<div>
+									<div className='mb-1 flex items-center gap-2'>
+										<h2 className='font-semibold'>
+											Приложение для аутентификации
+										</h2>
+										{status?.totpMfa ? (
+											<Badge variant='success'>
+												Включено
+											</Badge>
+										) : (
+											<Badge variant='error'>
+												Отключено
+											</Badge>
+										)}
+									</div>
+									<p className='text-sm text-muted-foreground'>
+										{status?.totpMfa
+											? 'Двухфакторная аутентификация через TOTP включена. Для входа в аккаунт используйте приложение-аутентификатор, чтобы получить код.'
+											: 'Обеспечьте безопасность своего аккаунта с помощью двухфакторной аутентификации через TOTP.'}
+									</p>
+								</div>
+							</div>
+							<div>
+								{status?.totpMfa ? (
+									<DisableTotpForm />
+								) : (
+									<EnableTotpForm />
+								)}
+							</div>
+						</div>
+
+						{status?.recoveryActive && (
+							<div className='flex items-center justify-between'>
+								<div className='mr-5 flex items-center gap-x-4'>
+									<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
+										<ListOrdered className='size-5 stroke-[1.7px] text-white' />
+									</div>
+									<div>
+										<h2 className='font-semibold'>
+											Коды восстановления
+										</h2>
+										<p className='text-sm text-muted-foreground'>
+											Вы можете использовать коды
+											восстановления для доступа к
+											аккаунту, если потеряете доступ к
+											своему устройству.
+										</p>
+									</div>
+								</div>
+								<div>
+									<RecoveryCodesModal />
+								</div>
+							</div>
+						)}
+					</div>
+				</CardContent>
+			</Card>
+		</div>
+	)
+}
