@@ -32,7 +32,7 @@ export interface CourseResponse {
    * Identifier for the course code repository
    * @nullable
    */
-  codeUrl: string | null;
+  attachment: string | null;
   /** Whether the course is published or not */
   isPublished: boolean;
   /** Number of views the course has */

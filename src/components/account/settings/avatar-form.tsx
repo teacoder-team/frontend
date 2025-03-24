@@ -15,7 +15,7 @@ interface AvatarFormProps {
 
 export function AvatarForm({ user }: AvatarFormProps) {
 	const [preview, setPreview] = useState<string | null>(
-		user?.avatar ? getMediaSource(`/avatars/${user.avatar}`) : null
+		user?.avatar ? getMediaSource(user.avatar, 'users') : null
 	)
 
 	const { mutate } = useMutation({
@@ -36,7 +36,11 @@ export function AvatarForm({ user }: AvatarFormProps) {
 			const formData = new FormData()
 			formData.append('file', file)
 
+			console.log('File added to FormData:', formData.get('file'))
+
 			mutate(formData)
+		} else {
+			toast.error('Пожалуйста, выберите файл')
 		}
 	}
 

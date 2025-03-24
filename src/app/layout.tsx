@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
 import { YandexMetrika } from '../components/analitycs/yandex-metrika'
-import { TanstackQueryProvider } from '../components/providers'
+import { TanstackQueryProvider } from '../components/providers/tanstack-query-provider'
 import { Toaster } from '../components/shared/sonner'
 import { APP_CONFIG, SEO } from '../constants'
 

@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
+import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
-import { getAllCourses, getCourseBySlug } from '@/src/api'
-import { Course } from '@/src/components/course'
+import { api, getCourse, getCourseLessons, getCourses } from '@/src/api'
+import { CourseDetails } from '@/src/components/course/course-details'
+import { CourseProvider } from '@/src/components/providers/course-provider'
 import { getMediaSource } from '@/src/lib/utils'
 
 export async function generateStaticParams() {
-	const courses = await getAllCourses()
+	const courses = await getCourses()
 
 	const paths = courses.map(course => {
 		return {
@@ -17,24 +19,16 @@ export async function generateStaticParams() {
 	return paths
 }
 
-async function fetchCourse(slug: string) {
-	try {
-		const course = await getCourseBySlug(slug)
-
-		return { course }
-	} catch (error) {
-		notFound()
-	}
-}
-
 export async function generateMetadata({
 	params
 }: {
 	params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-	const slug = (await params).slug
+	const { slug } = await params
 
-	const { course } = await fetchCourse(slug)
+	const course = await getCourse(slug).catch(error => {
+		notFound()
+	})
 
 	return {
 		title: course.title,
@@ -42,7 +36,7 @@ export async function generateMetadata({
 		openGraph: {
 			images: [
 				{
-					url: getMediaSource(course.thumbnail ?? ''),
+					url: getMediaSource(course.thumbnail ?? '', 'courses'),
 					alt: course.title
 				}
 			]
@@ -52,7 +46,7 @@ export async function generateMetadata({
 			description: course.description ?? '',
 			images: [
 				{
-					url: getMediaSource(course.thumbnail ?? ''),
+					url: getMediaSource(course.thumbnail ?? '', 'courses'),
 					alt: course.title
 				}
 			]
@@ -65,9 +59,17 @@ export default async function CoursePage({
 }: {
 	params: Promise<{ slug: string }>
 }) {
-	const slug = (await params).slug
+	const { slug } = await params
 
-	const { course } = await fetchCourse(slug)
+	const course = await getCourse(slug).catch(error => {
+		notFound()
+	})
 
-	return <Course course={course} />
+	const lessons = await getCourseLessons(course.id)
+
+	return (
+		<CourseProvider id={course.id}>
+			<CourseDetails course={course} lessons={lessons} />
+		</CourseProvider>
+	)
 }

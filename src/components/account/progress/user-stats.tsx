@@ -1,8 +1,10 @@
-import { BookOpen, Trophy } from 'lucide-react'
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+import { useQuery } from '@tanstack/react-query'
+import { BookOpen, Crown, Medal, Trophy } from 'lucide-react'
+import React from 'react'
+import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
-import { mockUserData } from './mock'
+import { getMeStatistics } from '@/src/api'
 import {
 	Card,
 	CardContent,
@@ -11,7 +13,17 @@ import {
 } from '@/src/components/ui/card'
 
 export function UserStats() {
-	return (
+	const { data, isLoading } = useQuery({
+		queryKey: ['get me statistics'],
+		queryFn: () => getMeStatistics()
+	})
+
+	return isLoading ? (
+		<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+			{/* <Skeleton className='h-4 w-[100px]' /> */}
+			{/* <Skeleton className='h-4 w-[160px]' /> */}
+		</div>
+	) : (
 		<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
 			<Card>
 				<CardHeader className='pb-2'>
@@ -24,37 +36,12 @@ export function UserStats() {
 					<div className='flex items-center justify-between'>
 						<div>
 							<div className='text-3xl font-bold'>
-								{mockUserData.points}
+								{data?.totalPoints}
 							</div>
 							<div className='text-sm text-muted-foreground'>
 								Всего очков
 							</div>
 						</div>
-						<div className='h-20 w-20'>
-							<CircularProgressbar
-								value={mockUserData.rank}
-								maxValue={100}
-								text={`#${mockUserData.rank}`}
-								styles={{
-									trail: {
-										color: '#E2E8F0'
-									},
-									path: {
-										color: '#6366F1'
-									},
-									text: {
-										fontSize: '1.5rem',
-										color: '#6366F1',
-										fontWeight: 600
-									}
-								}}
-							/>
-						</div>
-					</div>
-					<div className='mt-4 text-sm'>
-						<span className='font-medium'>Ваш рейтинг:</span>{' '}
-						{mockUserData.rank} из {mockUserData.totalUsers}{' '}
-						пользователей
 					</div>
 				</CardContent>
 			</Card>
@@ -70,8 +57,7 @@ export function UserStats() {
 					<div className='flex items-center justify-between'>
 						<div>
 							<div className='text-3xl font-bold'>
-								{mockUserData.completedLessons}/
-								{mockUserData.totalLessons}
+								{data?.lessonsCompleted}
 							</div>
 							<div className='text-sm text-muted-foreground'>
 								Пройдено уроков
@@ -79,8 +65,8 @@ export function UserStats() {
 						</div>
 						<div className='size-20'>
 							<CircularProgressbar
-								value={mockUserData.completionPercentage}
-								text={`${mockUserData.completionPercentage}%`}
+								value={data?.learningProgressPercentage ?? 0}
+								text={`${data?.learningProgressPercentage}%`}
 								styles={{
 									trail: {
 										color: '#E2E8F0'
@@ -96,13 +82,6 @@ export function UserStats() {
 								}}
 							/>
 						</div>
-					</div>
-					<div className='mt-4 text-sm'>
-						<span className='font-medium'>Завершено курсов:</span>{' '}
-						{mockUserData.completedCourses}
-						<br />
-						<span className='font-medium'>В процессе:</span>{' '}
-						{mockUserData.inProgressCourses}
 					</div>
 				</CardContent>
 			</Card>

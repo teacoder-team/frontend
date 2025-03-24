@@ -63,17 +63,17 @@ export function LessonCompleteButton({
 					<p className='text-sm text-muted-foreground'>
 						{isCompleted
 							? 'Отличная работа! Вы можете посмотреть свою статистику в личном кабинете.'
-							: 'Не забудьте завершить урок, когда будете готов.'}
+							: 'Не забудьте завершить урок, когда будете готовы.'}
 					</p>
 				</div>
 				<Button
 					onClick={() => mutate()}
+					variant='outline'
 					size='lg'
 					className={cn(
-						'min-w-52 text-white transition-all duration-200 ease-in-out',
-						isCompleted
-							? 'bg-red-600 hover:bg-red-600/90'
-							: 'bg-emerald-600 hover:bg-emerald-600/90'
+						'min-w-52 transition-all duration-200 ease-in-out',
+						!isCompleted &&
+							'bg-emerald-600 !text-white hover:bg-emerald-600/90'
 					)}
 					isLoading={isPending}
 				>

@@ -8,22 +8,22 @@ import { removeSessionToken } from '../lib/cookies/session'
 
 import { api, instance } from './instance'
 
-export const login = async (data: LoginRequest) => {
-	const response = await api.post<LoginSessionResponse | LoginMfaResponse>(
-		'/auth/session/login',
-		data
-	)
-
-	return response
-}
+export const login = async (data: LoginRequest) =>
+	await api
+		.post<
+			LoginSessionResponse | LoginMfaResponse
+		>('/auth/session/login', data)
+		.then(response => response.data)
 
 export const logout = async () =>
 	await instance
 		.post<boolean>('/auth/session/logout')
 		.then(() => removeSessionToken())
 
-export const getSessions = () =>
-	instance.get<SessionResponse[]>('/auth/session/all')
+export const getSessions = async () =>
+	await instance
+		.get<SessionResponse[]>('/auth/session/all')
+		.then(response => response.data)
 
 export const revokeSession = (id: string) =>
 	instance.delete(`/auth/session/${id}`)

@@ -6,13 +6,19 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface MfaTotpRequest {
+export interface MfaVerifyRequest {
   /** MFA Ticket */
   ticket: string;
   /**
-   * 6-digit code from the authentication application
+   * 6-digit TOTP code
    * @minLength 6
    * @maxLength 6
    */
-  totpCode: string;
+  totpCode?: string;
+  /**
+   * One of the recovery codes
+   * @minLength 11
+   * @maxLength 11
+   */
+  recoveryCode?: string;
 }

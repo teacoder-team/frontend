@@ -1,7 +1,7 @@
 'use client'
 
 import { useMutation } from '@tanstack/react-query'
-import { LogOut, Settings } from 'lucide-react'
+import { ChartArea, LogOut, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
@@ -22,8 +22,8 @@ import { logout } from '@/src/api'
 import { useCurrent } from '@/src/hooks/use-current'
 import { getMediaSource } from '@/src/lib/utils'
 
-export function ProfileMenu() {
-	const { push } = useRouter()
+export function UserMenu() {
+	const router = useRouter()
 
 	const { user } = useCurrent()
 
@@ -31,7 +31,7 @@ export function ProfileMenu() {
 		mutationKey: ['logout'],
 		mutationFn: () => logout(),
 		onSuccess() {
-			push('/auth/login')
+			router.push('/auth/login')
 		},
 		onError(error) {
 			toast.error(error.message ?? 'Ошибка при выходе')
@@ -47,7 +47,7 @@ export function ProfileMenu() {
 				>
 					<Avatar>
 						<AvatarImage
-							src={getMediaSource(`/avatars/${user?.avatar}`)}
+							src={getMediaSource(user?.avatar ?? '', 'users')}
 							alt='Аватарка'
 						/>
 						<AvatarFallback>
@@ -69,6 +69,12 @@ export function ProfileMenu() {
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
+					<DropdownMenuItem asChild>
+						<Link href='/account'>
+							<ChartArea />
+							Мой прогресс
+						</Link>
+					</DropdownMenuItem>
 					<DropdownMenuItem asChild>
 						<Link href='/account/settings'>
 							<Settings />

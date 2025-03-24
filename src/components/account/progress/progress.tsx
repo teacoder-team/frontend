@@ -1,6 +1,5 @@
 'use client'
 
-import { Award, ChevronRight, Trophy, Users } from 'lucide-react'
 import { useState } from 'react'
 
 import { Heading } from '../../shared/heading'
@@ -8,18 +7,7 @@ import { Heading } from '../../shared/heading'
 import { CoursesList } from './courses-list'
 import { CoursesTab } from './courses-tab'
 import { Leaderboard } from './leaderboard'
-import { mockLeaderboard } from './mock'
 import { UserStats } from './user-stats'
-import { Badge } from '@/src/components/ui/badge'
-import { Button } from '@/src/components/ui/button'
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle
-} from '@/src/components/ui/card'
 import {
 	Tabs,
 	TabsContent,

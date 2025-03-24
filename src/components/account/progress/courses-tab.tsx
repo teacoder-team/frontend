@@ -1,6 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
+
 import { CourseProgress } from '../../shared/course-progress'
 
-import { mockCourses } from './mock'
+import { getMeProgress } from '@/src/api'
 import { Button } from '@/src/components/ui/button'
 import {
 	Card,
@@ -12,15 +15,20 @@ import {
 import { Separator } from '@/src/components/ui/separator'
 
 export function CoursesTab() {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get me progress'],
+		queryFn: () => getMeProgress()
+	})
+
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle className='text-lg font-medium'>Все курсы</CardTitle>
+				<CardTitle className='text-lg font-medium'>Курсы</CardTitle>
 				<CardDescription>Ваш прогресс по всем курсам</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<div className='space-y-6'>
-					{mockCourses.map(course => (
+					{data?.map(course => (
 						<div key={course.id} className='space-y-2'>
 							<div className='flex items-center justify-between'>
 								<div className='font-medium'>
@@ -52,16 +60,22 @@ export function CoursesTab() {
 										course.lastAccessed
 									).toLocaleDateString()}
 								</span>
-								<Button
-									variant='link'
-									size='sm'
-									className='h-auto p-0'
-								>
-									Продолжить обучение
-								</Button>
+								{course.lastLesson && (
+									<Button
+										variant='link'
+										size='sm'
+										className='h-auto p-0'
+										asChild
+									>
+										<Link
+											href={`/lesson/${course.lastLesson?.slug}`}
+										>
+											Продолжить обучение
+										</Link>
+									</Button>
+								)}
 							</div>
-							{course.id !==
-								mockCourses[mockCourses.length - 1].id && (
+							{course.id !== data[data.length - 1].id && (
 								<Separator className='mt-4' />
 							)}
 						</div>

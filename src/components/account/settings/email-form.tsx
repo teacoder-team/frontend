@@ -31,7 +31,10 @@ import { changeEmail } from '@/src/api'
 import type { AccountResponse } from '@/src/generated'
 
 const emailSchema = z.object({
-	email: z.string().min(6).max(128)
+	email: z
+		.string()
+		.min(1, { message: 'Email обязателен' })
+		.email({ message: 'Введите корректный адрес электронной почты' })
 })
 
 export type Email = z.infer<typeof emailSchema>
@@ -49,7 +52,7 @@ export function EmailForm({ user }: EmailFormProps) {
 		mutationKey: ['change email'],
 		mutationFn: (data: Email) => changeEmail(data),
 		onSuccess() {
-			queryClient.invalidateQueries({ queryKey: ['profile'] })
+			queryClient.invalidateQueries({ queryKey: ['get current'] })
 			setIsOpen(false)
 		},
 		onError(error) {
@@ -71,7 +74,7 @@ export function EmailForm({ user }: EmailFormProps) {
 	return (
 		<div className='flex items-center justify-between'>
 			<div className='mr-5 flex items-center gap-x-4'>
-				<div className='rounded-full bg-blue-500 p-2.5'>
+				<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
 					<Mail className='size-5 stroke-[1.7px] text-white' />
 				</div>
 				<div className='mr-5 flex flex-1 flex-col'>

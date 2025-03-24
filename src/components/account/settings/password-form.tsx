@@ -30,8 +30,20 @@ import { Input } from '../../ui/input'
 import { changePassword } from '@/src/api'
 
 const passwordSchema = z.object({
-	currentPassword: z.string().min(6).max(128),
-	newPassword: z.string().min(6).max(128)
+	currentPassword: z
+		.string()
+		.min(6, {
+			message: 'Текущий пароль должен содержать хотя бы 6 символов'
+		})
+		.max(128, {
+			message: 'Текущий пароль должен содержать не более 128 символов'
+		}),
+	newPassword: z
+		.string()
+		.min(6, { message: 'Новый пароль должен содержать хотя бы 6 символов' })
+		.max(128, {
+			message: 'Новый пароль должен содержать не более 128 символов'
+		})
 })
 
 export type Password = z.infer<typeof passwordSchema>
@@ -69,7 +81,7 @@ export function PasswordForm() {
 	return (
 		<div className='flex items-center justify-between'>
 			<div className='mr-5 flex items-center gap-x-4'>
-				<div className='rounded-full bg-blue-500 p-2.5'>
+				<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
 					<KeyRound className='size-5 stroke-[1.7px] text-white' />
 				</div>
 				<div className='mr-5'>

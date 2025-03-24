@@ -22,14 +22,14 @@ const generalLinks: NavLink[] = [
 	{ title: 'Об основателе', href: '/about' },
 	{
 		title: 'API документация',
-		href: 'https://docs.teacoder.ru',
+		href: 'https://api.teacoder.ru/docs',
 		isExternal: true
 	}
 ]
 
 const documentsLinks: NavLink[] = [
-	{ title: 'Пользовательское соглашение', href: '/docs/agreement' },
-	{ title: 'Политика конфиденциальности', href: '/docs/privacy' }
+	{ title: 'Пользовательское соглашение', href: '/document/terms-of-use' },
+	{ title: 'Политика конфиденциальности', href: '/document/privacy-policy' }
 ]
 
 const socialLinks: SocialLink[] = [
@@ -61,7 +61,7 @@ export function Footer() {
 			<div className='relative mx-auto max-w-[1340px] px-4 py-8 lg:px-8'>
 				<div className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5'>
 					<div className='col-span-2 flex-1 space-y-4'>
-						<h2 className='font-bold'>TeaCoder</h2>
+						<h2 className='text-2xl font-bold'>TeaCoder</h2>
 						<p className='text-sm text-muted-foreground'>
 							Образовательная платформа по веб-разработке
 						</p>
@@ -69,17 +69,17 @@ export function Footer() {
 					<div className='space-y-4'>
 						<h3 className='text-sm font-medium'>Общие ссылки</h3>
 						<ul className='space-y-3 text-sm'>
-							{generalLinks.map(link => (
-								<FooterLink key={link.href} {...link} />
+							{generalLinks.map((link, index) => (
+								<FooterLink key={index} {...link} />
 							))}
 						</ul>
 					</div>
 
 					<div className='space-y-4'>
-						<h3 className='text-sm font-medium'>Информация</h3>
+						<h3 className='text-sm font-medium'>Документы</h3>
 						<ul className='space-y-3 text-sm'>
-							{documentsLinks.map(link => (
-								<FooterLink key={link.href} {...link} />
+							{documentsLinks.map((link, index) => (
+								<FooterLink key={index} {...link} />
 							))}
 						</ul>
 					</div>
@@ -87,8 +87,8 @@ export function Footer() {
 					<div className='space-y-4'>
 						<h3 className='text-sm font-medium'>Соц. сети</h3>
 						<div className='flex space-x-4'>
-							{socialLinks.map(link => (
-								<SocialLink key={link.href} {...link} />
+							{socialLinks.map((link, index) => (
+								<SocialLink key={index} {...link} />
 							))}
 						</div>
 					</div>

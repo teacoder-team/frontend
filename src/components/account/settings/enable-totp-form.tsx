@@ -1,8 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { Check, Copy, Loader, Loader2, TriangleAlert } from 'lucide-react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Check, Copy, Loader2, TriangleAlert } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -51,6 +51,8 @@ export function EnableTotpForm() {
 
 	const [isCopied, setIsCopied] = useState(false)
 
+	const queryClient = useQueryClient()
+
 	const {
 		mutate,
 		data: totp,
@@ -75,6 +77,7 @@ export function EnableTotpForm() {
 		mutationFn: (data: EnableTotp) => totpEnable(data),
 		onSuccess() {
 			refetch()
+			queryClient.invalidateQueries({ queryKey: ['mfa status'] })
 			setStep(2)
 		},
 		onError(error) {

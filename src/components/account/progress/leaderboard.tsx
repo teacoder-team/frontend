@@ -1,7 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
 import { ChevronRight, Trophy, Users } from 'lucide-react'
 
-import { mockLeaderboard } from './mock'
-import { Badge } from '@/src/components/ui/badge'
+import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
+
+import { getLeaders } from '@/src/api'
 import { Button } from '@/src/components/ui/button'
 import {
 	Card,
@@ -11,6 +13,7 @@ import {
 	CardHeader,
 	CardTitle
 } from '@/src/components/ui/card'
+import { getMediaSource } from '@/src/lib/utils'
 
 interface LeaderboardProps {
 	limit?: number
@@ -23,15 +26,18 @@ export function Leaderboard({
 	showButton,
 	onViewAll
 }: LeaderboardProps) {
-	const usersToShow = limit
-		? mockLeaderboard.slice(0, limit)
-		: mockLeaderboard
+	const { data, isLoading } = useQuery({
+		queryKey: ['get leaders'],
+		queryFn: () => getLeaders()
+	})
+
+	const users = limit ? data?.slice(0, limit) : data
 
 	return (
 		<Card>
 			<CardHeader>
 				<CardTitle className='flex items-center text-lg font-medium'>
-					<Users className='mr-2 h-5 w-5' /> Рейтинг пользователей
+					<Users className='mr-2 size-5' /> Рейтинг пользователей
 				</CardTitle>
 				<CardDescription>
 					Пользователи с наибольшим количеством очков
@@ -39,33 +45,51 @@ export function Leaderboard({
 			</CardHeader>
 			<CardContent>
 				<div className='space-y-4'>
-					{usersToShow.map(user => (
-						<div
-							key={user.id}
-							className='flex items-center justify-between rounded-md p-2'
-						>
-							<div className='flex items-center'>
-								<div className='w-8 text-center font-bold'>
-									{user.position === 1 && (
-										<Trophy className='mx-auto h-5 w-5 text-yellow-500' />
-									)}
-									{user.position === 2 && (
-										<Trophy className='mx-auto h-5 w-5 text-gray-400' />
-									)}
-									{user.position === 3 && (
-										<Trophy className='mx-auto h-5 w-5 text-amber-700' />
-									)}
-									{user.position > 3 && user.position}
+					{users?.map((user, index) => {
+						const position = index + 1
+
+						return (
+							<div
+								key={index}
+								className='flex items-center justify-between rounded-md p-2'
+							>
+								<div className='flex items-center'>
+									<div className='w-8 text-center text-[15px] font-semibold'>
+										{position === 1 && (
+											<Trophy className='mx-auto size-5 text-yellow-500' />
+										)}
+										{position === 2 && (
+											<Trophy className='mx-auto size-5 text-gray-400' />
+										)}
+										{position === 3 && (
+											<Trophy className='mx-auto size-5 text-amber-700' />
+										)}
+										{position > 3 && position}
+									</div>
+									<div className='ml-4 flex items-center gap-4'>
+										<Avatar>
+											<AvatarImage
+												src={getMediaSource(
+													user.avatar,
+													'users'
+												)}
+												alt='Аватарка'
+											/>
+											<AvatarFallback>
+												{user?.displayName.slice(0, 1)}
+											</AvatarFallback>
+										</Avatar>
+										<p className='font-medium'>
+											{user.displayName}
+										</p>
+									</div>
 								</div>
-								<div className='ml-4 font-medium'>
-									{user.username}
+								<div className='font-medium'>
+									{user.points} очков
 								</div>
 							</div>
-							<div className='font-semibold'>
-								{user.points} очков
-							</div>
-						</div>
-					))}
+						)
+					})}
 				</div>
 			</CardContent>
 			{showButton && (
@@ -76,7 +100,7 @@ export function Leaderboard({
 						onClick={onViewAll}
 					>
 						Посмотреть полный рейтинг{' '}
-						<ChevronRight className='ml-2 h-4 w-4' />
+						<ChevronRight className='ml-2 size-4' />
 					</Button>
 				</CardFooter>
 			)}

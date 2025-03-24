@@ -11,7 +11,10 @@ import { setSessionToken } from '../lib/cookies/session'
 
 import { api, instance } from './instance'
 
-export const getMe = () => instance.get<AccountResponse>('/auth/account')
+export const getMe = async () =>
+	await instance
+		.get<AccountResponse>('/auth/account')
+		.then(response => response.data)
 
 export const createAccount = async (data: CreateUserRequest) => {
 	const response = await api.post<CreateUserResponse>(
@@ -19,15 +22,13 @@ export const createAccount = async (data: CreateUserRequest) => {
 		data
 	)
 
-	if (response.token) {
-		setSessionToken(response.token)
+	if (response.data.token) {
+		setSessionToken(response.data.token)
 
-		instance.headers = {
-			'X-Session-Token': response.token
-		}
+		instance.defaults.headers['X-Session-Token'] = response.data.token
 	}
 
-	return response
+	return response.data
 }
 
 export const sendPasswordReset = (data: SendPasswordResetRequest) =>

@@ -10,18 +10,21 @@ import { LessonSidebar } from '@/src/components/lesson/lesson-sidebar'
 
 export const revalidate = 60
 
-async function getUserProgress(courseId: string, lessonId: string) {
+async function getUserProgress(courseId: string) {
 	const cookie = await cookies()
 
 	const token = cookie.get('token')?.value
 
-	const progressCount = await api.get<number>(`/progress/${courseId}`, {
-		headers: {
-			'X-Session-Token': token ?? ''
+	const { data: progressCount } = await api.get<number>(
+		`/progress/${courseId}`,
+		{
+			headers: {
+				'X-Session-Token': token ?? ''
+			}
 		}
-	})
+	)
 
-	const completedLessons = await api.get<string[]>(
+	const { data: completedLessons } = await api.get<string[]>(
 		`/lessons/${courseId}/progress`,
 		{
 			headers: {
@@ -41,7 +44,6 @@ export async function generateMetadata({
 	const { slug } = await params
 
 	const lesson = await getLesson(slug).catch(error => {
-		console.log(error)
 		notFound()
 	})
 
@@ -59,15 +61,13 @@ export default async function LessonPage({
 	const { slug } = await params
 
 	const lesson = await getLesson(slug).catch(error => {
-		console.log(error)
 		notFound()
 	})
 
 	const lessons = await getCourseLessons(lesson.course.id)
 
 	const { progressCount, completedLessons } = await getUserProgress(
-		lesson.course.id,
-		lesson.id
+		lesson.course.id
 	)
 
 	return (

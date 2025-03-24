@@ -21,9 +21,9 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 			<Card className='shadow-none'>
 				<CardContent className='p-4'>
 					<div className='space-y-8'>
-						<div className='flex items-center justify-between'>
+						<div className='flex flex-row items-center justify-between'>
 							<div className='mr-5 flex items-center gap-x-4'>
-								<div className='rounded-full bg-blue-500 p-2.5'>
+								<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
 									<Smartphone className='size-5 stroke-[1.7px] text-white' />
 								</div>
 								<div>
@@ -60,7 +60,7 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 						{status?.recoveryActive && (
 							<div className='flex items-center justify-between'>
 								<div className='mr-5 flex items-center gap-x-4'>
-									<div className='rounded-full bg-blue-500 p-2.5'>
+									<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
 										<ListOrdered className='size-5 stroke-[1.7px] text-white' />
 									</div>
 									<div>

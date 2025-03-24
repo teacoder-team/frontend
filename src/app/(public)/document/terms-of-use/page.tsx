@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
 	title: 'Пользовательское соглашение'
@@ -6,10 +7,10 @@ export const metadata: Metadata = {
 
 export default function AgreementPage() {
 	return (
-		<main className='mx-auto my-20 max-w-4xl sm:mt-28'>
+		<main className='mx-auto my-20 max-w-4xl'>
 			<div className='mx-auto max-w-7xl px-4 lg:px-8'>
 				<section className='mx-auto'>
-					<h1 className='text-center text-3xl font-extrabold text-foreground sm:text-5xl'>
+					<h1 className='text-center text-4xl font-semibold tracking-tight sm:text-5xl'>
 						Пользовательское соглашение
 					</h1>
 					<div className='mt-6 space-y-4 leading-7 text-foreground sm:leading-8'>
@@ -94,7 +95,11 @@ export default function AgreementPage() {
 							<li>
 								1.4.1. Политики конфиденциальности, размещённой
 								и/или доступной на Сайте в сети Интернет по
-								адресу teaocder.ru/docs/privacy.
+								адресу{' '}
+								<Link href='/document/privacy-policy'>
+									https://teacoder.ru/document/privacy-policy
+								</Link>
+								.
 							</li>
 						</ul>
 						<p>
@@ -124,7 +129,10 @@ export default function AgreementPage() {
 						<p>
 							1.6. Действующая редакция Соглашения находится на
 							Сайте в сети Интернет по адресу
-							teaocder.ru/docs/agreement.
+							<Link href='/document/terms-of-use'>
+								https://teaocder.ru/document/terms-of-use
+							</Link>
+							.
 						</p>
 						<h2 className='mt-6 text-xl font-bold'>
 							2. Порядок регистрации Пользователя и использование

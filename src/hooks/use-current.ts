@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
+import { instance } from '../api'
 import { getMe } from '../api/account'
 import { removeSessionToken } from '../lib/cookies/session'
 
@@ -17,7 +18,7 @@ export function useCurrent() {
 		isLoading,
 		error
 	} = useQuery({
-		queryKey: ['profile'],
+		queryKey: ['get current'],
 		queryFn: () => getMe(),
 		retry: false,
 		enabled: isAuthorized
@@ -26,6 +27,8 @@ export function useCurrent() {
 	useEffect(() => {
 		if (error) {
 			removeSessionToken()
+
+			delete instance.defaults.headers['X-Session-Token']
 
 			router.push('/auth/login')
 		}

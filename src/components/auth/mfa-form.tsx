@@ -75,14 +75,12 @@ export function MfaForm({ ticket, methods }: MfaFormProps) {
 				payload
 			)
 
-			return response
+			return response.data
 		},
 		onSuccess(data) {
 			setSessionToken(data.token)
 
-			instance.headers = {
-				'X-Session-Token': data.token
-			}
+			instance.defaults.headers['X-Session-Token'] = data.token
 
 			push('/account/settings')
 		},

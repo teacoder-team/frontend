@@ -57,9 +57,7 @@ export function LoginForm() {
 			if ('token' in data && typeof data.token === 'string') {
 				setSessionToken(data.token)
 
-				instance.headers = {
-					'X-Session-Token': data.token
-				}
+				instance.defaults.headers['X-Session-Token'] = data.token
 
 				push('/account/settings')
 			}

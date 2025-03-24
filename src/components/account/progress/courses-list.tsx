@@ -1,8 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
 import { BookOpen, ChevronRight } from 'lucide-react'
 
 import { CourseProgress } from '../../shared/course-progress'
 
-import { mockCourses } from './mock'
+import { getMeProgress } from '@/src/api'
 import { Button } from '@/src/components/ui/button'
 import {
 	Card,
@@ -18,17 +19,22 @@ interface CoursesListProps {
 }
 
 export function CoursesList({ onViewAll }: CoursesListProps) {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get me progress'],
+		queryFn: () => getMeProgress()
+	})
+
 	return (
 		<Card>
 			<CardHeader>
 				<CardTitle className='flex items-center text-lg font-medium'>
-					<BookOpen className='mr-2 h-5 w-5' /> Курсы
+					<BookOpen className='mr-2 size-5' /> Все курсы
 				</CardTitle>
 				<CardDescription>Ваш прогресс по курсам</CardDescription>
 			</CardHeader>
 			<CardContent>
 				<div className='space-y-4'>
-					{mockCourses.map(course => (
+					{data?.map(course => (
 						<div key={course.id} className='space-y-2'>
 							<div className='flex items-center justify-between'>
 								<div className='font-medium'>
@@ -59,8 +65,8 @@ export function CoursesList({ onViewAll }: CoursesListProps) {
 					className='w-full'
 					onClick={onViewAll}
 				>
-					Посмотреть все курсы{' '}
-					<ChevronRight className='ml-2 h-4 w-4' />
+					Подробнее
+					<ChevronRight className='ml-2 size-4' />
 				</Button>
 			</CardFooter>
 		</Card>
