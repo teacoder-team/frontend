@@ -39,12 +39,10 @@ export function DisableTotpForm() {
 			queryClient.invalidateQueries({ queryKey: ['mfa status'] })
 			setIsOpen(false)
 		},
-		onError(error) {
-			if (error.message) {
-				toast.error(error.message)
-			} else {
-				toast.error('Ошибка при отключении')
-			}
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при отключении'
+			)
 		}
 	})
 

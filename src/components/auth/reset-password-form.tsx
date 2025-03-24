@@ -39,12 +39,10 @@ export function ResetPasswordForm() {
 			form.reset()
 			toast.success('Письмо с инструкциями отправлено на вашу почту')
 		},
-		onError(error) {
-			if (error.message) {
-				toast.error(error.message)
-			} else {
-				toast.error('Ошибка при сбросе пароля')
-			}
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при сбросе пароля'
+			)
 		}
 	})
 

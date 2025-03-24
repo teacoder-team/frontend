@@ -23,8 +23,10 @@ export function RevokeSession({ id }: RevokeSessionProps) {
 			queryClient.invalidateQueries({ queryKey: ['get sessions'] })
 			setIsOpen(false)
 		},
-		onError(error) {
-			toast.error(error.message ?? 'Ошибка при удалении сессии')
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при удалении сессии'
+			)
 		}
 	})
 

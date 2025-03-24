@@ -14,7 +14,7 @@ import { fetchMfaStatus } from '@/src/api'
 import { useCurrent } from '@/src/hooks'
 
 export function Settings() {
-	const { user, isLoading } = useCurrent()
+	const { user } = useCurrent()
 
 	const { data: status } = useQuery({
 		queryKey: ['mfa status'],

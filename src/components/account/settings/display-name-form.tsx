@@ -36,8 +36,10 @@ export function DisplayNameForm({ user }: DisplayNameFormProps) {
 		onSuccess() {
 			toast.success('Профиль обновлён')
 		},
-		onError(error) {
-			toast.error(error.message ?? 'Ошибка при обновлении профиля')
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при обновлении профиля'
+			)
 		}
 	})
 

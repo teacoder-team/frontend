@@ -34,12 +34,11 @@ export function RecoveryCodesModal() {
 		onSuccess() {
 			refetch()
 		},
-		onError(error) {
-			if (error.message) {
-				toast.error(error.message)
-			} else {
-				toast.error('Ошибка при генерации новых кодов')
-			}
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ??
+					'Ошибка при генерации новых кодов'
+			)
 		}
 	})
 

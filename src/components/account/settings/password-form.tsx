@@ -57,8 +57,10 @@ export function PasswordForm() {
 		onSuccess() {
 			setIsOpen(false)
 		},
-		onError(error) {
-			toast.error(error.message ?? 'Ошибка при смене пароля')
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при смене пароля'
+			)
 		}
 	})
 

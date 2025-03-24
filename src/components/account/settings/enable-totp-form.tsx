@@ -80,8 +80,10 @@ export function EnableTotpForm() {
 			queryClient.invalidateQueries({ queryKey: ['mfa status'] })
 			setStep(2)
 		},
-		onError(error) {
-			toast.error(error.message ?? 'Ошибка при верификации кода')
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при верификации кода'
+			)
 		}
 	})
 

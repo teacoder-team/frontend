@@ -1,13 +1,7 @@
-import { BookOpen } from 'lucide-react'
 import type { Metadata } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
-import { FaYoutube } from 'react-icons/fa6'
 
 import { getCourses } from '@/src/api'
 import { CourseCard } from '@/src/components/course/course-card'
-import { Badge } from '@/src/components/ui/badge'
-import { getMediaSource } from '@/src/lib/utils'
 
 export const metadata: Metadata = {
 	title: 'Курсы',

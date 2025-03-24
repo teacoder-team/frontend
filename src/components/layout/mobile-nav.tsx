@@ -33,8 +33,8 @@ export function MobileNav() {
 			setIsOpen(false)
 			router.push('/auth/login')
 		},
-		onError(error) {
-			toast.error(error.message ?? 'Ошибка при выходе')
+		onError(error: any) {
+			toast.error(error.response?.data?.message ?? 'Ошибка при выходе')
 		}
 	})
 
