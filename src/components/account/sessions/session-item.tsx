@@ -17,23 +17,6 @@ interface SessionItemProps {
 export function SessionItem({ session, isCurrentSession }: SessionItemProps) {
 	const Icon = getBrowserIcon(session.browser)
 
-	const queryClient = useQueryClient()
-
-	const { mutate, isPending } = useMutation({
-		mutationKey: ['revoke session'],
-		mutationFn: () => revokeSession(session.id),
-		onSuccess() {
-			queryClient.invalidateQueries({ queryKey: ['get sessions'] })
-		},
-		onError(error) {
-			if (error.message) {
-				toast.error(error.message)
-			} else {
-				toast.error('Ошибка при удалении сессии')
-			}
-		}
-	})
-
 	return (
 		<Card className='shadow-none'>
 			<CardContent className='flex items-center justify-between p-4'>

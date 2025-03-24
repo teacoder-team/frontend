@@ -24,8 +24,10 @@ export function AvatarForm({ user }: AvatarFormProps) {
 		onSuccess: () => {
 			toast.success('Аватар успешно обновлён')
 		},
-		onError(error) {
-			toast.error(error.message ?? 'Ошибка при обновлении аватара')
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при обновлении аватара'
+			)
 		}
 	})
 

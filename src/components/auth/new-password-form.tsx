@@ -42,12 +42,10 @@ export function NewPasswordForm() {
 		onSuccess() {
 			push('/auth/login')
 		},
-		onError(error) {
-			if (error.message) {
-				toast.error(error.message)
-			} else {
-				toast.error('Ошибка при регистрации')
-			}
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при регистрации'
+			)
 		}
 	})
 

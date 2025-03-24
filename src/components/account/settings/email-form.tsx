@@ -55,8 +55,10 @@ export function EmailForm({ user }: EmailFormProps) {
 			queryClient.invalidateQueries({ queryKey: ['get current'] })
 			setIsOpen(false)
 		},
-		onError(error) {
-			toast.error(error.message ?? 'Ошибка при смене почты')
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при смене почты'
+			)
 		}
 	})
 

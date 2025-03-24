@@ -47,8 +47,10 @@ export function RegisterForm() {
 		onSuccess() {
 			push('/account')
 		},
-		onError(error) {
-			toast.error(error.message ?? 'Ошибка при регистрации')
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при регистрации'
+			)
 		}
 	})
 

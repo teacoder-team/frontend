@@ -40,12 +40,11 @@ export function LessonCompleteButton({
 			if (!data.nextLesson && data.isCompleted) {
 			}
 		},
-		onError(error) {
-			if (error.message) {
-				toast.error(error.message)
-			} else {
-				toast.error('Ошибка при обновлении прогресса')
-			}
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ??
+					'Ошибка при обновлении прогресса'
+			)
 		}
 	})
 
