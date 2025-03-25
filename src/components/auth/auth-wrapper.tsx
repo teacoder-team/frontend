@@ -46,7 +46,7 @@ export function AuthWrapper({
 						<p className='text-center text-xs text-muted-foreground'>
 							Нажимая продолжить, вы соглашаетесь с нашим{' '}
 							<Link
-								href='/docs/agreement'
+								href='/document/terms-of-use'
 								className='text-primary hover:underline'
 								target='_blank'
 							>
@@ -54,7 +54,7 @@ export function AuthWrapper({
 							</Link>{' '}
 							и{' '}
 							<Link
-								href='/docs/privacy'
+								href='/document/privacy-policy'
 								className='text-primary hover:underline'
 								target='_blank'
 							>
