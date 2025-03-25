@@ -4,6 +4,10 @@ export function getMediaSource(
 	path: string,
 	tag: 'users' | 'courses' | 'attachments'
 ) {
+	if (!path) {
+		return ''
+	}
+
 	if (path.startsWith('https://')) {
 		return path
 	}
