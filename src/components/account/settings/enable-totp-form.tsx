@@ -191,7 +191,7 @@ export function EnableTotpForm() {
 									секретный ключ вручную в
 									приложение-аутентификатор.
 								</p>
-								<div className='mt-4 grid grid-cols-2 items-center border-y border-stone-300 bg-stone-200 px-7 py-4'>
+								<div className='mt-4 grid grid-cols-2 items-center border bg-stone-200 px-7 py-4 dark:bg-accent'>
 									<img
 										src={totp?.qrCodeUrl}
 										alt='QR-код'
@@ -211,7 +211,7 @@ export function EnableTotpForm() {
 											onClick={onCopy}
 											variant='outline'
 											size='xs'
-											className='mt-2 bg-white'
+											className='mt-2 hover:bg-popover'
 											disabled={
 												!totp?.secret ||
 												isCopied ||

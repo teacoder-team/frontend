@@ -50,7 +50,7 @@ const InputOTPSlot = forwardRef<
 			className={cn(
 				'relative flex h-10 w-14 items-center justify-center rounded-md border border-input text-sm transition-all',
 				isActive &&
-					'z-10 border-blue-500 ring-2 ring-blue-200 ring-offset-background',
+					'z-10 border-blue-600 ring-2 ring-blue-200 ring-offset-background',
 				className
 			)}
 			{...props}

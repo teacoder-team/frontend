@@ -1,7 +1,8 @@
 import { BookOpen, Code, Eye } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { Dispatch, SetStateAction } from 'react'
+import { type Dispatch, Fragment, type SetStateAction } from 'react'
 import { FaYoutube } from 'react-icons/fa'
 
 import { Badge } from '../ui/badge'
@@ -22,12 +23,18 @@ export function CourseSummary({
 	lessons,
 	setActiveTab
 }: CourseSummaryProps) {
+	const { resolvedTheme } = useTheme()
+
 	const { isAuthorized } = useAuth()
 
 	return (
-		<div className='relative mb-8 overflow-hidden rounded-xl border bg-white p-8'>
-			<div className='absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl' />
-			<div className='absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/10 blur-3xl' />
+		<div className='relative mb-8 overflow-hidden rounded-xl border bg-popover p-8'>
+			{resolvedTheme === 'light' && (
+				<Fragment>
+					<div className='absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl' />
+					<div className='absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/10 blur-3xl' />
+				</Fragment>
+			)}
 
 			<div className='relative z-10 flex flex-col gap-8 lg:flex-row'>
 				<div className='flex-1'>
@@ -38,7 +45,7 @@ export function CourseSummary({
 						</Badge>
 					</div>
 
-					<h1 className='mb-4 text-3xl font-bold text-black sm:text-4xl md:text-5xl'>
+					<h1 className='mb-4 text-3xl font-bold text-accent-foreground sm:text-4xl md:text-5xl'>
 						{course.title}
 					</h1>
 

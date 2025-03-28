@@ -47,11 +47,7 @@ export function CoursesList({ onViewAll }: CoursesListProps) {
 							</div>
 							<CourseProgress
 								progress={course.progress}
-								variant={
-									course.progress === 100
-										? 'success'
-										: 'default'
-								}
+								variant='success'
 								className='h-2'
 							/>
 						</div>

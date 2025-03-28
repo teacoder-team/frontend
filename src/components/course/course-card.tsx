@@ -26,7 +26,7 @@ export function CourseCard({ course }: CourseCardProps) {
 				/>
 			</div>
 			<div className='px-0 py-3'>
-				<h3 className='text-base font-medium text-slate-900 transition group-hover:text-blue-500'>
+				<h3 className='text-base font-medium text-foreground transition group-hover:text-blue-500'>
 					{course.title}
 				</h3>
 				<p

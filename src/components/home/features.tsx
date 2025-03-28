@@ -3,19 +3,19 @@ import { AreaChart, BookOpen, Code } from 'lucide-react'
 export const Features = () => {
 	const features = [
 		{
-			icon: <BookOpen className='size-6 text-blue-500' />,
+			icon: <BookOpen className='size-6 text-blue-600' />,
 			title: 'Разнообразие курсов',
 			description:
 				'На платформе есть курсы по программированию и другим темам. Все уроки доступны в любое время, так что ты можешь учиться в удобном ритме.'
 		},
 		{
-			icon: <AreaChart className='size-6 text-blue-500' />,
+			icon: <AreaChart className='size-6 text-blue-600' />,
 			title: 'Отслеживание прогресса',
 			description:
 				'Следи за своими достижениями, выполняй задания и зарабатывай очки. Вся статистика сохраняется в профиле, чтобы ты видел свой рост.'
 		},
 		{
-			icon: <Code className='size-6 text-blue-500' />,
+			icon: <Code className='size-6 text-blue-600' />,
 			title: 'Практика с кодом',
 			description:
 				'Все курсы включают видеоуроки и реальные примеры кода. Ты сможешь не только изучать теорию, но и сразу применять её на практике.'
@@ -41,7 +41,7 @@ export const Features = () => {
 						className='rounded-lg border border-none text-card-foreground shadow-none'
 					>
 						<div className='space-y-4 p-6'>
-							<div className='flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10'>
+							<div className='flex h-12 w-12 items-center justify-center rounded-full bg-blue-600/10'>
 								{reason.icon}
 							</div>
 							<h3 className='text-xl font-semibold'>

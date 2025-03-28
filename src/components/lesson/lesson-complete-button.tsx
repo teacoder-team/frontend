@@ -52,7 +52,7 @@ export function LessonCompleteButton({
 
 	return (
 		<div className='fixed bottom-0 left-0 right-0 z-50 border-t bg-background/80 p-4 backdrop-blur-sm'>
-			<div className='mx-auto flex max-w-5xl items-center justify-between gap-4'>
+			<div className='mx-auto flex max-w-5xl flex-col gap-4 md:flex-row md:items-center md:justify-between md:space-y-0'>
 				<div className='flex-1'>
 					<p className='text-sm font-medium'>
 						{isCompleted

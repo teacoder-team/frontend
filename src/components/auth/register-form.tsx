@@ -5,10 +5,10 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import Turnstile from 'react-turnstile'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { Captcha } from '../shared/captcha'
 import { Button } from '../ui/button'
 import {
 	Form,
@@ -147,16 +147,10 @@ export function RegisterForm() {
 							render={({ field }) => (
 								<FormItem className='flex flex-col items-center justify-center'>
 									<FormControl>
-										<Turnstile
-											sitekey={
-												process.env[
-													'TURNSTILE_SITE_KEY'
-												]
-											}
+										<Captcha
 											onVerify={token =>
 												form.setValue('captcha', token)
 											}
-											theme='light'
 											{...field}
 										/>
 									</FormControl>

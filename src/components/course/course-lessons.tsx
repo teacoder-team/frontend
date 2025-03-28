@@ -45,7 +45,7 @@ export function CourseLessons({
 								<div className='flex items-start gap-3'>
 									<div className='mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border'>
 										{isCompleted ? (
-											<CheckCircle className='size-5 text-green-500' />
+											<CheckCircle className='size-5 text-emerald-500' />
 										) : (
 											<span className='text-xs'>
 												{lesson.position}

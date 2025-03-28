@@ -8,7 +8,7 @@ export function EllipsisLoader() {
 			{[...Array(3)].map((_, i) => (
 				<motion.div
 					key={i}
-					className='size-3.5 rounded-full bg-blue-500'
+					className='size-3.5 rounded-full bg-blue-600'
 					animate={{
 						opacity: [0.5, 1, 0.5],
 						scale: [1, 1.2, 1]

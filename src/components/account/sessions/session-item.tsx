@@ -21,7 +21,7 @@ export function SessionItem({ session, isCurrentSession }: SessionItemProps) {
 		<Card className='shadow-none'>
 			<CardContent className='flex items-center justify-between p-4'>
 				<div className='flex items-center gap-x-3'>
-					<div className='rounded-full bg-blue-500 p-2.5'>
+					<div className='rounded-full bg-blue-600 p-2.5'>
 						<Icon className='size-5 text-white' />
 					</div>
 					<div>

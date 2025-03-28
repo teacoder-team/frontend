@@ -94,7 +94,7 @@ export function Footer() {
 					</div>
 				</div>
 			</div>
-			<div className='container border-t py-6'>
+			<div className='mx-auto max-w-full border-t py-6'>
 				<p className='text-center text-sm text-muted-foreground'>
 					TeaCoder © {new Date().getFullYear()} Все права защищены.
 				</p>

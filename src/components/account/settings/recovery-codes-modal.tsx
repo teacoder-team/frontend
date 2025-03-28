@@ -74,7 +74,9 @@ export function RecoveryCodesModal() {
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
-				<Button variant='outline'>Просмотреть</Button>
+				<Button variant='outline' className='w-[150px]'>
+					Просмотреть
+				</Button>
 			</DialogTrigger>
 			<DialogContent className='w-[500px]'>
 				<DialogTitle>Коды восстановления</DialogTitle>

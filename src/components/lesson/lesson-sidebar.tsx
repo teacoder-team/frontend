@@ -33,13 +33,13 @@ export function LessonSidebar({
 	const pathname = usePathname()
 
 	return (
-		<aside className='fixed inset-y-0 left-0 z-40 bg-background pb-20 lg:z-50 lg:block lg:w-80 lg:border-r'>
+		<aside className='fixed inset-y-0 left-0 z-40 hidden bg-background pb-20 md:z-50 md:block md:w-80 md:border-r'>
 			<div className='flex h-full flex-col'>
 				<div className='flex flex-col gap-y-4 border-b p-5'>
 					<div className='flex items-center justify-between'>
 						<Link
 							href='/courses'
-							className='flex items-center gap-x-2 text-sm hover:text-blue-500 hover:transition-colors'
+							className='flex items-center gap-x-2 text-sm hover:text-blue-600 hover:transition-colors'
 						>
 							<ArrowLeft className='size-4' />
 							<div className='flex items-center gap-x-2'>
@@ -64,7 +64,7 @@ export function LessonSidebar({
 
 				<ScrollArea className='flex-1'>
 					<div className='group flex flex-col gap-2 px-2 py-4'>
-						<nav className='grid gap-3 px-2'>
+						<nav className='flex flex-col gap-3 px-2'>
 							{lessons.map((lesson, index) => {
 								const isCompleted = completedLessons.includes(
 									lesson.id

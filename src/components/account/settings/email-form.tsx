@@ -76,7 +76,7 @@ export function EmailForm({ user }: EmailFormProps) {
 	return (
 		<div className='flex items-center justify-between'>
 			<div className='mr-5 flex items-center gap-x-4'>
-				<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
+				<div className='hidden rounded-full bg-blue-600 p-2.5 md:flex'>
 					<Mail className='size-5 stroke-[1.7px] text-white' />
 				</div>
 				<div className='mr-5 flex flex-1 flex-col'>

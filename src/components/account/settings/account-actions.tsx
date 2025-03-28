@@ -32,7 +32,7 @@ export function AccountActions() {
 			<Card className='border-rose-500 shadow-none'>
 				<CardContent className='p-4'>
 					<div className='space-y-8'>
-						<div className='flex items-center justify-between'>
+						<div className='flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0'>
 							<div className='mr-5'>
 								<h2 className='font-semibold'>Выход</h2>
 								<p className='text-sm text-muted-foreground'>
