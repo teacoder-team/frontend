@@ -11,7 +11,7 @@ interface CourseProviderProps {
 }
 
 export function CourseProvider({ id, children }: CourseProviderProps) {
-	const { mutate, isPending } = useMutation({
+	const { mutate } = useMutation({
 		mutationKey: ['increment course views', id],
 		mutationFn: () => incrementCourseViews(id)
 	})

@@ -1,10 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { Loader } from 'lucide-react'
-import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { EllipsisLoader } from '../shared/ellipsis-loader'
 

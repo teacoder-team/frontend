@@ -17,7 +17,7 @@ export default function AgreementPage() {
 						<p>
 							Настоящее Пользовательское соглашение (далее —
 							«Соглашение») регулирует отношения между владельцем
-							teaocder.ru (далее Сайт или Администрация) и любым
+							teacoder.ru (далее Сайт или Администрация) и любым
 							лицом, являющимся пользователем Сайта (далее —
 							«Пользователь»).
 						</p>
@@ -45,7 +45,7 @@ export default function AgreementPage() {
 								<b>Сайт</b> — любая из автоматизированных
 								информационных систем, доступных в сети Интернет
 								по сетевым адресам в следующих доменах (включая
-								поддомены): teaocder.ru.
+								поддомены): teacoder.ru.
 							</li>
 							<li>
 								<b>Сервис</b> — комплекс услуг, предоставляемых
@@ -130,7 +130,7 @@ export default function AgreementPage() {
 							1.6. Действующая редакция Соглашения находится на
 							Сайте в сети Интернет по адресу
 							<Link href='/document/terms-of-use'>
-								https://teaocder.ru/document/terms-of-use
+								https://teacoder.ru/document/terms-of-use
 							</Link>
 							.
 						</p>

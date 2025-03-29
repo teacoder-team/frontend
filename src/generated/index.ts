@@ -7,6 +7,7 @@
  */
 
 export * from './accountResponse';
+export * from './activeRestrictionResponse';
 export * from './changeEmailRequest';
 export * from './changePasswordRequest';
 export * from './courseProgressResponse';
@@ -17,6 +18,8 @@ export * from './createLessonRequest';
 export * from './createLessonResponse';
 export * from './createProgressRequest';
 export * from './createProgressResponse';
+export * from './createRestrictionRequest';
+export * from './createRestrictionRequestReason';
 export * from './createUserRequest';
 export * from './createUserResponse';
 export * from './lastLessonResponse';
