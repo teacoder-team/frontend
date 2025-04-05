@@ -22,7 +22,7 @@ import { fetchRecovery, regenerateRecovery } from '@/src/api'
 export function RecoveryCodesModal() {
 	const [isOpen, setIsOpen] = useState(false)
 
-	const { data, isLoading, refetch } = useQuery({
+	const { data, refetch } = useQuery({
 		queryKey: ['fetch recovery codes'],
 		queryFn: () => fetchRecovery(),
 		enabled: isOpen
@@ -74,9 +74,7 @@ export function RecoveryCodesModal() {
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
-				<Button variant='outline' className='w-[150px]'>
-					Просмотреть
-				</Button>
+				<Button variant='outline'>Просмотреть</Button>
 			</DialogTrigger>
 			<DialogContent className='w-[500px]'>
 				<DialogTitle>Коды восстановления</DialogTitle>
@@ -86,7 +84,7 @@ export function RecoveryCodesModal() {
 					двухфакторной аутентификации.
 				</DialogDescription>
 				<Alert variant='warning'>
-					<TriangleAlert className='size-5' />
+					<TriangleAlert className='size-5 dark:text-yellow-500' />
 					<AlertTitle className='ml-1.5'>
 						Пожалуйста, храните их в безопасном месте.
 					</AlertTitle>
@@ -119,7 +117,7 @@ export function RecoveryCodesModal() {
 					</div>
 				</div>
 				<Separator />
-				<DialogFooter className='gap-x-2'>
+				<DialogFooter>
 					<Button
 						variant='outline'
 						className='h-9'

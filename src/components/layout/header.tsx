@@ -17,31 +17,39 @@ export function Header() {
 		<header className='bg-transparent py-1'>
 			<div className='mx-auto max-w-7xl px-4'>
 				<div className='flex h-16 w-full items-center justify-between'>
-					<Link
-						href='/'
-						className='mr-10 flex items-center gap-x-3 text-xl font-bold text-blue-500'
-					>
-						<Logo className='size-8' />
-						TeaCoder
-					</Link>
-					<NavLinks />
-					<div className='hidden items-center space-x-4 md:flex'>
-						{isAuthorized ? (
-							<UserMenu />
-						) : (
-							<div className='flex items-center gap-5'>
-								<Button variant='outline' size='sm' asChild>
-									<Link href='/auth/login'>Войти</Link>
-								</Button>
-								<Button variant='primary' size='sm' asChild>
-									<Link href='/auth/register'>
-										Регистрация
-									</Link>
-								</Button>
-							</div>
-						)}
+					<div className='flex items-center'>
+						<Link
+							href='/'
+							className='mr-10 flex items-center gap-x-3 text-xl font-bold text-blue-500'
+						>
+							<Logo className='size-8' />
+							TeaCoder
+						</Link>{' '}
 					</div>
-					<MobileNav />
+					<div className='hidden flex-1 items-center justify-center md:flex'>
+						<NavLinks />
+					</div>
+					<div className='flex items-center gap-4'>
+						<div className='hidden items-center space-x-4 md:flex'>
+							{isAuthorized ? (
+								<UserMenu />
+							) : (
+								<div className='flex items-center gap-5'>
+									<Button variant='outline' size='sm' asChild>
+										<Link href='/auth/login'>Войти</Link>
+									</Button>
+									<Button variant='primary' size='sm' asChild>
+										<Link href='/auth/register'>
+											Регистрация
+										</Link>
+									</Button>
+								</div>
+							)}
+						</div>
+						<div className='md:hidden'>
+							<MobileNav />
+						</div>
+					</div>
 				</div>
 			</div>
 		</header>

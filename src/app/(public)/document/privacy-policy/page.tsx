@@ -10,7 +10,7 @@ export default function PrivacyPage() {
 		<main className='mx-auto my-20 max-w-4xl'>
 			<div className='mx-auto max-w-7xl px-4 lg:px-8'>
 				<section className='mx-auto'>
-					<h1 className='text-center text-4xl font-semibold tracking-tight sm:text-5xl'>
+					<h1 className='mb-4 text-center text-3xl font-semibold text-foreground md:mb-6 md:text-4xl lg:text-5xl'>
 						Политика конфиденциальности
 					</h1>
 					<div className='mt-6 space-y-4 leading-7 text-foreground sm:leading-8'>

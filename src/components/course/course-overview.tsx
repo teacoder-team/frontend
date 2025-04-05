@@ -11,7 +11,9 @@ export function CourseOverview({ course }: CourseOverviewProps) {
 		<Fragment>
 			<div className='rounded-lg border bg-card p-6'>
 				<h2 className='mb-4 text-2xl font-bold'>О курсе</h2>
-				<p className='text-muted-foreground'>{course.description}</p>
+				<p className='text-base text-muted-foreground md:text-lg'>
+					{course.description}
+				</p>
 			</div>
 			{/* <div className='mt-6 rounded-lg border bg-card p-6'>
 				<h2 className='mb-4 text-2xl font-bold'>What you'll learn</h2>

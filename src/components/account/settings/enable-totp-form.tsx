@@ -285,7 +285,7 @@ export function EnableTotpForm() {
 					step === 2 && (
 						<div className='flex flex-col space-y-5 px-7'>
 							<Alert variant='warning'>
-								<TriangleAlert className='size-5' />
+								<TriangleAlert className='size-5 dark:text-yellow-500' />
 								<AlertTitle className='ml-1.5'>
 									Пожалуйста, храните их в безопасном месте.
 								</AlertTitle>

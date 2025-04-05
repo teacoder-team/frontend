@@ -1,8 +1,9 @@
+'use client'
+
 import { BookOpen, Code, Eye } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import Image from 'next/image'
 import Link from 'next/link'
-import { type Dispatch, Fragment, type SetStateAction } from 'react'
+import { type Dispatch, Fragment, type SetStateAction, useEffect } from 'react'
 import { FaYoutube } from 'react-icons/fa'
 
 import { Badge } from '../ui/badge'
@@ -49,7 +50,7 @@ export function CourseSummary({
 						{course.title}
 					</h1>
 
-					<p className='mb-6 text-lg text-muted-foreground'>
+					<p className='mb-6 text-base text-muted-foreground md:text-lg'>
 						{course.description?.split('.').slice(0, 2).join('.') +
 							'.'}
 					</p>
@@ -100,7 +101,7 @@ export function CourseSummary({
 					</div>
 				</div>
 
-				<div className='relative aspect-video overflow-hidden rounded-lg md:hidden'>
+				{/* <div className='relative aspect-video overflow-hidden rounded-lg md:hidden'>
 					<Image
 						src={getMediaSource(course.thumbnail ?? '', 'courses')}
 						alt={course.title}
@@ -108,7 +109,7 @@ export function CourseSummary({
 						className='object-cover'
 						priority
 					/>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	)

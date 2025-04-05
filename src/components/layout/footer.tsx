@@ -59,8 +59,8 @@ export function Footer() {
 	return (
 		<footer className='border-t'>
 			<div className='relative mx-auto max-w-[1340px] px-4 py-8 lg:px-8'>
-				<div className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5'>
-					<div className='col-span-2 flex-1 space-y-4'>
+				<div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5'>
+					<div className='space-y-4 sm:col-span-2 md:col-span-2'>
 						<h2 className='text-2xl font-bold'>TeaCoder</h2>
 						<p className='text-sm text-muted-foreground'>
 							Образовательная платформа по веб-разработке
@@ -103,28 +103,32 @@ export function Footer() {
 	)
 }
 
-const FooterLink = ({ title, href, isExternal }: NavLink) => (
-	<li>
+function FooterLink({ title, href, isExternal }: NavLink) {
+	return (
+		<li>
+			<Link
+				href={href}
+				className='inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary'
+				target={isExternal ? '_blank' : undefined}
+				referrerPolicy={isExternal ? 'no-referrer' : undefined}
+			>
+				{isExternal && <ExternalLink className='size-4' />}
+				{title}
+			</Link>
+		</li>
+	)
+}
+
+function SocialLink({ href, icon, label }: SocialLink) {
+	return (
 		<Link
 			href={href}
-			className='inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary'
-			target={isExternal ? '_blank' : undefined}
-			referrerPolicy={isExternal ? 'no-referrer' : undefined}
+			className='text-muted-foreground transition-colors hover:text-primary'
+			target='_blank'
+			referrerPolicy='no-referrer'
 		>
-			{isExternal && <ExternalLink className='size-4' />}
-			{title}
+			{icon}
+			<span className='sr-only'>{label}</span>
 		</Link>
-	</li>
-)
-
-const SocialLink = ({ href, icon, label }: SocialLink) => (
-	<Link
-		href={href}
-		className='text-muted-foreground transition-colors hover:text-primary'
-		target='_blank'
-		referrerPolicy='no-referrer'
-	>
-		{icon}
-		<span className='sr-only'>{label}</span>
-	</Link>
-)
+	)
+}

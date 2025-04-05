@@ -1,6 +1,5 @@
-import { BookOpen } from 'lucide-react'
+'use client'
 
-import { Button } from '../ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 
 import type { CourseResponse, LessonResponse } from '@/src/generated'

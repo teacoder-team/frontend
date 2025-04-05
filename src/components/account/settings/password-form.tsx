@@ -81,12 +81,12 @@ export function PasswordForm() {
 	}
 
 	return (
-		<div className='flex items-center justify-between'>
-			<div className='mr-5 flex items-center gap-x-4'>
+		<div className='flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0'>
+			<div className='mr-5 flex w-full items-start gap-x-4 md:w-auto md:items-center'>
 				<div className='hidden rounded-full bg-blue-600 p-2.5 md:flex'>
 					<KeyRound className='size-5 stroke-[1.7px] text-white' />
 				</div>
-				<div className='mr-5'>
+				<div className='flex w-full flex-col'>
 					<h2 className='mb-1 font-semibold'>Пароль</h2>
 					<p className='text-sm text-muted-foreground'>
 						Пароль — ключ к вашей учетной записи. Никому его не

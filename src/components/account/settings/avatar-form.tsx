@@ -23,7 +23,8 @@ export function AvatarForm({ user }: AvatarFormProps) {
 	const { mutate } = useMutation({
 		mutationKey: ['change user avatar'],
 		mutationFn: (data: FormData) => changeAvatar(data),
-		onSuccess: () => {
+		onSuccess: data => {
+			setPreview(getMediaSource(data.file_id, 'users'))
 			queryClient.invalidateQueries({ queryKey: ['get current'] })
 			toast.success('Аватар успешно обновлён')
 		},

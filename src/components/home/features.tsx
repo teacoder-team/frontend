@@ -24,11 +24,11 @@ export const Features = () => {
 
 	return (
 		<div className='mx-auto max-w-7xl py-10 antialiased md:py-20'>
-			<div className='mx-auto w-full text-center'>
-				<h2 className='mb-6 text-5xl font-semibold text-foreground'>
+			<div className='mx-auto w-full'>
+				<h2 className='mb-4 text-center text-3xl font-semibold text-foreground md:mb-6 md:text-4xl lg:text-5xl'>
 					Что тебя ждёт на платформе?
 				</h2>
-				<p className='mx-auto mt-4 max-w-2xl text-lg text-muted-foreground'>
+				<p className='mx-auto mb-6 max-w-2xl text-center text-base text-muted-foreground md:mb-8 md:text-lg'>
 					Получи доступ к удобным курсам по программированию,
 					отслеживай свой прогресс и практикуйся с реальными примерами
 					кода

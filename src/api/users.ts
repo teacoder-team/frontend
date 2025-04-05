@@ -22,12 +22,14 @@ export const getMeProgress = async () =>
 		.get<MeProgressResponse[]>('/users/@me/progress')
 		.then(response => response.data)
 
-export const changeAvatar = (formData: FormData) =>
-	instance.patch('/users/@me/avatar', formData, {
-		headers: {
-			'Content-Type': 'multipart/form-data'
-		}
-	})
+export const changeAvatar = async (formData: FormData) =>
+	await instance
+		.patch('/users/@me/avatar', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		.then(response => response.data)
 
 export const patchUser = (data: PatchUserRequest) =>
 	instance.patch('/users/@me', data)
