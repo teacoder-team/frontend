@@ -69,7 +69,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html className={GeistSans.variable} lang='ru' suppressHydrationWarning>
-			<body className='min-h-screen font-sans antialiased'>
+			<body className='flex h-full w-full flex-col font-sans'>
 				<TanstackQueryProvider>
 					<ThemeProvider
 						attribute='class'

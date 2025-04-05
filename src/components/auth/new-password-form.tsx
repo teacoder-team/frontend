@@ -72,8 +72,9 @@ export function NewPasswordForm() {
 		<AuthWrapper
 			heading='Новый пароль'
 			description='Установите новый пароль для вашего аккаунта'
-			backButtonLabel='Уже есть аккаунт? Войти'
-			backButtonHref='/auth/login'
+			bottomText='Уже есть аккаунт?'
+			bottomLinkText='Войти'
+			bottomLinkHref='/auth/login'
 		>
 			<Form {...form}>
 				<form

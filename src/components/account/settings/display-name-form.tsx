@@ -72,7 +72,7 @@ export function DisplayNameForm({ user }: DisplayNameFormProps) {
 								<FormControl>
 									<div className='relative'>
 										<Input
-											placeholder='John Doe'
+											placeholder='Tony Stark'
 											disabled={isPending}
 											{...field}
 										/>

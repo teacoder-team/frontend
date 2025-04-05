@@ -73,8 +73,9 @@ export function ResetPasswordForm() {
 		<AuthWrapper
 			heading='Сброс пароля'
 			description='Введите вашу почту, чтобы получить ссылку для сброса пароля'
-			backButtonLabel='Уже есть аккаунт? Войти'
-			backButtonHref='/auth/login'
+			bottomText='Уже есть аккаунт?'
+			bottomLinkText='Войти'
+			bottomLinkHref='/auth/login'
 		>
 			<Form {...form}>
 				<form

@@ -97,8 +97,9 @@ export function LoginForm() {
 		<AuthWrapper
 			heading='Войти в аккаунт'
 			description='Для входа на сайт используйте ваш email и пароль, которые были указаны при регистрации на сайте'
-			backButtonLabel='Еще нет аккаунта? Регистрация'
-			backButtonHref='/auth/register'
+			bottomText='Еще нет аккаунта?'
+			bottomLinkText='Регистрация'
+			bottomLinkHref='/auth/register'
 		>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
@@ -111,7 +112,7 @@ export function LoginForm() {
 									<FormLabel>Почта</FormLabel>
 									<FormControl>
 										<Input
-											placeholder='email@teacoder.ru'
+											placeholder='tony@starkindustries.com'
 											disabled={isPending}
 											{...field}
 										/>
