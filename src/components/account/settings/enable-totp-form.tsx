@@ -191,7 +191,7 @@ export function EnableTotpForm() {
 									секретный ключ вручную в
 									приложение-аутентификатор.
 								</p>
-								<div className='mt-4 grid grid-cols-2 items-center border-y border-stone-300 bg-stone-200 px-7 py-4'>
+								<div className='mt-4 grid grid-cols-2 items-center border bg-stone-200 px-7 py-4 dark:bg-accent'>
 									<img
 										src={totp?.qrCodeUrl}
 										alt='QR-код'
@@ -211,7 +211,7 @@ export function EnableTotpForm() {
 											onClick={onCopy}
 											variant='outline'
 											size='xs'
-											className='mt-2 bg-white'
+											className='mt-2 hover:bg-popover'
 											disabled={
 												!totp?.secret ||
 												isCopied ||
@@ -285,7 +285,7 @@ export function EnableTotpForm() {
 					step === 2 && (
 						<div className='flex flex-col space-y-5 px-7'>
 							<Alert variant='warning'>
-								<TriangleAlert className='size-5' />
+								<TriangleAlert className='size-5 dark:text-yellow-500' />
 								<AlertTitle className='ml-1.5'>
 									Пожалуйста, храните их в безопасном месте.
 								</AlertTitle>

@@ -8,6 +8,7 @@ import { Heading } from '../../shared/heading'
 
 import { AccountActions } from './account-actions'
 import { AccountForm } from './account-form'
+import { Preferences } from './preferences'
 import { ProfileForm } from './profile-form'
 import { TwoStepAuthForm } from './two-step-auth-form'
 import { fetchMfaStatus } from '@/src/api'
@@ -33,6 +34,7 @@ export function Settings() {
 						<ProfileForm user={user} />
 						<AccountForm user={user} />
 						<TwoStepAuthForm status={status} />
+						<Preferences />
 						<AccountActions />
 					</div>
 				</Fragment>

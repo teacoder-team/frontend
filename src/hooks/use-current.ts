@@ -11,8 +11,6 @@ import { useAuth } from './use-auth'
 export function useCurrent() {
 	const { isAuthorized } = useAuth()
 
-	const router = useRouter()
-
 	const {
 		data: user,
 		isLoading,
@@ -30,9 +28,9 @@ export function useCurrent() {
 
 			delete instance.defaults.headers['X-Session-Token']
 
-			router.push('/auth/login')
+			window.location.reload()
 		}
-	}, [error, router])
+	}, [error])
 
 	return {
 		user,

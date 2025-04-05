@@ -7,6 +7,14 @@
  */
 
 export interface LoginRequest {
+  /** Email address */
+  email: string;
+  /**
+   * Password
+   * @minLength 6
+   * @maxLength 128
+   */
+  password: string;
   /** Captcha verification code */
   captcha: string;
 }

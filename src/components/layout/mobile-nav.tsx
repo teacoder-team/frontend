@@ -41,8 +41,13 @@ export function MobileNav() {
 	return (
 		<Sheet open={isOpen} onOpenChange={setIsOpen}>
 			<SheetTrigger className='md:hidden' asChild>
-				<Button variant='ghost' size='icon'>
-					<Menu className='size-8' />
+				<Button
+					variant='ghost'
+					size='icon'
+					className='size-10 rounded-full [&_svg]:size-5'
+				>
+					<Menu />
+					<span className='sr-only'>Открыть меню</span>
 				</Button>
 			</SheetTrigger>
 			<SheetContent className='flex flex-col gap-4' side='left'>

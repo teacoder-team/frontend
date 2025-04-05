@@ -1,7 +1,9 @@
+'use client'
+
 import { BookOpen, Code, Eye } from 'lucide-react'
-import Image from 'next/image'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import type { Dispatch, SetStateAction } from 'react'
+import { type Dispatch, Fragment, type SetStateAction, useEffect } from 'react'
 import { FaYoutube } from 'react-icons/fa'
 
 import { Badge } from '../ui/badge'
@@ -22,12 +24,18 @@ export function CourseSummary({
 	lessons,
 	setActiveTab
 }: CourseSummaryProps) {
+	const { resolvedTheme } = useTheme()
+
 	const { isAuthorized } = useAuth()
 
 	return (
-		<div className='relative mb-8 overflow-hidden rounded-xl border bg-white p-8'>
-			<div className='absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl' />
-			<div className='absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/10 blur-3xl' />
+		<div className='relative mb-8 overflow-hidden rounded-xl border bg-popover p-8'>
+			{resolvedTheme === 'light' && (
+				<Fragment>
+					<div className='absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl' />
+					<div className='absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/10 blur-3xl' />
+				</Fragment>
+			)}
 
 			<div className='relative z-10 flex flex-col gap-8 lg:flex-row'>
 				<div className='flex-1'>
@@ -38,11 +46,11 @@ export function CourseSummary({
 						</Badge>
 					</div>
 
-					<h1 className='mb-4 text-3xl font-bold text-black sm:text-4xl md:text-5xl'>
+					<h1 className='mb-4 text-3xl font-bold text-accent-foreground sm:text-4xl md:text-5xl'>
 						{course.title}
 					</h1>
 
-					<p className='mb-6 text-lg text-muted-foreground'>
+					<p className='mb-6 text-base text-muted-foreground md:text-lg'>
 						{course.description?.split('.').slice(0, 2).join('.') +
 							'.'}
 					</p>
@@ -93,7 +101,7 @@ export function CourseSummary({
 					</div>
 				</div>
 
-				<div className='relative aspect-video overflow-hidden rounded-lg md:hidden'>
+				{/* <div className='relative aspect-video overflow-hidden rounded-lg md:hidden'>
 					<Image
 						src={getMediaSource(course.thumbnail ?? '', 'courses')}
 						alt={course.title}
@@ -101,7 +109,7 @@ export function CourseSummary({
 						className='object-cover'
 						priority
 					/>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	)

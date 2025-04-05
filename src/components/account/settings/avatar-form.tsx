@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ChangeEvent, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -18,10 +18,14 @@ export function AvatarForm({ user }: AvatarFormProps) {
 		user?.avatar ? getMediaSource(user.avatar, 'users') : null
 	)
 
+	const queryClient = useQueryClient()
+
 	const { mutate } = useMutation({
 		mutationKey: ['change user avatar'],
 		mutationFn: (data: FormData) => changeAvatar(data),
-		onSuccess: () => {
+		onSuccess: data => {
+			setPreview(getMediaSource(data.file_id, 'users'))
+			queryClient.invalidateQueries({ queryKey: ['get current'] })
 			toast.success('Аватар успешно обновлён')
 		},
 		onError(error: any) {

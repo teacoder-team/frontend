@@ -1,8 +1,6 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { CheckCircle, ChevronRight } from 'lucide-react'
-import Link from 'next/link'
 import { useRef, useState } from 'react'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
@@ -32,6 +30,13 @@ export function CourseDetails({ course, lessons }: CourseDetailsProps) {
 		queryFn: () => getCompletedLessons(course.id),
 		enabled: isAuthorized
 	})
+
+	function onStartCourse() {
+		setActiveTab('lessons')
+		if (lessonsRef.current) {
+			lessonsRef.current.scrollIntoView({ behavior: 'smooth' })
+		}
+	}
 
 	if (isLoading) return <div>Загрузка...</div>
 
@@ -69,10 +74,12 @@ export function CourseDetails({ course, lessons }: CourseDetailsProps) {
 							</TabsContent>
 
 							<TabsContent value='lessons'>
-								<CourseLessons
-									lessons={lessons}
-									completedLessons={completedLessons!}
-								/>
+								<div ref={lessonsRef}>
+									<CourseLessons
+										lessons={lessons}
+										completedLessons={completedLessons!}
+									/>
+								</div>
 							</TabsContent>
 						</Tabs>
 					) : (

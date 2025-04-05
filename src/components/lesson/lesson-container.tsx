@@ -6,7 +6,7 @@ interface LessonContainerProps {
 
 export function LessonContainer({ children }: LessonContainerProps) {
 	return (
-		<main className='h-full pl-20 lg:pl-80 lg:pt-12'>
+		<main className='h-full px-0 pt-5 md:pl-80 md:pt-12'>
 			<div className='flex h-full flex-col overflow-hidden'>
 				<div className='flex-1 overflow-y-auto'>
 					<div className='mx-auto max-w-5xl px-4 pb-20'>

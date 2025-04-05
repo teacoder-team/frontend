@@ -38,7 +38,7 @@ export function CourseProgress({
 					size === 'sm' && 'h-1',
 					variant === 'success'
 						? '[&>div]:bg-emerald-600'
-						: '[&>div]:bg-blue-600'
+						: '[&>div]:bg-blue-500'
 				)}
 			/>
 		</div>

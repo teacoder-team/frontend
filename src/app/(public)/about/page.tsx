@@ -17,7 +17,7 @@ export default function AboutPage() {
 							Меня зовут Вадим, и я — веб-разработчик. В свои 14
 							лет я уже успел создать свою образовательную
 							платформу{' '}
-							<span className='text-blue-500'>TeaCoder</span> и
+							<span className='text-blue-600'>TeaCoder</span> и
 							запустить YouTube-канал, где публикую видеоуроки по
 							веб-разработке.
 						</p>
@@ -51,7 +51,7 @@ export default function AboutPage() {
 						<p>
 							Сегодня я рад поделиться своими знаниями и опытом с
 							другими. Моя платформа{' '}
-							<span className='text-blue-500'>TeaCoder</span>{' '}
+							<span className='text-blue-600'>TeaCoder</span>{' '}
 							помогает начинающим веб-разработчикам погрузиться в
 							мир программирования и создать свои первые проекты.
 						</p>

@@ -21,13 +21,13 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 			<Card className='shadow-none'>
 				<CardContent className='p-4'>
 					<div className='space-y-8'>
-						<div className='flex flex-row items-center justify-between'>
-							<div className='mr-5 flex items-center gap-x-4'>
-								<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
+						<div className='flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0'>
+							<div className='mr-5 flex items-start gap-x-4 md:items-center'>
+								<div className='hidden rounded-full bg-blue-600 p-2.5 md:flex'>
 									<Smartphone className='size-5 stroke-[1.7px] text-white' />
 								</div>
-								<div>
-									<div className='mb-1 flex items-center gap-2'>
+								<div className='w-full'>
+									<div className='mb-1 flex flex-col items-start gap-2 sm:flex-row sm:items-center'>
 										<h2 className='font-semibold'>
 											Приложение для аутентификации
 										</h2>
@@ -58,12 +58,12 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 						</div>
 
 						{status?.recoveryActive && (
-							<div className='flex items-center justify-between'>
+							<div className='flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0'>
 								<div className='mr-5 flex items-center gap-x-4'>
-									<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
+									<div className='hidden rounded-full bg-blue-600 p-2.5 md:flex'>
 										<ListOrdered className='size-5 stroke-[1.7px] text-white' />
 									</div>
-									<div>
+									<div className='flex w-full flex-col'>
 										<h2 className='font-semibold'>
 											Коды восстановления
 										</h2>

@@ -6,7 +6,7 @@ import { FaYoutube } from 'react-icons/fa'
 import { Badge } from '../ui/badge'
 
 import type { CourseResponse } from '@/src/generated'
-import { getMediaSource } from '@/src/lib/utils'
+import { getLessonLabel, getMediaSource } from '@/src/lib/utils'
 
 interface CourseCardProps {
 	course: CourseResponse
@@ -26,7 +26,7 @@ export function CourseCard({ course }: CourseCardProps) {
 				/>
 			</div>
 			<div className='px-0 py-3'>
-				<h3 className='text-base font-medium text-slate-900 transition group-hover:text-blue-500'>
+				<h3 className='text-base font-medium text-foreground transition group-hover:text-blue-500'>
 					{course.title}
 				</h3>
 				<p
@@ -47,7 +47,7 @@ export function CourseCard({ course }: CourseCardProps) {
 					{course.lessons > 0 ? (
 						<>
 							<BookOpen className='mr-0.5 size-3.5' />
-							{course.lessons} уроков`
+							{course.lessons} {getLessonLabel(course.lessons)}
 						</>
 					) : (
 						<>

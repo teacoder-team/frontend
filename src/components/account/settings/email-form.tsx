@@ -74,12 +74,12 @@ export function EmailForm({ user }: EmailFormProps) {
 	}
 
 	return (
-		<div className='flex items-center justify-between'>
-			<div className='mr-5 flex items-center gap-x-4'>
-				<div className='hidden rounded-full bg-blue-500 p-2.5 md:flex'>
+		<div className='flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0'>
+			<div className='mr-5 flex w-full items-start gap-x-4 md:w-auto md:items-center'>
+				<div className='hidden rounded-full bg-blue-600 p-2.5 md:flex'>
 					<Mail className='size-5 stroke-[1.7px] text-white' />
 				</div>
-				<div className='mr-5 flex flex-1 flex-col'>
+				<div className='flex w-full flex-col'>
 					<div className='mb-1 flex items-center gap-2'>
 						<h2 className='font-semibold'>Почта</h2>
 						{/* {user?.isEmailVerified ? (

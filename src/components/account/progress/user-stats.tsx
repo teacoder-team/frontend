@@ -49,7 +49,7 @@ export function UserStats() {
 			<Card>
 				<CardHeader className='pb-2'>
 					<CardTitle className='flex items-center text-lg font-medium'>
-						<BookOpen className='mr-2 size-5 text-blue-500' />
+						<BookOpen className='mr-2 size-5 text-blue-600' />
 						Прогресс обучения
 					</CardTitle>
 				</CardHeader>

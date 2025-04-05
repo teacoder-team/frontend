@@ -56,7 +56,7 @@ TabsList.displayName = 'TabsList'
 function getVariantStyles(tabVariant: TabsListVariant) {
 	switch (tabVariant) {
 		case 'line':
-			return '-mb-px items-center justify-center whitespace-nowrap border-b-2 border-transparent px-3 pb-2 text-sm font-medium transition-all text-muted-foreground hover:text-gray-600 hover:border-gray-600 data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 data-[disabled]:pointer-events-none data-[disabled]:text-gray-300'
+			return '-mb-px items-center justify-center whitespace-nowrap border-b-2 border-muted-foreground px-3 pb-2 text-sm font-medium transition-all text-muted-foreground hover:text-muted-foreground/80 hover:border-muted-foreground/80 data-[state=active]:border-blue-600 data-[state=active]:text-blue-600 data-[disabled]:pointer-events-none data-[disabled]:text-gray-300'
 		case 'solid':
 			return 'inline-flex items-center justify-center whitespace-nowrap rounded px-3 py-1 text-sm font-medium ring-1 ring-inset transition-all text-muted-foreground hover:text-gray-700 ring-transparent data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow data-[disabled]:pointer-events-none data-[disabled]:text-gray-400 data-[disabled]:opacity-50'
 	}

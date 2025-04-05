@@ -1,10 +1,10 @@
-import { BookOpen } from 'lucide-react'
+'use client'
 
-import { Button } from '../ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 
 import type { CourseResponse, LessonResponse } from '@/src/generated'
 import { useAuth } from '@/src/hooks'
+import { getLessonLabel } from '@/src/lib/utils'
 
 interface CourseInfoProps {
 	course: CourseResponse
@@ -57,7 +57,8 @@ export function CourseInfo({
 						{course.youtubeUrl &&
 							(lessons?.length > 0 ? (
 								<p className='text-[15px]'>
-									{lessons.length} уроков
+									{lessons.length}{' '}
+									{getLessonLabel(lessons.length)}
 								</p>
 							) : (
 								<p className='text-[15px]'>
