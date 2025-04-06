@@ -1,6 +1,12 @@
 'use client'
 
-import { ChartArea, MonitorSmartphone, Route, Settings } from 'lucide-react'
+import {
+	ChartArea,
+	MonitorSmartphone,
+	Plug,
+	Route,
+	Settings
+} from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -18,6 +24,11 @@ export const links = [
 		title: 'Настройки аккаунта',
 		href: '/account/settings',
 		icon: Settings
+	},
+	{
+		title: 'Сторонние сервисы',
+		href: '/account/integrations',
+		icon: Plug
 	},
 	{
 		title: 'Устройства',

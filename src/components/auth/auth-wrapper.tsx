@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
+import { AuthSocial } from './auth-social'
+
 interface AuthWrapperProps {
 	children: ReactNode
 	heading: string
@@ -8,6 +10,7 @@ interface AuthWrapperProps {
 	bottomText?: string
 	bottomLinkText?: string
 	bottomLinkHref?: string
+	isShowSocial?: boolean
 }
 
 export function AuthWrapper({
@@ -16,7 +19,8 @@ export function AuthWrapper({
 	description,
 	bottomText,
 	bottomLinkText,
-	bottomLinkHref
+	bottomLinkHref,
+	isShowSocial
 }: AuthWrapperProps) {
 	return (
 		<div className='container relative flex min-h-svh w-full flex-col items-center justify-center lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
@@ -24,10 +28,13 @@ export function AuthWrapper({
 				<div className='mx-auto flex w-full max-w-[400px] flex-col justify-center space-y-5'>
 					<div className='flex flex-col space-y-3'>
 						<h1 className='text-3xl font-semibold'>{heading}</h1>
-						<p className='text-sm text-muted-foreground'>
-							{description}
-						</p>
+						{description && (
+							<p className='text-sm text-muted-foreground'>
+								{description}
+							</p>
+						)}
 					</div>
+					{isShowSocial && <AuthSocial />}
 					<div className='p-0'>{children}</div>
 					{/* <p className='text-xs text-muted-foreground'>
 						Нажимая продолжить, вы соглашаетесь с нашим{' '}
@@ -53,7 +60,7 @@ export function AuthWrapper({
 							{bottomText}{' '}
 							<Link
 								href={bottomLinkHref}
-								className='font-medium text-blue-600'
+								className='font-medium text-blue-500'
 							>
 								{bottomLinkText}
 							</Link>
@@ -70,12 +77,7 @@ export function AuthWrapper({
 						<div className='absolute bottom-1/3 right-1/3 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl'></div>
 						<div className='absolute left-1/3 top-2/3 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl'></div>
 					</div>
-				</div>{' '}
-				{/* <div className='absolute inset-0 z-20 flex items-center justify-center'>
-					<Link href='/' className='flex flex-col items-center gap-4'>
-						<Logo className='size-28' color='fill-white' />
-					</Link>
-				</div> */}
+				</div>
 			</div>
 		</div>
 	)

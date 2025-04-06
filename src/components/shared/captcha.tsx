@@ -9,17 +9,19 @@ export function Captcha({ onVerify, ...props }: CaptchaProps) {
 	const { resolvedTheme } = useTheme()
 
 	return (
-		<Turnstile
-			sitekey={process.env['TURNSTILE_SITE_KEY']}
-			onVerify={onVerify}
-			theme={
-				resolvedTheme === 'system'
-					? 'auto'
-					: resolvedTheme === 'dark'
-						? 'dark'
-						: 'light'
-			}
-			{...props}
-		/>
+		<div className='w-full'>
+			<Turnstile
+				sitekey={process.env['TURNSTILE_SITE_KEY']}
+				onVerify={onVerify}
+				theme={
+					resolvedTheme === 'system'
+						? 'auto'
+						: resolvedTheme === 'dark'
+							? 'dark'
+							: 'light'
+				}
+				{...props}
+			/>
+		</div>
 	)
 }

@@ -1,11 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'sonner'
-
-import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 
 import { RevokeSession } from './remove-session'
-import { revokeSession } from '@/src/api'
 import { SessionResponse } from '@/src/generated'
 import { formatDate, getBrowserIcon } from '@/src/lib/utils'
 

@@ -28,7 +28,7 @@ export function Sessions() {
 						<div className='block items-center justify-between space-y-3 md:flex md:space-y-0'>
 							<Heading
 								title='Устройства'
-								description='Здесь отображаются устройства, с которых выполнен вход в вашу учетную запись.'
+								description='Здесь отображаются устройства, с которых выполнен вход в вашу учетную запись'
 							/>
 							<RemoveAllSessions />
 						</div>

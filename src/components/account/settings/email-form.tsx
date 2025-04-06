@@ -1,11 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Mail } from 'lucide-react'
+import { Check, CheckCircle, Mail, MoreHorizontal, Pencil } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { Badge } from '../../ui/badge'
 import { Button } from '../../ui/button'
 import {
 	Dialog,
@@ -17,6 +18,13 @@ import {
 	DialogTitle,
 	DialogTrigger
 } from '../../ui/dialog'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuTrigger
+} from '../../ui/dropdown-menu'
 import {
 	Form,
 	FormControl,
@@ -82,11 +90,11 @@ export function EmailForm({ user }: EmailFormProps) {
 				<div className='flex w-full flex-col'>
 					<div className='mb-1 flex items-center gap-2'>
 						<h2 className='font-semibold'>Почта</h2>
-						{/* {user?.isEmailVerified ? (
+						{user?.isEmailVerified ? (
 							<Badge variant='success'>Подтверждёна</Badge>
 						) : (
 							<Badge variant='error'>Не подтверждёна</Badge>
-						)} */}
+						)}
 					</div>
 					<p className='text-sm text-muted-foreground'>
 						Ваша учетная запись привязана к адресу{' '}
@@ -99,7 +107,7 @@ export function EmailForm({ user }: EmailFormProps) {
 				</div>
 			</div>
 			<div>
-				{/* <DropdownMenu>
+				<DropdownMenu>
 					<DropdownMenuTrigger asChild className='border-none ring-0'>
 						<Button variant='ghost' size='icon'>
 							<MoreHorizontal className='size-5' />
@@ -108,20 +116,26 @@ export function EmailForm({ user }: EmailFormProps) {
 					<DropdownMenuContent align='end' side='top'>
 						<DropdownMenuGroup>
 							{!user?.isEmailVerified && (
-								<DropdownMenuItem>
-									<Check />
+								<DropdownMenuItem
+									onClick={() =>
+										toast.success(
+											'Ссылка c подтверждением была отправлена на выш почтовый адрес'
+										)
+									}
+								>
+									<CheckCircle />
 									Подтвердить
 								</DropdownMenuItem>
-							)} 
+							)}
 							<DropdownMenuItem>
 								<Pencil />
 								Изменить
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 					</DropdownMenuContent>
-				</DropdownMenu> */}
+				</DropdownMenu>
 
-				<Dialog
+				{/* <Dialog
 					open={isOpen}
 					onOpenChange={state => {
 						form.reset()
@@ -177,7 +191,7 @@ export function EmailForm({ user }: EmailFormProps) {
 							</form>
 						</Form>
 					</DialogContent>
-				</Dialog>
+				</Dialog> */}
 			</div>
 		</div>
 	)

@@ -7,12 +7,14 @@
  */
 
 export interface AccountResponse {
-  /** Unique identifier */
-  id: string;
-  /** Display name */
-  displayName: string;
-  /** Email address */
-  email: string;
-  /** Identifier of the user avatar */
-  avatar: string;
+	/** Unique identifier */
+	id: string
+	/** Display name */
+	displayName: string
+	/** Email address */
+	email: string
+	/** Identifier of the user avatar */
+	avatar: string
+	/** Indicates whether the user has verified their email address */
+	isEmailVerified: boolean
 }

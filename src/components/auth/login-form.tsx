@@ -100,6 +100,7 @@ export function LoginForm() {
 			bottomText='Еще нет аккаунта?'
 			bottomLinkText='Регистрация'
 			bottomLinkHref='/auth/register'
+			isShowSocial
 		>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
@@ -151,7 +152,7 @@ export function LoginForm() {
 							control={form.control}
 							name='captcha'
 							render={({ field }) => (
-								<FormItem className='flex flex-col items-center justify-center'>
+								<FormItem className='flex w-full flex-col items-center justify-center'>
 									<FormControl>
 										<Captcha
 											onVerify={token =>
