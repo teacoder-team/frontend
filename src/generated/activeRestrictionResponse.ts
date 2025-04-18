@@ -7,12 +7,12 @@
  */
 
 export interface ActiveRestrictionResponse {
-	/** Date of restriction creation */
-	createdAt: string
-	/** Reason for the user restriction */
-	reason: string
-	/** End date of the restriction, if temporary */
-	until?: string
-	/** Information on whether the ban is permanent */
-	isPermanent: boolean
+  /** Date of restriction creation */
+  createdAt: string;
+  /** Reason for the user restriction */
+  reason: string;
+  /** End date of the restriction, if temporary */
+  until?: string;
+  /** Information on whether the ban is permanent */
+  isPermanent: boolean;
 }
