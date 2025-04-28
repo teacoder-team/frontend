@@ -20,6 +20,10 @@ export function Captcha({ onVerify, ...props }: CaptchaProps) {
 						? 'dark'
 						: 'light'
 			}
+			size='flexible'
+			style={{
+				width: '100%'
+			}}
 			{...props}
 		/>
 	)

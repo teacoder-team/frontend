@@ -1,6 +1,7 @@
-import { CheckCircle, ChevronRight } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 
+import { ROUTES } from '@/src/constants'
 import type { LessonResponse } from '@/src/generated'
 import { useAuth } from '@/src/hooks'
 
@@ -37,8 +38,8 @@ export function CourseLessons({
 							<Link
 								href={
 									isAuthorized
-										? `/lesson/${lesson.slug}`
-										: '/auth/login'
+										? ROUTES.lesson(lesson.slug)
+										: ROUTES.login
 								}
 								className='flex items-center justify-between p-4 transition-colors hover:bg-muted/50'
 							>

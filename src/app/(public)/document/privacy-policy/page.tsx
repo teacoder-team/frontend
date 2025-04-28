@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+import { ROUTES } from '@/src/constants'
+
 export const metadata: Metadata = {
 	title: 'Политика конфиденциальности'
 }
@@ -29,7 +31,7 @@ export default function PrivacyPage() {
 							Пользовательского соглашения (далее — «Соглашение»),
 							размещённого и/или доступного в сети Интернет по
 							адресу:{' '}
-							<Link href='/document/terms-of-use'>
+							<Link href={ROUTES.terms}>
 								https://teacoder.ru/document/terms-of-use
 							</Link>
 							, а также иных заключаемых с Пользователем
@@ -289,7 +291,7 @@ export default function PrivacyPage() {
 						<p>
 							6.2. Действующая редакция Политики находится на
 							Сайте в сети Интернет по адресу
-							<Link href='/document/privacy-policy'>
+							<Link href={ROUTES.privacy}>
 								https://teacoder.ru/document/privacy-policy
 							</Link>
 							.

@@ -2,14 +2,16 @@ import Link from 'next/link'
 
 import { Button } from '../ui/button'
 
+import { ROUTES } from '@/src/constants'
+
 interface NavLink {
 	title: string
 	href: string
 }
 
 export const navLinks: NavLink[] = [
-	{ title: 'Курсы', href: '/courses' },
-	{ title: 'Об основателе', href: '/about' }
+	{ title: 'Курсы', href: ROUTES.courses },
+	{ title: 'Об основателе', href: ROUTES.about }
 ]
 
 export function NavLinks() {

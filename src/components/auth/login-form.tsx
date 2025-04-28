@@ -24,6 +24,7 @@ import { Input } from '../ui/input'
 import { AuthWrapper } from './auth-wrapper'
 import { MfaForm } from './mfa-form'
 import { instance, login } from '@/src/api'
+import { ROUTES } from '@/src/constants'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
 const loginSchema = z.object({
@@ -99,7 +100,7 @@ export function LoginForm() {
 			description='Для входа на сайт используйте ваш email и пароль, которые были указаны при регистрации на сайте'
 			bottomText='Еще нет аккаунта?'
 			bottomLinkText='Регистрация'
-			bottomLinkHref='/auth/register'
+			bottomLinkHref={ROUTES.register}
 			isShowSocial
 		>
 			<Form {...form}>
@@ -130,7 +131,7 @@ export function LoginForm() {
 									<div className='flex items-center justify-between'>
 										<FormLabel>Пароль</FormLabel>
 										<Link
-											href='/auth/recovery'
+											href={ROUTES.recovery}
 											className='ml-auto inline-block text-sm underline'
 										>
 											Забыли пароль?

@@ -3,6 +3,8 @@ import Link from 'next/link'
 
 import { Button } from '../ui/button'
 
+import { ROUTES } from '@/src/constants'
+
 export function Hero() {
 	return (
 		<section className='mx-auto flex min-h-[calc(100vh-6.5rem)] max-w-screen-2xl flex-col items-center justify-center space-y-6 py-16 text-center sm:space-y-8 sm:py-20 md:py-28 lg:py-32'>
@@ -26,7 +28,7 @@ export function Hero() {
 					className='rounded-full'
 					asChild
 				>
-					<Link href='/courses'>
+					<Link href={ROUTES.courses}>
 						<Terminal />
 						Начать обучение
 					</Link>

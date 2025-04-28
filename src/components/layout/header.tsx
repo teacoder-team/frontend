@@ -8,6 +8,7 @@ import { Button } from '../ui/button'
 import { MobileNav } from './mobile-nav'
 import { NavLinks } from './nav-links'
 import { UserMenu } from './user-menu'
+import { ROUTES } from '@/src/constants'
 import { useAuth } from '@/src/hooks'
 
 export function Header() {
@@ -19,7 +20,7 @@ export function Header() {
 				<div className='flex h-16 w-full items-center justify-between'>
 					<div className='flex items-center'>
 						<Link
-							href='/'
+							href={ROUTES.home}
 							className='mr-10 flex items-center gap-x-3 text-xl font-bold text-blue-500'
 						>
 							<Logo className='size-8' />
@@ -36,10 +37,10 @@ export function Header() {
 							) : (
 								<div className='flex items-center gap-5'>
 									<Button variant='outline' size='sm' asChild>
-										<Link href='/auth/login'>Войти</Link>
+										<Link href={ROUTES.login}>Войти</Link>
 									</Button>
 									<Button variant='primary' size='sm' asChild>
-										<Link href='/auth/register'>
+										<Link href={ROUTES.register}>
 											Регистрация
 										</Link>
 									</Button>

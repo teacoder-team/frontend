@@ -73,7 +73,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				<TanstackQueryProvider>
 					<ThemeProvider
 						attribute='class'
-						defaultTheme='system'
+						defaultTheme='light'
 						enableSystem
 						disableTransitionOnChange
 					>

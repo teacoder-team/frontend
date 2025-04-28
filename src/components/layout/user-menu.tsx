@@ -19,6 +19,7 @@ import {
 } from '../ui/dropdown-menu'
 
 import { logout } from '@/src/api'
+import { ROUTES } from '@/src/constants'
 import { useCurrent } from '@/src/hooks/use-current'
 import { getMediaSource } from '@/src/lib/utils'
 
@@ -70,13 +71,13 @@ export function UserMenu() {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem asChild>
-						<Link href='/account'>
+						<Link href={ROUTES.progress}>
 							<ChartArea />
 							Мой прогресс
 						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem asChild>
-						<Link href='/account/settings'>
+						<Link href={ROUTES.settings}>
 							<Settings />
 							Настройки
 						</Link>

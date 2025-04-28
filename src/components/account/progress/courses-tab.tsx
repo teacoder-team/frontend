@@ -13,6 +13,7 @@ import {
 	CardTitle
 } from '@/src/components/ui/card'
 import { Separator } from '@/src/components/ui/separator'
+import { ROUTES } from '@/src/constants'
 
 export function CoursesTab() {
 	const { data, isLoading } = useQuery({
@@ -68,7 +69,9 @@ export function CoursesTab() {
 										asChild
 									>
 										<Link
-											href={`/lesson/${course.lastLesson?.slug}`}
+											href={ROUTES.lesson(
+												course.lastLesson?.slug
+											)}
 										>
 											Продолжить обучение
 										</Link>

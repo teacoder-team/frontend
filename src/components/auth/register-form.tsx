@@ -22,6 +22,7 @@ import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
 import { createAccount } from '@/src/api'
+import { ROUTES } from '@/src/constants'
 
 const registerSchema = z.object({
 	name: z.string().min(1, { message: 'Имя обязательно' }),
@@ -85,7 +86,7 @@ export function RegisterForm() {
 			description='Для регистрации достаточно ввести своё имя, email и придумать пароль'
 			bottomText='Уже есть аккаунт?'
 			bottomLinkText='Войти'
-			bottomLinkHref='/auth/login'
+			bottomLinkHref={ROUTES.login}
 		>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>

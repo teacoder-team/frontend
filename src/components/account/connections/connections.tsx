@@ -12,7 +12,7 @@ import { Card, CardContent } from '../../ui/card'
 import { UnlinkProvider } from './unlink-provider'
 import { fetchExternalStatus, getConnectUrl } from '@/src/api/external'
 
-export function Integrations() {
+export function Connections() {
 	const router = useRouter()
 
 	const { data, isLoading } = useQuery({

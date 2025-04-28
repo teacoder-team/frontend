@@ -21,6 +21,7 @@ import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
 import { passwordReset } from '@/src/api'
+import { ROUTES } from '@/src/constants'
 
 const newPasswordSchema = z.object({
 	token: z.string().max(128, { message: 'Некорректный токен' }),
@@ -74,7 +75,7 @@ export function NewPasswordForm() {
 			description='Установите новый пароль для вашего аккаунта'
 			bottomText='Уже есть аккаунт?'
 			bottomLinkText='Войти'
-			bottomLinkHref='/auth/login'
+			bottomLinkHref={ROUTES.login}
 		>
 			<Form {...form}>
 				<form

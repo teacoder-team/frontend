@@ -4,23 +4,26 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
 import { instance } from '@/src/api'
+import { EllipsisLoader } from '@/src/components/shared/ellipsis-loader'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
 export default function AuthCallbackPage() {
 	const router = useRouter()
-	const searchParams = useSearchParams()
 
 	useEffect(() => {
-		const token = searchParams.get('token')
+		const hash = window.location.hash
+		const token = new URLSearchParams(hash.slice(1)).get('token')
 
-		if (typeof token === 'string') {
+		if (token) {
 			setSessionToken(token)
-
 			instance.defaults.headers['X-Session-Token'] = token
-
 			router.push('/account/settings')
 		}
 	}, [router])
 
-	return <div>Пожалуйста, подождите, выполняется вход...</div>
+	return (
+		<div className='flex min-h-screen items-center justify-center'>
+			<EllipsisLoader />
+		</div>
+	)
 }
