@@ -14,6 +14,7 @@ import { CourseProgress } from '../shared/course-progress'
 import { buttonVariants } from '../ui/button'
 import { ScrollArea } from '../ui/scroll-area'
 
+import { ROUTES } from '@/src/constants'
 import type { CourseResponse, LessonResponse } from '@/src/generated'
 import { cn } from '@/src/lib/utils'
 
@@ -38,7 +39,7 @@ export function LessonSidebar({
 				<div className='flex flex-col gap-y-4 border-b p-5'>
 					<div className='flex items-center justify-between'>
 						<Link
-							href='/courses'
+							href={ROUTES.courses}
 							className='flex items-center gap-x-2 text-sm hover:text-blue-600 hover:transition-colors'
 						>
 							<ArrowLeft className='size-4' />
@@ -70,7 +71,7 @@ export function LessonSidebar({
 									lesson.id
 								)
 								const isActive =
-									pathname === `/lesson/${lesson.slug}`
+									pathname === ROUTES.lesson(lesson.slug)
 
 								const Icon = isActive
 									? PauseCircle
@@ -81,7 +82,7 @@ export function LessonSidebar({
 								return (
 									<Link
 										key={index}
-										href={`/lesson/${lesson.slug}`}
+										href={ROUTES.lesson(lesson.slug)}
 										className={cn(
 											buttonVariants({
 												variant: 'ghost',

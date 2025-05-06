@@ -15,4 +15,6 @@ export interface AccountResponse {
   email: string;
   /** Identifier of the user avatar */
   avatar: string;
+  /** Indicates whether the user has verified their email address */
+  isEmailVerified: boolean;
 }

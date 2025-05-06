@@ -23,7 +23,7 @@ export function Progress() {
 			<div className='mx-auto flex h-full max-w-6xl flex-col gap-6'>
 				<Heading
 					title='Мой прогресс'
-					description='Отслеживайте свой прогресс обучения, достижения и рейтинг среди других пользователей.'
+					description='Отслеживайте свой прогресс обучения, достижения и рейтинг среди других пользователей'
 				/>
 
 				<Tabs

@@ -5,6 +5,8 @@ import { FaGithub } from 'react-icons/fa'
 import { FaTelegram, FaYoutube } from 'react-icons/fa6'
 import { SiBoosty } from 'react-icons/si'
 
+import { ROUTES } from '@/src/constants'
+
 interface NavLink {
 	title: string
 	href: string
@@ -18,8 +20,8 @@ interface SocialLink {
 }
 
 const generalLinks: NavLink[] = [
-	{ title: 'Курсы', href: '/courses' },
-	{ title: 'Об основателе', href: '/about' },
+	{ title: 'Курсы', href: ROUTES.courses },
+	{ title: 'Об основателе', href: ROUTES.about },
 	{
 		title: 'API документация',
 		href: 'https://api.teacoder.ru/docs',
@@ -28,8 +30,8 @@ const generalLinks: NavLink[] = [
 ]
 
 const documentsLinks: NavLink[] = [
-	{ title: 'Пользовательское соглашение', href: '/document/terms-of-use' },
-	{ title: 'Политика конфиденциальности', href: '/document/privacy-policy' }
+	{ title: 'Пользовательское соглашение', href: ROUTES.terms },
+	{ title: 'Политика конфиденциальности', href: ROUTES.privacy }
 ]
 
 const socialLinks: SocialLink[] = [
@@ -63,7 +65,16 @@ export function Footer() {
 					<div className='space-y-4 sm:col-span-2 md:col-span-2'>
 						<h2 className='text-2xl font-bold'>TeaCoder</h2>
 						<p className='text-sm text-muted-foreground'>
-							Образовательная платформа по веб-разработке
+							Образовательная платформа по веб-разработке.
+							<br /> В случае возникновения вопросов, обращайтесь
+							на почту{' '}
+							<Link
+								href='mailto:support@teacoder.ru'
+								className='text-blue-500 hover:underline'
+							>
+								support@teacoder.ru
+							</Link>
+							.
 						</p>
 					</div>
 					<div className='space-y-4'>

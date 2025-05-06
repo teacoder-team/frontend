@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Button } from '../components/ui/button'
+import { ROUTES } from '../constants/routes'
 
 export const metadata: Metadata = {
 	title: 'Страница не найдена'
@@ -18,7 +19,7 @@ export default function NotFoundPage() {
 				</p>
 				<div className='mt-6 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3'>
 					<Button variant='primary' asChild>
-						<Link href='/'>
+						<Link href={ROUTES.home}>
 							<ChevronLeft />
 							На главную
 						</Link>

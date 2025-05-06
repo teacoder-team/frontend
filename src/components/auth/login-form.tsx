@@ -24,6 +24,7 @@ import { Input } from '../ui/input'
 import { AuthWrapper } from './auth-wrapper'
 import { MfaForm } from './mfa-form'
 import { instance, login } from '@/src/api'
+import { ROUTES } from '@/src/constants'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
 const loginSchema = z.object({
@@ -97,8 +98,10 @@ export function LoginForm() {
 		<AuthWrapper
 			heading='Войти в аккаунт'
 			description='Для входа на сайт используйте ваш email и пароль, которые были указаны при регистрации на сайте'
-			backButtonLabel='Еще нет аккаунта? Регистрация'
-			backButtonHref='/auth/register'
+			bottomText='Еще нет аккаунта?'
+			bottomLinkText='Регистрация'
+			bottomLinkHref={ROUTES.register}
+			isShowSocial
 		>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
@@ -111,7 +114,7 @@ export function LoginForm() {
 									<FormLabel>Почта</FormLabel>
 									<FormControl>
 										<Input
-											placeholder='email@teacoder.ru'
+											placeholder='tony@starkindustries.com'
 											disabled={isPending}
 											{...field}
 										/>
@@ -128,7 +131,7 @@ export function LoginForm() {
 									<div className='flex items-center justify-between'>
 										<FormLabel>Пароль</FormLabel>
 										<Link
-											href='/auth/recovery'
+											href={ROUTES.recovery}
 											className='ml-auto inline-block text-sm underline'
 										>
 											Забыли пароль?
@@ -150,7 +153,7 @@ export function LoginForm() {
 							control={form.control}
 							name='captcha'
 							render={({ field }) => (
-								<FormItem className='flex flex-col items-center justify-center'>
+								<FormItem className='flex w-full flex-col items-center justify-center'>
 									<FormControl>
 										<Captcha
 											onVerify={token =>

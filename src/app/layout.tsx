@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 		locale: 'ru_RU',
 		images: [
 			{
-				url: new URL(APP_CONFIG.baseUrl + '/touch-icons/512x512.png'),
+				url: new URL(APP_CONFIG.baseUrl + '/opengraph.png'),
 				width: 512,
 				height: 512,
 				alt: SEO.name
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 		description: SEO.description,
 		images: [
 			{
-				url: new URL(APP_CONFIG.baseUrl + '/touch-icons/512x512.png'),
+				url: new URL(APP_CONFIG.baseUrl + '/opengraph.png'),
 				width: 512,
 				height: 512,
 				alt: SEO.name
@@ -69,11 +69,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html className={GeistSans.variable} lang='ru' suppressHydrationWarning>
-			<body className='min-h-screen font-sans antialiased'>
+			<body className='flex h-full w-full flex-col font-sans'>
 				<TanstackQueryProvider>
 					<ThemeProvider
 						attribute='class'
-						defaultTheme='system'
+						defaultTheme='light'
 						enableSystem
 						disableTransitionOnChange
 					>

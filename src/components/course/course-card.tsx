@@ -5,6 +5,7 @@ import { FaYoutube } from 'react-icons/fa'
 
 import { Badge } from '../ui/badge'
 
+import { ROUTES } from '@/src/constants'
 import type { CourseResponse } from '@/src/generated'
 import { getLessonLabel, getMediaSource } from '@/src/lib/utils'
 
@@ -15,7 +16,7 @@ interface CourseCardProps {
 export function CourseCard({ course }: CourseCardProps) {
 	return (
 		<Link
-			href={`/courses/${course.slug}`}
+			href={ROUTES.course(course.slug)}
 			className='group relative rounded-lg'
 		>
 			<div className='relative aspect-video overflow-hidden rounded-md transition-all'>

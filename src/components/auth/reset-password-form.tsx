@@ -21,6 +21,7 @@ import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
 import { sendPasswordReset } from '@/src/api'
+import { ROUTES } from '@/src/constants'
 
 const resetPasswordSchema = z.object({
 	email: z
@@ -73,8 +74,9 @@ export function ResetPasswordForm() {
 		<AuthWrapper
 			heading='Сброс пароля'
 			description='Введите вашу почту, чтобы получить ссылку для сброса пароля'
-			backButtonLabel='Уже есть аккаунт? Войти'
-			backButtonHref='/auth/login'
+			bottomText='Уже есть аккаунт?'
+			bottomLinkText='Войти'
+			bottomLinkHref={ROUTES.login}
 		>
 			<Form {...form}>
 				<form

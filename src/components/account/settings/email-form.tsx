@@ -1,11 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Mail } from 'lucide-react'
+import { Check, CheckCircle, Mail, MoreHorizontal, Pencil } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { Badge } from '../../ui/badge'
 import { Button } from '../../ui/button'
 import {
 	Dialog,
@@ -18,6 +19,13 @@ import {
 	DialogTrigger
 } from '../../ui/dialog'
 import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuTrigger
+} from '../../ui/dropdown-menu'
+import {
 	Form,
 	FormControl,
 	FormField,
@@ -27,7 +35,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { changeEmail } from '@/src/api'
+import { changeEmail, sendEmailVerification } from '@/src/api'
 import type { AccountResponse } from '@/src/generated'
 
 const emailSchema = z.object({
@@ -48,12 +56,28 @@ export function EmailForm({ user }: EmailFormProps) {
 
 	const queryClient = useQueryClient()
 
+	const { mutate: send } = useMutation({
+		mutationKey: ['send email verification'],
+		mutationFn: () => sendEmailVerification(),
+		onSuccess() {
+			toast.success(
+				'Ссылка c подтверждением была отправлена на выш почтовый адрес'
+			)
+		},
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при отправке письма'
+			)
+		}
+	})
+
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['change email'],
 		mutationFn: (data: Email) => changeEmail(data),
 		onSuccess() {
-			queryClient.invalidateQueries({ queryKey: ['get current'] })
+			form.reset()
 			setIsOpen(false)
+			queryClient.invalidateQueries({ queryKey: ['get current'] })
 		},
 		onError(error: any) {
 			toast.error(
@@ -82,11 +106,11 @@ export function EmailForm({ user }: EmailFormProps) {
 				<div className='flex w-full flex-col'>
 					<div className='mb-1 flex items-center gap-2'>
 						<h2 className='font-semibold'>Почта</h2>
-						{/* {user?.isEmailVerified ? (
+						{user?.isEmailVerified ? (
 							<Badge variant='success'>Подтверждёна</Badge>
 						) : (
 							<Badge variant='error'>Не подтверждёна</Badge>
-						)} */}
+						)}
 					</div>
 					<p className='text-sm text-muted-foreground'>
 						Ваша учетная запись привязана к адресу{' '}
@@ -99,7 +123,7 @@ export function EmailForm({ user }: EmailFormProps) {
 				</div>
 			</div>
 			<div>
-				{/* <DropdownMenu>
+				<DropdownMenu>
 					<DropdownMenuTrigger asChild className='border-none ring-0'>
 						<Button variant='ghost' size='icon'>
 							<MoreHorizontal className='size-5' />
@@ -108,18 +132,18 @@ export function EmailForm({ user }: EmailFormProps) {
 					<DropdownMenuContent align='end' side='top'>
 						<DropdownMenuGroup>
 							{!user?.isEmailVerified && (
-								<DropdownMenuItem>
-									<Check />
+								<DropdownMenuItem onClick={() => send()}>
+									<CheckCircle />
 									Подтвердить
 								</DropdownMenuItem>
-							)} 
-							<DropdownMenuItem>
+							)}
+							<DropdownMenuItem onClick={() => setIsOpen(true)}>
 								<Pencil />
 								Изменить
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 					</DropdownMenuContent>
-				</DropdownMenu> */}
+				</DropdownMenu>
 
 				<Dialog
 					open={isOpen}
@@ -128,9 +152,6 @@ export function EmailForm({ user }: EmailFormProps) {
 						setIsOpen(state)
 					}}
 				>
-					<DialogTrigger asChild>
-						<Button variant='outline'>Изменить</Button>
-					</DialogTrigger>
 					<DialogContent>
 						<DialogHeader>
 							<DialogTitle>Обновление почты</DialogTitle>

@@ -1,69 +1,83 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle
-} from '../ui/card'
+import { AuthSocial } from './auth-social'
 
-interface Props {
+interface AuthWrapperProps {
 	children: ReactNode
 	heading: string
 	description?: string
-	backButtonLabel?: string
-	backButtonHref?: string
+	bottomText?: string
+	bottomLinkText?: string
+	bottomLinkHref?: string
+	isShowSocial?: boolean
 }
 
 export function AuthWrapper({
 	children,
 	heading,
 	description,
-	backButtonLabel,
-	backButtonHref
-}: Props) {
+	bottomText,
+	bottomLinkText,
+	bottomLinkHref,
+	isShowSocial
+}: AuthWrapperProps) {
 	return (
-		<div className='flex h-[100vh] w-full items-center justify-center'>
-			<div className='flex w-full flex-col items-center gap-4'>
-				<Card className='w-[440px] border-none'>
-					<CardHeader className='mt-2 grid gap-y-2 text-center'>
-						<CardTitle className='text-3xl'>{heading}</CardTitle>
-						<CardDescription>{description}</CardDescription>
-					</CardHeader>
-					<CardContent>
-						{/* {isShowSocial && <Social />} */}
-						{children}
-					</CardContent>
-					<CardFooter className='flex-col'>
-						{/* {backButtonLabel && backButtonHref && (
-					<Button variant='link' className='w-full font-normal'>
-						<Link href={backButtonHref}>{backButtonLabel}</Link>
-					</Button>
-				)} */}
-						<p className='text-center text-xs text-muted-foreground'>
-							Нажимая продолжить, вы соглашаетесь с нашим{' '}
+		<div className='container relative flex min-h-svh w-full flex-col items-center justify-center lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
+			<div className='w-full px-4 py-8 sm:px-6 md:py-12'>
+				<div className='mx-auto flex w-full max-w-[400px] flex-col justify-center space-y-5'>
+					<div className='flex flex-col space-y-3'>
+						<h1 className='text-3xl font-semibold'>{heading}</h1>
+						{description && (
+							<p className='text-sm text-muted-foreground'>
+								{description}
+							</p>
+						)}
+					</div>
+					{isShowSocial && <AuthSocial />}
+					<div className='p-0'>{children}</div>
+					{/* <p className='text-xs text-muted-foreground'>
+						Нажимая продолжить, вы соглашаетесь с нашим{' '}
+						<Link
+							href='/document/terms-of-use'
+							className='text-primary hover:underline'
+							target='_blank'
+						>
+							Пользовательским соглашением
+						</Link>{' '}
+						и{' '}
+						<Link
+							href='/document/privacy-policy'
+							className='text-primary hover:underline'
+							target='_blank'
+						>
+							Политикой Конфиденциальности
+						</Link>
+						.
+					</p> */}
+					{bottomText && bottomLinkText && bottomLinkHref && (
+						<p className='text-center text-sm text-muted-foreground'>
+							{bottomText}{' '}
 							<Link
-								href='/document/terms-of-use'
-								className='text-primary hover:underline'
-								target='_blank'
+								href={bottomLinkHref}
+								className='font-medium text-blue-500'
 							>
-								Пользовательским соглашением
-							</Link>{' '}
-							и{' '}
-							<Link
-								href='/document/privacy-policy'
-								className='text-primary hover:underline'
-								target='_blank'
-							>
-								Политикой Конфиденциальности
+								{bottomLinkText}
 							</Link>
-							.
 						</p>
-					</CardFooter>
-				</Card>
+					)}
+				</div>
+				<div className='absolute bottom-4 right-4 flex items-center justify-center gap-4 text-muted-foreground'></div>
+			</div>
+
+			<div className='relative hidden h-full flex-col p-10 text-primary lg:flex'>
+				<div className='absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-400 to-blue-800'>
+					<div className='absolute inset-0 backdrop-blur-[100px]'>
+						<div className='absolute left-1/4 top-1/4 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl'></div>
+						<div className='absolute bottom-1/3 right-1/3 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl'></div>
+						<div className='absolute left-1/3 top-2/3 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl'></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	)

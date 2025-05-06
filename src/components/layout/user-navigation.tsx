@@ -1,28 +1,34 @@
 'use client'
 
-import { ChartArea, MonitorSmartphone, Route, Settings } from 'lucide-react'
+import { ChartArea, LinkIcon, MonitorSmartphone, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { buttonVariants } from '../ui/button'
 
+import { ROUTES } from '@/src/constants'
 import { cn } from '@/src/lib/utils'
 
 export const links = [
 	{
 		title: 'Мой прогресс',
-		href: '/account',
+		href: ROUTES.progress,
 		icon: ChartArea
 	},
 	{
 		title: 'Настройки аккаунта',
-		href: '/account/settings',
+		href: ROUTES.settings,
 		icon: Settings
 	},
 	{
 		title: 'Устройства',
-		href: '/account/sessions',
+		href: ROUTES.sessions,
 		icon: MonitorSmartphone
+	},
+	{
+		title: 'Связанные аккаунты',
+		href: ROUTES.connections,
+		icon: LinkIcon
 	}
 ]
 

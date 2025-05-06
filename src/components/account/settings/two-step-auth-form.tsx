@@ -1,4 +1,4 @@
-import { ListOrdered, Smartphone } from 'lucide-react'
+import { ListOrdered, Mail, Smartphone } from 'lucide-react'
 
 import { Badge } from '../../ui/badge'
 import { Card, CardContent } from '../../ui/card'

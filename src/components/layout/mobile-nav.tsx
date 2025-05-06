@@ -17,6 +17,7 @@ import {
 
 import { navLinks } from './nav-links'
 import { logout } from '@/src/api'
+import { ROUTES } from '@/src/constants'
 import { useAuth } from '@/src/hooks'
 
 export function MobileNav() {
@@ -113,23 +114,23 @@ export function MobileNav() {
 						<>
 							<Button
 								onClick={() => {
-									router.push('/auth/login')
+									router.push(ROUTES.login)
 									setIsOpen(false)
 								}}
 								variant='outline'
 								size='sm'
 							>
-								<Link href='/auth/login'>Войти</Link>
+								<Link href={ROUTES.login}>Войти</Link>
 							</Button>
 							<Button
 								onClick={() => {
-									router.push('/auth/register')
+									router.push(ROUTES.register)
 									setIsOpen(false)
 								}}
 								variant='primary'
 								size='sm'
 							>
-								<Link href='/auth/register'>Регистрация</Link>
+								<Link href={ROUTES.register}>Регистрация</Link>
 							</Button>
 						</>
 					)}

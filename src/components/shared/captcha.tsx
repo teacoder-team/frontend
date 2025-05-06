@@ -1,4 +1,5 @@
 import { useTheme } from 'next-themes'
+import { useEffect } from 'react'
 import Turnstile, { type TurnstileProps } from 'react-turnstile'
 
 interface CaptchaProps extends Omit<TurnstileProps, 'sitekey'> {
@@ -19,6 +20,10 @@ export function Captcha({ onVerify, ...props }: CaptchaProps) {
 						? 'dark'
 						: 'light'
 			}
+			size='flexible'
+			style={{
+				width: '100%'
+			}}
 			{...props}
 		/>
 	)

@@ -9,10 +9,21 @@
 export interface UserResponse {
   /** Unique identifier */
   id: string;
-  /** Display name */
-  displayName: string;
+  /** Account creation date */
+  createdAt: string;
   /** Email address */
   email: string;
-  /** Identifier of the user avatar */
-  avatar: string;
+  /** Username */
+  username: string;
+  /** Display name */
+  displayName: string;
+  /**
+   * Identifier of the user avatar
+   * @nullable
+   */
+  avatar: string | null;
+  /** Indicates whether the user is banned */
+  isBanned: boolean;
+  /** Indicates whether multi-factor authentication is enabled */
+  isMfaEnabled: boolean;
 }

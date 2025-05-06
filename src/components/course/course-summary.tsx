@@ -3,12 +3,13 @@
 import { BookOpen, Code, Eye } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import { type Dispatch, Fragment, type SetStateAction, useEffect } from 'react'
+import { type Dispatch, Fragment, type SetStateAction } from 'react'
 import { FaYoutube } from 'react-icons/fa'
 
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 
+import { ROUTES } from '@/src/constants'
 import type { CourseResponse, LessonResponse } from '@/src/generated'
 import { useAuth } from '@/src/hooks'
 import { getMediaSource } from '@/src/lib/utils'
@@ -89,7 +90,7 @@ export function CourseSummary({
 													course.attachment,
 													'attachments'
 												)
-											: '/auth/login'
+											: ROUTES.login
 									}
 									download={isAuthorized}
 								>
