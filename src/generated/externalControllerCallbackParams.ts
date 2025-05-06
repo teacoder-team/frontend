@@ -7,5 +7,6 @@
  */
 
 export type ExternalControllerCallbackParams = {
-code: string;
-};
+	code: string
+	state: string
+}

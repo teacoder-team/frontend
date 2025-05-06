@@ -24,7 +24,7 @@ export function AuthWrapper({
 }: AuthWrapperProps) {
 	return (
 		<div className='container relative flex min-h-svh w-full flex-col items-center justify-center lg:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
-			<div className='w-full'>
+			<div className='w-full px-4 py-8 sm:px-6 md:py-12'>
 				<div className='mx-auto flex w-full max-w-[400px] flex-col justify-center space-y-5'>
 					<div className='flex flex-col space-y-3'>
 						<h1 className='text-3xl font-semibold'>{heading}</h1>

@@ -31,6 +31,11 @@ export const createAccount = async (data: CreateUserRequest) => {
 	return response.data
 }
 
+export const sendEmailVerification = () => instance.post('/auth/account/verify')
+
+export const verifyEmail = (code: string) =>
+	instance.post(`/auth/account/verify/${code}`)
+
 export const sendPasswordReset = (data: SendPasswordResetRequest) =>
 	api.post('/auth/account/reset_password', data)
 

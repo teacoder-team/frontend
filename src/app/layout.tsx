@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 		locale: 'ru_RU',
 		images: [
 			{
-				url: new URL(APP_CONFIG.baseUrl + '/touch-icons/512x512.png'),
+				url: new URL(APP_CONFIG.baseUrl + '/opengraph.png'),
 				width: 512,
 				height: 512,
 				alt: SEO.name
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 		description: SEO.description,
 		images: [
 			{
-				url: new URL(APP_CONFIG.baseUrl + '/touch-icons/512x512.png'),
+				url: new URL(APP_CONFIG.baseUrl + '/opengraph.png'),
 				width: 512,
 				height: 512,
 				alt: SEO.name

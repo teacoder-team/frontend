@@ -1,17 +1,8 @@
-import { useEffect, useState } from 'react'
-
 import { getSessionToken } from '../lib/cookies/session'
 
 export function useAuth() {
-	const [isAuthorized, setIsAuthorized] = useState(false)
+	const token = getSessionToken()
+	const isAuthorized = token !== undefined && token !== ''
 
-	useEffect(() => {
-		const token = getSessionToken()
-
-		setIsAuthorized(token !== undefined && token !== '')
-	}, [])
-
-	return {
-		isAuthorized
-	}
+	return { isAuthorized }
 }

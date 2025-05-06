@@ -29,22 +29,22 @@ import { Input } from '../../ui/input'
 
 import { changePassword } from '@/src/api'
 
-const passwordSchema = z.object({
-	currentPassword: z
-		.string()
-		.min(6, {
-			message: 'Текущий пароль должен содержать хотя бы 6 символов'
-		})
-		.max(128, {
-			message: 'Текущий пароль должен содержать не более 128 символов'
-		}),
-	newPassword: z
-		.string()
-		.min(6, { message: 'Новый пароль должен содержать хотя бы 6 символов' })
-		.max(128, {
-			message: 'Новый пароль должен содержать не более 128 символов'
-		})
-})
+const passwordSchema = z
+	.object({
+		newPassword: z
+			.string()
+			.min(6, {
+				message: 'Новый пароль должен содержать хотя бы 6 символов'
+			})
+			.max(128, {
+				message: 'Новый пароль должен содержать не более 128 символов'
+			}),
+		confirmPassword: z.string()
+	})
+	.refine(data => data.newPassword === data.confirmPassword, {
+		message: 'Пароли не совпадают',
+		path: ['confirmPassword']
+	})
 
 export type Password = z.infer<typeof passwordSchema>
 
@@ -67,8 +67,8 @@ export function PasswordForm() {
 	const form = useForm<Password>({
 		resolver: zodResolver(passwordSchema),
 		defaultValues: {
-			currentPassword: '',
-			newPassword: ''
+			newPassword: '',
+			confirmPassword: ''
 		}
 	})
 
@@ -120,12 +120,10 @@ export function PasswordForm() {
 							>
 								<FormField
 									control={form.control}
-									name='currentPassword'
+									name='newPassword'
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>
-												Текущий пароль
-											</FormLabel>
+											<FormLabel>Новый пароль</FormLabel>
 											<FormControl>
 												<Input
 													type='password'
@@ -140,10 +138,12 @@ export function PasswordForm() {
 								/>
 								<FormField
 									control={form.control}
-									name='newPassword'
+									name='confirmPassword'
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Новый пароль</FormLabel>
+											<FormLabel>
+												Подтвердите новый пароль
+											</FormLabel>
 											<FormControl>
 												<Input
 													type='password'

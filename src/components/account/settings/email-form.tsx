@@ -35,7 +35,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { changeEmail } from '@/src/api'
+import { changeEmail, sendEmailVerification } from '@/src/api'
 import type { AccountResponse } from '@/src/generated'
 
 const emailSchema = z.object({
@@ -56,12 +56,28 @@ export function EmailForm({ user }: EmailFormProps) {
 
 	const queryClient = useQueryClient()
 
+	const { mutate: send } = useMutation({
+		mutationKey: ['send email verification'],
+		mutationFn: () => sendEmailVerification(),
+		onSuccess() {
+			toast.success(
+				'Ссылка c подтверждением была отправлена на выш почтовый адрес'
+			)
+		},
+		onError(error: any) {
+			toast.error(
+				error.response?.data?.message ?? 'Ошибка при отправке письма'
+			)
+		}
+	})
+
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['change email'],
 		mutationFn: (data: Email) => changeEmail(data),
 		onSuccess() {
-			queryClient.invalidateQueries({ queryKey: ['get current'] })
+			form.reset()
 			setIsOpen(false)
+			queryClient.invalidateQueries({ queryKey: ['get current'] })
 		},
 		onError(error: any) {
 			toast.error(
@@ -116,18 +132,12 @@ export function EmailForm({ user }: EmailFormProps) {
 					<DropdownMenuContent align='end' side='top'>
 						<DropdownMenuGroup>
 							{!user?.isEmailVerified && (
-								<DropdownMenuItem
-									onClick={() =>
-										toast.success(
-											'Ссылка c подтверждением была отправлена на выш почтовый адрес'
-										)
-									}
-								>
+								<DropdownMenuItem onClick={() => send()}>
 									<CheckCircle />
 									Подтвердить
 								</DropdownMenuItem>
 							)}
-							<DropdownMenuItem>
+							<DropdownMenuItem onClick={() => setIsOpen(true)}>
 								<Pencil />
 								Изменить
 							</DropdownMenuItem>
@@ -135,16 +145,13 @@ export function EmailForm({ user }: EmailFormProps) {
 					</DropdownMenuContent>
 				</DropdownMenu>
 
-				{/* <Dialog
+				<Dialog
 					open={isOpen}
 					onOpenChange={state => {
 						form.reset()
 						setIsOpen(state)
 					}}
 				>
-					<DialogTrigger asChild>
-						<Button variant='outline'>Изменить</Button>
-					</DialogTrigger>
 					<DialogContent>
 						<DialogHeader>
 							<DialogTitle>Обновление почты</DialogTitle>
@@ -191,7 +198,7 @@ export function EmailForm({ user }: EmailFormProps) {
 							</form>
 						</Form>
 					</DialogContent>
-				</Dialog> */}
+				</Dialog>
 			</div>
 		</div>
 	)

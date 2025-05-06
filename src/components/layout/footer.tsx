@@ -65,7 +65,16 @@ export function Footer() {
 					<div className='space-y-4 sm:col-span-2 md:col-span-2'>
 						<h2 className='text-2xl font-bold'>TeaCoder</h2>
 						<p className='text-sm text-muted-foreground'>
-							Образовательная платформа по веб-разработке
+							Образовательная платформа по веб-разработке.
+							<br /> В случае возникновения вопросов, обращайтесь
+							на почту{' '}
+							<Link
+								href='mailto:support@teacoder.ru'
+								className='text-blue-500 hover:underline'
+							>
+								support@teacoder.ru
+							</Link>
+							.
 						</p>
 					</div>
 					<div className='space-y-4'>

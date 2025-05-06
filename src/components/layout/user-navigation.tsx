@@ -22,7 +22,7 @@ export const links = [
 	},
 	{
 		title: 'Устройства',
-		href: ROUTES.connections,
+		href: ROUTES.sessions,
 		icon: MonitorSmartphone
 	},
 	{
