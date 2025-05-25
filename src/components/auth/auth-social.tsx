@@ -1,6 +1,7 @@
 'use client'
 
 import { useMutation } from '@tanstack/react-query'
+import { KeyRound } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { FaGithub } from 'react-icons/fa6'
 import { FcGoogle } from 'react-icons/fc'
@@ -8,6 +9,7 @@ import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
 
+import { PasskeyLoginButton } from './passkey-login-button'
 import { getAuthUrl } from '@/src/api/external'
 
 export function AuthSocial() {
@@ -27,23 +29,26 @@ export function AuthSocial() {
 	})
 
 	return (
-		<div className='grid w-full grid-cols-2 gap-4'>
-			<Button
-				onClick={() => mutate('google')}
-				variant='outline'
-				className='[&_svg]:size-[23px]'
-				disabled={isPending}
-			>
-				<FcGoogle />
-			</Button>
-			<Button
-				onClick={() => mutate('github')}
-				variant='outline'
-				className='[&_svg]:size-5'
-				disabled={isPending}
-			>
-				<FaGithub />
-			</Button>
+		<div className='flex flex-col gap-4'>
+			<div className='grid w-full grid-cols-2 gap-4'>
+				<Button
+					onClick={() => mutate('google')}
+					variant='outline'
+					className='[&_svg]:size-[23px]'
+					disabled={isPending}
+				>
+					<FcGoogle />
+				</Button>
+				<Button
+					onClick={() => mutate('github')}
+					variant='outline'
+					className='[&_svg]:size-5'
+					disabled={isPending}
+				>
+					<FaGithub />
+				</Button>
+			</div>
+			<PasskeyLoginButton />
 		</div>
 	)
 }

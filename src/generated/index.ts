@@ -8,6 +8,7 @@
 
 export * from './accountResponse';
 export * from './activeRestrictionResponse';
+export * from './articleResponse';
 export * from './changeEmailRequest';
 export * from './changePasswordRequest';
 export * from './courseProgressResponse';
@@ -37,9 +38,12 @@ export * from './meStatisticsResponse';
 export * from './mfaControllerVerifyBody';
 export * from './mfaStatusResponse';
 export * from './mfaVerifyRequest';
+export * from './passkeyResponse';
 export * from './passwordResetRequest';
 export * from './patchUserRequest';
 export * from './progressResponse';
+export * from './registerPasskeyRequest';
+export * from './registerPasskeyResponse';
 export * from './registrationsResponse';
 export * from './sendPasswordResetRequest';
 export * from './sessionControllerLogin200';

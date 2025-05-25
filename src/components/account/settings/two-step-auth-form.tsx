@@ -1,11 +1,13 @@
-import { ListOrdered, Mail, Smartphone } from 'lucide-react'
+import { KeyRound, ListOrdered, Mail, Smartphone } from 'lucide-react'
 
 import { Badge } from '../../ui/badge'
 import { Card, CardContent } from '../../ui/card'
 
 import { DisableTotpForm } from './disable-totp-form'
 import { EnableTotpForm } from './enable-totp-form'
+import { PasskeyModal } from './passkey-modal'
 import { RecoveryCodesModal } from './recovery-codes-modal'
+import { RegisterPasskeyForm } from './register-passkey-form'
 import type { MfaStatusResponse } from '@/src/generated'
 
 interface TwoFactorAuthFormProps {
@@ -54,6 +56,39 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 								) : (
 									<EnableTotpForm />
 								)}
+							</div>
+						</div>
+
+						<div className='flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0'>
+							<div className='mr-5 flex items-start gap-x-4 md:items-center'>
+								<div className='hidden rounded-full bg-blue-600 p-2.5 md:flex'>
+									<KeyRound className='size-5 stroke-[1.7px] text-white' />
+								</div>
+								<div className='w-full'>
+									<div className='mb-1 flex flex-col items-start gap-2 sm:flex-row sm:items-center'>
+										<h2 className='font-semibold'>
+											Ключ доступа
+										</h2>
+										{status?.passkeyMfa ? (
+											<Badge variant='success'>
+												Включено
+											</Badge>
+										) : (
+											<Badge variant='error'>
+												Отключено
+											</Badge>
+										)}
+									</div>
+									<p className='text-sm text-muted-foreground'>
+										{status?.passkeyMfa
+											? 'Ключ доступа добавлен как второй фактор. Вы можете использовать его для подтверждения входа.'
+											: 'Добавьте ключ доступа, чтобы повысить уровень защиты аккаунта.'}
+									</p>
+								</div>
+							</div>
+							<div className='flex gap-3'>
+								{status?.passkeyMfa && <PasskeyModal />}
+								<RegisterPasskeyForm />
 							</div>
 						</div>
 
