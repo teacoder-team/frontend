@@ -31,7 +31,7 @@ export function CourseCard({ course }: CourseCardProps) {
 					{course.title}
 				</h3>
 				<p
-					className='mt-1 overflow-hidden text-sm text-muted-foreground'
+					className='mt-1 overflow-hidden text-sm text-neutral-600 dark:text-neutral-300'
 					style={{
 						display: '-webkit-box',
 

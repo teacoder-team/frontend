@@ -118,14 +118,14 @@ export function CourseDetails({ course, lessons }: CourseDetailsProps) {
 						<h1 className='text-3xl font-semibold'>
 							{course.title}
 						</h1>
-						<p className='mt-3 text-[17px] text-neutral-600'>
+						<p className='mt-3 text-[17px] text-neutral-600 dark:text-neutral-300'>
 							{course.shortDescription}
 						</p>
 					</div>
 					<div className='my-5 h-[0.5px] bg-border' />
 					<div className='flex flex-col'>
 						<h1 className='text-3xl font-semibold'>О курсе</h1>
-						<p className='mt-3 text-[17px] text-neutral-600'>
+						<p className='mt-3 text-[17px] text-neutral-600 dark:text-neutral-300'>
 							{course.fullDescription}
 						</p>
 					</div>
@@ -166,7 +166,7 @@ export function CourseDetails({ course, lessons }: CourseDetailsProps) {
 										lesson => lesson.id === lastCompletedId
 									)
 									const nextLesson =
-										lessons[lastIndex + 1] || lessons[0] // если курс завершен, ведет на первый урок
+										lessons[lastIndex + 1] || lessons[0]
 
 									return (
 										<>
@@ -228,11 +228,11 @@ export function CourseDetails({ course, lessons }: CourseDetailsProps) {
 							)}
 						</div>
 
-						<div className='relative flex flex-col gap-3 rounded-xl border bg-white p-5'>
+						<div className='relative flex flex-col gap-3 rounded-xl border border-border bg-background p-5'>
 							<h2 className='text-xl font-semibold text-foreground'>
 								Дополнительно
 							</h2>
-							<p className='text-sm text-neutral-600 dark:text-neutral-200'>
+							<p className='text-sm text-neutral-600 dark:text-neutral-300'>
 								Скачайте готовый код или смотрите курс на
 								YouTube
 							</p>

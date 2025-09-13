@@ -25,7 +25,7 @@ export function CourseLessons({
 			<div className='flex items-center justify-between'>
 				<h1 className='text-3xl font-semibold'>Уроки</h1>
 				{isAuthorized && (
-					<p className='text-sm text-neutral-600'>
+					<p className='text-sm text-neutral-600 dark:text-neutral-300'>
 						{totalLessons} {lessonsTranslator(totalLessons)} •{' '}
 						{completedCount} выполнено
 					</p>
@@ -64,10 +64,9 @@ export function CourseLessons({
 										</h3>
 										{lesson.description && (
 											<p
-												className='mt-1 overflow-hidden text-sm text-neutral-600'
+												className='mt-1 overflow-hidden text-sm text-neutral-600 dark:text-neutral-300'
 												style={{
 													display: '-webkit-box',
-
 													WebkitBoxOrient: 'vertical',
 													WebkitLineClamp: 2
 												}}

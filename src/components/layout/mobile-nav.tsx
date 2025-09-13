@@ -114,13 +114,13 @@ export function MobileNav() {
 						<>
 							<Button
 								onClick={() => {
-									router.push(ROUTES.login)
+									router.push(ROUTES.login())
 									setIsOpen(false)
 								}}
 								variant='outline'
 								size='sm'
 							>
-								<Link href={ROUTES.login}>Войти</Link>
+								<Link href={ROUTES.login()}>Войти</Link>
 							</Button>
 							<Button
 								onClick={() => {

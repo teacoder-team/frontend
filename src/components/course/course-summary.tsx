@@ -92,7 +92,7 @@ export function CourseSummary({
 													course.attachment,
 													'attachments'
 												)
-											: ROUTES.login
+											: ROUTES.login()
 									}
 									download={isAuthorized}
 								>

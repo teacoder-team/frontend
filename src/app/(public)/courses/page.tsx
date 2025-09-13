@@ -18,7 +18,7 @@ export default async function CoursesPage() {
 				<h1 className='text-center text-3xl font-semibold text-foreground md:text-4xl lg:text-5xl'>
 					Курсы
 				</h1>
-				<p className='mx-auto mt-6 max-w-2xl text-center text-base text-muted-foreground md:text-lg'>
+				<p className='mx-auto mt-6 max-w-2xl text-center text-base text-neutral-600 dark:text-neutral-300 md:text-lg'>
 					Здесь собраны курсы по веб-разработке, которые помогут вам
 					освоить самые востребованные технологии и инструменты.
 				</p>

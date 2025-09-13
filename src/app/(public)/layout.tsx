@@ -14,6 +14,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
 
 			<div className='relative z-10'>
 				<Header />
+				<div className='mb-5 h-16' />
 				{children}
 				<Footer />
 			</div>

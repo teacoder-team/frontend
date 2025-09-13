@@ -59,7 +59,7 @@ export function LessonCompleteButton({
 							? 'Вы завершили этот урок!'
 							: 'Вы готовы завершить этот урок?'}
 					</p>
-					<p className='text-sm text-muted-foreground'>
+					<p className='text-sm text-neutral-600 dark:text-neutral-300'>
 						{isCompleted
 							? 'Отличная работа! Вы можете посмотреть свою статистику в личном кабинете.'
 							: 'Не забудьте завершить урок, когда будете готовы.'}
