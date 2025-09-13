@@ -7,7 +7,7 @@ export default defineConfig({
 	client: {
 		input: process.env['API_DOCS'],
 		output: {
-			schemas: './src/generated'
+			schemas: './src/api/generated'
 		}
 	}
 })

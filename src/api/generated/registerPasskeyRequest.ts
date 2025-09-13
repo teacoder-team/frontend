@@ -5,6 +5,7 @@
  * API for Teacoder educational platform
  * OpenAPI spec version: 1.0.0
  */
+import type { RegisterPasskeyRequestCredential } from './registerPasskeyRequestCredential';
 
 export interface RegisterPasskeyRequest {
   /**
@@ -12,16 +13,8 @@ export interface RegisterPasskeyRequest {
    * @maxLength 50
    */
   deviceName: string;
-  /**
-   * Unique credential ID for the passkey
-   * @maxLength 255
-   */
-  credentialId: string;
-  /**
-   * Public key for the passkey
-   * @maxLength 2048
-   */
-  publicKey: string;
+  /** Credential object returned by client for registration */
+  credential: RegisterPasskeyRequestCredential;
   /** List of supported transport methods for the passkey */
   transports: string[];
 }

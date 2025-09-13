@@ -17,7 +17,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { totpDisable } from '@/src/api'
+import { totpDisable } from '@/src/api/requests'
 
 const disableTotpSchema = z.object({
 	password: z

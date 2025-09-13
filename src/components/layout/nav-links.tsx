@@ -11,7 +11,8 @@ interface NavLink {
 
 export const navLinks: NavLink[] = [
 	{ title: 'Курсы', href: ROUTES.courses },
-	{ title: 'Об основателе', href: ROUTES.about }
+	{ title: 'Об основателе', href: ROUTES.about },
+	{ title: 'Статьи', href: ROUTES.articles }
 ]
 
 export function NavLinks() {

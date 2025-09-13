@@ -8,7 +8,7 @@ import { EnableTotpForm } from './enable-totp-form'
 import { PasskeyModal } from './passkey-modal'
 import { RecoveryCodesModal } from './recovery-codes-modal'
 import { RegisterPasskeyForm } from './register-passkey-form'
-import type { MfaStatusResponse } from '@/src/generated'
+import type { MfaStatusResponse } from '@/src/api/generated'
 
 interface TwoFactorAuthFormProps {
 	status: MfaStatusResponse | undefined

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { getCourses } from '@/src/api'
+import { getCourses } from '@/src/api/requests'
 import { CourseCard } from '@/src/components/course/course-card'
 
 export const metadata: Metadata = {

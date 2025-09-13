@@ -12,7 +12,7 @@ import { Card, CardContent } from '../../ui/card'
 
 import { ConnectionError } from './connection-error'
 import { UnlinkProvider } from './unlink-provider'
-import { fetchExternalStatus, getConnectUrl } from '@/src/api/external'
+import { fetchExternalStatus, getConnectUrl } from '@/src/api/requests'
 
 interface Provider {
 	name: string

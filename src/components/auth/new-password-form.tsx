@@ -20,7 +20,7 @@ import {
 import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
-import { passwordReset } from '@/src/api'
+import { passwordReset } from '@/src/api/requests'
 import { ROUTES } from '@/src/constants'
 
 const newPasswordSchema = z.object({

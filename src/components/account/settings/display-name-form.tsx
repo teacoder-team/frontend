@@ -16,8 +16,8 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { patchUser } from '@/src/api'
-import type { AccountResponse } from '@/src/generated'
+import type { AccountResponse } from '@/src/api/generated'
+import { patchUser } from '@/src/api/requests'
 
 const displayNameSchema = z.object({
 	displayName: z.string({ message: 'Имя обязательно' })

@@ -31,7 +31,11 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { fetchRecovery, totpEnable, totpGenerateSecret } from '@/src/api'
+import {
+	fetchRecovery,
+	totpEnable,
+	totpGenerateSecret
+} from '@/src/api/requests'
 
 const enableTotpSchema = z.object({
 	pin: z

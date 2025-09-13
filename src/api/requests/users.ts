@@ -4,8 +4,7 @@ import type {
 	MeStatisticsResponse,
 	PatchUserRequest
 } from '../generated'
-
-import { api, instance } from './instance'
+import { api, instance } from '../instance'
 
 export const getLeaders = async () =>
 	await api

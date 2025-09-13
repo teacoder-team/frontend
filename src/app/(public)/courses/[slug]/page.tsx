@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { getCourse, getCourseLessons, getCourses } from '@/src/api'
+import { getCourse, getCourseLessons, getCourses } from '@/src/api/requests'
 import { CourseDetails } from '@/src/components/course/course-details'
 import { CourseProvider } from '@/src/components/providers/course-provider'
 import { getMediaSource } from '@/src/lib/utils'

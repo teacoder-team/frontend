@@ -2,7 +2,7 @@ import { Card, CardContent } from '../../ui/card'
 
 import { AvatarForm } from './avatar-form'
 import { DisplayNameForm } from './display-name-form'
-import type { AccountResponse } from '@/src/generated'
+import type { AccountResponse } from '@/src/api/generated'
 
 interface ProfileForm {
 	user: AccountResponse | undefined

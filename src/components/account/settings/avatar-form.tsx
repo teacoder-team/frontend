@@ -5,8 +5,8 @@ import { toast } from 'sonner'
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 import { Input } from '../../ui/input'
 
-import { changeAvatar } from '@/src/api'
-import type { AccountResponse } from '@/src/generated'
+import type { AccountResponse } from '@/src/api/generated'
+import { changeAvatar } from '@/src/api/requests'
 import { getMediaSource } from '@/src/lib/utils'
 
 interface AvatarFormProps {

@@ -15,8 +15,8 @@ export function Header() {
 	const { isAuthorized } = useAuth()
 
 	return (
-		<header className='bg-transparent py-1'>
-			<div className='mx-auto max-w-7xl px-4'>
+		<header className='mb-5 border border-b bg-transparent py-0.5'>
+			<div className='mx-auto max-w-7xl'>
 				<div className='flex h-16 w-full items-center justify-between'>
 					<div className='flex items-center'>
 						<Link
@@ -37,7 +37,7 @@ export function Header() {
 							) : (
 								<div className='flex items-center gap-5'>
 									<Button variant='outline' size='sm' asChild>
-										<Link href={ROUTES.login}>Войти</Link>
+										<Link href={ROUTES.login()}>Войти</Link>
 									</Button>
 									<Button variant='primary' size='sm' asChild>
 										<Link href={ROUTES.register}>

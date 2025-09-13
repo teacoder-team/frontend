@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
-import { instance } from '@/src/api'
+import { instance } from '@/src/api/requests'
 import { EllipsisLoader } from '@/src/components/shared/ellipsis-loader'
 import { setSessionToken } from '@/src/lib/cookies/session'
 

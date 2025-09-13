@@ -16,7 +16,7 @@ import {
 } from '../ui/sheet'
 
 import { navLinks } from './nav-links'
-import { logout } from '@/src/api'
+import { logout } from '@/src/api/requests'
 import { ROUTES } from '@/src/constants'
 import { useAuth } from '@/src/hooks'
 

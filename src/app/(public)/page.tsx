@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Fragment } from 'react'
 
-import { getPopularCourses } from '@/src/api'
+import { getPopularCourses } from '@/src/api/requests'
 import { Features } from '@/src/components/home/features'
 import { Hero } from '@/src/components/home/hero'
 import { Popular } from '@/src/components/home/popular'

@@ -1,6 +1,5 @@
 import type { CreateLessonRequest, LessonResponse } from '../generated'
-
-import { api, instance } from './instance'
+import { api, instance } from '../instance'
 
 export const getLesson = async (slug: string) =>
 	await api

@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
 	Calendar,
 	KeyRound,
@@ -30,7 +30,7 @@ import {
 } from '../../ui/dropdown-menu'
 
 import { RegisterPasskeyForm } from './register-passkey-form'
-import { fetchPasskeys } from '@/src/api'
+import { deletePasskey, fetchPasskeys } from '@/src/api/requests'
 import { formatDate } from '@/src/lib/utils'
 
 interface Passkey {
@@ -70,18 +70,22 @@ export function PasskeyModal({
 
 	const [deletePasskeyId, setDeletePasskeyId] = useState<string | null>(null)
 
+	const queryClient = useQueryClient()
+
 	const { data, isLoading } = useQuery({
 		queryKey: ['fetch passkeys'],
 		queryFn: () => fetchPasskeys(),
 		enabled: isOpen
 	})
 
-	const handleDeletePasskey = (id: string) => {
-		if (onDelete) {
-			onDelete(id)
+	const { mutate, isPending } = useMutation({
+		mutationKey: ['delete passkey'],
+		mutationFn: (id: string) => deletePasskey(id),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['fetch passkeys'] })
+			setDeletePasskeyId(null)
 		}
-		setDeletePasskeyId(null)
-	}
+	})
 
 	return (
 		<>
@@ -204,9 +208,9 @@ export function PasskeyModal({
 						<Button
 							variant='destructive'
 							onClick={() =>
-								deletePasskeyId &&
-								handleDeletePasskey(deletePasskeyId)
+								deletePasskeyId && mutate(deletePasskeyId)
 							}
+							isLoading={isPending}
 						>
 							Удалить
 						</Button>

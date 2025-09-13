@@ -20,8 +20,8 @@ import { Input } from '../ui/input'
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs'
 
 import { AuthWrapper } from './auth-wrapper'
-import { api, instance } from '@/src/api'
-import { LoginSessionResponse } from '@/src/generated'
+import { LoginSessionResponse } from '@/src/api/generated'
+import { api, instance } from '@/src/api/instance'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
 const totpSchema = z.object({

@@ -1,7 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -21,7 +20,7 @@ import {
 import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
-import { createAccount } from '@/src/api'
+import { useRegister } from '@/src/api/hooks'
 import { ROUTES } from '@/src/constants'
 
 const registerSchema = z.object({
@@ -42,9 +41,7 @@ export type Register = z.infer<typeof registerSchema>
 export function RegisterForm() {
 	const { push } = useRouter()
 
-	const { mutateAsync, isPending } = useMutation({
-		mutationKey: ['register'],
-		mutationFn: (data: Register) => createAccount(data),
+	const { mutateAsync, isPending } = useRegister({
 		onSuccess() {
 			push('/account')
 		},
@@ -86,7 +83,7 @@ export function RegisterForm() {
 			description='Для регистрации достаточно ввести своё имя, email и придумать пароль'
 			bottomText='Уже есть аккаунт?'
 			bottomLinkText='Войти'
-			bottomLinkHref={ROUTES.login}
+			bottomLinkHref={ROUTES.login()}
 		>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>

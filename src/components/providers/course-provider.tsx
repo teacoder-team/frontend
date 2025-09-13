@@ -3,7 +3,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { type ReactNode, useEffect } from 'react'
 
-import { incrementCourseViews } from '@/src/api'
+import { incrementCourseViews } from '@/src/api/requests'
 
 interface CourseProviderProps {
 	id: string

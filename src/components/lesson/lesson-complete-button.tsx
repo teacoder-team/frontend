@@ -7,8 +7,8 @@ import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
 
-import { createProgress } from '@/src/api'
-import type { LessonResponse } from '@/src/generated'
+import type { LessonResponse } from '@/src/api/generated'
+import { createProgress } from '@/src/api/requests'
 import { cn } from '@/src/lib/utils'
 
 interface LessonCompleteButtonProps {

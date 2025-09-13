@@ -2,7 +2,8 @@ import { APP_CONFIG } from './app'
 
 export const SEO = {
 	name: 'TeaCoder',
-	description: '',
+	description:
+		'Образовательная платформа для программистов и IT-специалистов. Здесь вы найдёте качественные курсы по веб-разработке, актуальные новости IT-сферы, полезные статьи и активное сообщество разработчиков.',
 	url: APP_CONFIG.baseUrl,
 	keywords: [
 		'веб-разработка',

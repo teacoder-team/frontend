@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { ConfirmDialog } from '../../shared/confirm-dialog'
 import { Button } from '../../ui/button'
 
-import { revokeSession } from '@/src/api'
+import { revokeSession } from '@/src/api/requests'
 
 interface RevokeSessionProps {
 	id: string

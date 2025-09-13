@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { startRegistration } from '@simplewebauthn/browser'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import base64url from 'base64url'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -27,15 +28,15 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { generatePasskeyOptions, registerPasskey } from '@/src/api'
-import { RegisterPasskeyRequest } from '@/src/generated'
+import { RegisterPasskeyRequest } from '@/src/api/generated'
+import { generatePasskeyOptions, registerPasskey } from '@/src/api/requests'
 import { useCurrent } from '@/src/hooks'
 
 const registerPasskeySchema = z.object({
 	deviceName: z
 		.string()
-		.min(3, {
-			message: 'Название устройства должно содержать минимум 3 символа'
+		.min(1, {
+			message: 'Название устройства должно содержать минимум 1 символ'
 		})
 		.max(50, {
 			message: 'Название устройства не должно превышать 50 символов'
@@ -46,6 +47,7 @@ export type RegisterPasskey = z.infer<typeof registerPasskeySchema>
 
 export function RegisterPasskeyForm() {
 	const [isOpen, setIsOpen] = useState(false)
+	const [isRegistering, setIsRegistering] = useState(false)
 
 	const { user } = useCurrent()
 
@@ -75,24 +77,33 @@ export function RegisterPasskeyForm() {
 	})
 
 	async function onSubmit(data: RegisterPasskey) {
-		const options = await generatePasskeyOptions({
-			deviceName: data.deviceName
-		})
+		try {
+			setIsRegistering(true)
+			const options = await generatePasskeyOptions()
 
-		const attResp = await startRegistration(options)
+			// @ts-ignore
+			const attResp = await startRegistration(options)
+			setIsRegistering(false)
 
-		const { id: credentialId, response } = attResp
-
-		const publicKey = response.attestationObject
-
-		const transports = response.transports ?? []
-
-		await mutateAsync({
-			deviceName: data.deviceName,
-			credentialId,
-			publicKey,
-			transports
-		})
+			await mutateAsync({
+				deviceName: data.deviceName,
+				credential: {
+					id: attResp.id,
+					rawId: attResp.rawId,
+					response: {
+						clientDataJSON: attResp.response.clientDataJSON,
+						attestationObject: attResp.response.attestationObject
+					},
+					authenticatorAttachment: attResp.authenticatorAttachment,
+					clientExtensionResults: attResp.clientExtensionResults,
+					type: attResp.type
+				},
+				transports: attResp.response.transports ?? []
+			})
+		} catch (error) {
+			setIsRegistering(false)
+			throw error
+		}
 	}
 
 	return (
@@ -144,7 +155,7 @@ export function RegisterPasskeyForm() {
 								<Button
 									type='submit'
 									variant='primary'
-									isLoading={isPending}
+									isLoading={isPending || isRegistering}
 								>
 									Добавить
 								</Button>

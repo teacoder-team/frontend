@@ -1,6 +1,6 @@
 import { CourseCard } from '../course/course-card'
 
-import { CourseResponse } from '@/src/generated'
+import { CourseResponse } from '@/src/api/generated'
 
 interface PopularProps {
 	courses: CourseResponse[]

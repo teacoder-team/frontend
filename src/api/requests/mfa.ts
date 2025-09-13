@@ -9,8 +9,7 @@ import type {
 	TotpEnableRequest,
 	TotpGenerateSecretResponse
 } from '../generated'
-
-import { api, instance } from './instance'
+import { api, instance } from '../instance'
 
 export const fetchMfaStatus = async () =>
 	await instance
@@ -25,21 +24,6 @@ export const fetchRecovery = async () =>
 export const regenerateRecovery = () =>
 	instance.patch<string>('/auth/mfa/recovery')
 
-export const fetchPasskeys = () =>
-	instance
-		.get<PasskeyResponse[]>('/auth/mfa/passkey')
-		.then(response => response.data)
-
-export const registerPasskey = (data: RegisterPasskeyRequest) =>
-	instance
-		.post<RegisterPasskeyResponse>('/auth/mfa/passkey', data)
-		.then(response => response.data)
-
-export const generatePasskeyOptions = (data: any) =>
-	instance
-		.post('/auth/mfa/passkey/options', data)
-		.then(response => response.data)
-
 export const totpEnable = (data: TotpEnableRequest) =>
 	instance.put('/auth/mfa/totp', data)
 
@@ -52,4 +36,6 @@ export const totpDisable = (data: TotpDisableRequest) =>
 	instance.delete('/auth/mfa/totp', { data })
 
 export const verifyMfa = (data: MfaVerifyRequest) =>
-	api.post<LoginSessionResponse>('/auth/mfa/verify', data)
+	api
+		.post<LoginSessionResponse>('/auth/mfa/verify', data)
+		.then(response => response.data)

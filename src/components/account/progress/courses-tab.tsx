@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { CourseProgress } from '../../shared/course-progress'
 
-import { getMeProgress } from '@/src/api'
+import { getMeProgress } from '@/src/api/requests'
 import { Button } from '@/src/components/ui/button'
 import {
 	Card,

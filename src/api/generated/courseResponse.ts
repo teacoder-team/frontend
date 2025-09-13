@@ -14,10 +14,15 @@ export interface CourseResponse {
   /** Slug of the course (unique URL identifier) */
   slug: string;
   /**
-   * Description of the course
+   * Short description of the course
    * @nullable
    */
-  description: string | null;
+  shortDescription: string | null;
+  /**
+   * Full description of the course
+   * @nullable
+   */
+  fullDescription: string | null;
   /**
    * Identifier of the course thumbnail
    * @nullable

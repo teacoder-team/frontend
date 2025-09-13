@@ -1,7 +1,7 @@
 import { Card, CardContent } from '../../ui/card'
 
 import { RevokeSession } from './remove-session'
-import { SessionResponse } from '@/src/generated'
+import { SessionResponse } from '@/src/api/generated'
 import { formatDate, getBrowserIcon } from '@/src/lib/utils'
 
 interface SessionItemProps {
