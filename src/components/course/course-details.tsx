@@ -104,7 +104,7 @@ export function CourseDetails({ course, lessons }: CourseDetailsProps) {
 		// 		</div>
 		// 	</div>
 		// </main>
-		<div className='mx-auto max-w-screen-xl pb-10'>
+		<div className='mx-auto mt-4 max-w-screen-xl pb-10'>
 			<div className='grid grid-cols-1 gap-8 lg:grid-cols-6'>
 				<div className='order-1 col-span-1 flex flex-col space-y-6 lg:col-span-4'>
 					<div className='relative aspect-video overflow-hidden rounded-xl border bg-white'>
