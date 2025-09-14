@@ -47,7 +47,7 @@ export function AuthSocial() {
 					<FaGithub />
 				</Button>
 			</div>
-			<PasskeyLoginButton />
+			{/* <PasskeyLoginButton /> */}
 		</div>
 	)
 }

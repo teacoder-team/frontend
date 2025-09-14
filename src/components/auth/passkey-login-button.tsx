@@ -10,21 +10,10 @@ import { Button } from '../ui/button'
 
 import { generateLoginOptions, passkeyLogin } from '@/src/api/requests'
 
-function base64urlToBuffer(base64url: string): ArrayBuffer {
-	const padding = '='.repeat((4 - (base64url.length % 4)) % 4)
-	const base64 = base64url.replace(/-/g, '+').replace(/_/g, '/') + padding
-	const binary = atob(base64)
-	const bytes = new Uint8Array(binary.length)
-	for (let i = 0; i < binary.length; i++) {
-		bytes[i] = binary.charCodeAt(i)
-	}
-	return bytes.buffer
-}
-
 export function PasskeyLoginButton() {
 	const [isLoading, setIsLoading] = useState(false)
 
-	const { mutate } = useMutation({
+	const { mutate, isPending } = useMutation({
 		mutationFn: async () => {
 			setIsLoading(true)
 
@@ -59,7 +48,7 @@ export function PasskeyLoginButton() {
 			onClick={() => mutate()}
 			variant='outline'
 			className='[&_svg]:size-5'
-			isLoading={isLoading}
+			isLoading={isLoading || isPending}
 		>
 			<KeyRound />
 			Вход по ключу доступа

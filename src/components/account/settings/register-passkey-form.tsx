@@ -83,6 +83,7 @@ export function RegisterPasskeyForm() {
 
 			// @ts-ignore
 			const attResp = await startRegistration(options)
+
 			setIsRegistering(false)
 
 			await mutateAsync({

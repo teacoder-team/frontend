@@ -75,7 +75,7 @@ export function NewPasswordForm() {
 			description='Установите новый пароль для вашего аккаунта'
 			bottomText='Уже есть аккаунт?'
 			bottomLinkText='Войти'
-			bottomLinkHref={ROUTES.login}
+			bottomLinkHref={ROUTES.login()}
 		>
 			<Form {...form}>
 				<form

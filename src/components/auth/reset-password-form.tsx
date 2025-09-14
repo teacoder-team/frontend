@@ -76,7 +76,7 @@ export function ResetPasswordForm() {
 			description='Введите вашу почту, чтобы получить ссылку для сброса пароля'
 			bottomText='Уже есть аккаунт?'
 			bottomLinkText='Войти'
-			bottomLinkHref={ROUTES.login}
+			bottomLinkHref={ROUTES.login()}
 		>
 			<Form {...form}>
 				<form

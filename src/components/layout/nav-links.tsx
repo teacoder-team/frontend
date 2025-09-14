@@ -22,7 +22,7 @@ export function NavLinks() {
 				<Link
 					key={index}
 					href={link.href}
-					className='inline-block text-sm text-neutral-600 transition hover:text-foreground dark:text-neutral-300 dark:hover:text-white'
+					className='text-sm text-neutral-600 transition hover:text-foreground dark:text-neutral-300 dark:hover:text-white'
 				>
 					{link.title}
 				</Link>
