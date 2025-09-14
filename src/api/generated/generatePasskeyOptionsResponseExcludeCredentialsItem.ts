@@ -6,7 +6,4 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type ExternalControllerCallbackParams = {
-	code: string
-	state: string
-}
+export type GeneratePasskeyOptionsResponseExcludeCredentialsItem = { [key: string]: unknown };

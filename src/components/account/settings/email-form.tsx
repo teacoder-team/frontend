@@ -35,8 +35,8 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { changeEmail, sendEmailVerification } from '@/src/api'
-import type { AccountResponse } from '@/src/generated'
+import type { AccountResponse } from '@/src/api/generated'
+import { changeEmail, sendEmailVerification } from '@/src/api/requests'
 
 const emailSchema = z.object({
 	email: z

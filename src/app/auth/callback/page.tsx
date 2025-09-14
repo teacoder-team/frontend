@@ -1,9 +1,9 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-import { instance } from '@/src/api'
+import { instance } from '@/src/api/instance'
 import { EllipsisLoader } from '@/src/components/shared/ellipsis-loader'
 import { setSessionToken } from '@/src/lib/cookies/session'
 

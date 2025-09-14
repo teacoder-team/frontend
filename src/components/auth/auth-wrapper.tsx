@@ -78,6 +78,19 @@ export function AuthWrapper({
 						<div className='absolute left-1/3 top-2/3 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl'></div>
 					</div>
 				</div>
+
+				{/* Блок с совой и сообщением */}
+				{/* <div className='absolute bottom-0 right-0 flex flex-col items-end gap-2 p-4'>
+					<p className='max-w-xs rounded-xl bg-white px-4 py-2 text-sm text-black shadow-lg'>
+						Привет! Я твой мудрый гид по обучению. Давай начнём
+						вместе!
+					</p>
+					<img
+						src='/images/owl.png'
+						alt='Сова'
+						className='-mb-4 size-[800px] object-contain'
+					/>
+				</div> */}
 			</div>
 		</div>
 	)

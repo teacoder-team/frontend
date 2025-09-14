@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { getCourse, getCourseLessons, getCourses } from '@/src/api'
+import { getCourse, getCourseLessons, getCourses } from '@/src/api/requests'
 import { CourseDetails } from '@/src/components/course/course-details'
 import { CourseProvider } from '@/src/components/providers/course-provider'
 import { getMediaSource } from '@/src/lib/utils'
@@ -31,7 +31,7 @@ export async function generateMetadata({
 
 	return {
 		title: course.title,
-		description: course.description,
+		description: course.shortDescription,
 		openGraph: {
 			images: [
 				{
@@ -42,7 +42,7 @@ export async function generateMetadata({
 		},
 		twitter: {
 			title: course.title,
-			description: course.description ?? '',
+			description: course.shortDescription ?? '',
 			images: [
 				{
 					url: getMediaSource(course.thumbnail ?? '', 'courses'),

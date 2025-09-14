@@ -27,7 +27,7 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { changePassword } from '@/src/api'
+import { changePassword } from '@/src/api/requests'
 
 const passwordSchema = z
 	.object({

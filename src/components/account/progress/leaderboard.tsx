@@ -3,7 +3,7 @@ import { ChevronRight, Trophy, Users } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 
-import { getLeaders } from '@/src/api'
+import { getLeaders } from '@/src/api/requests'
 import { Button } from '@/src/components/ui/button'
 import {
 	Card,

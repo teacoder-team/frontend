@@ -18,7 +18,7 @@ import {
 	DropdownMenuTrigger
 } from '../ui/dropdown-menu'
 
-import { logout } from '@/src/api'
+import { logout } from '@/src/api/requests'
 import { ROUTES } from '@/src/constants'
 import { useCurrent } from '@/src/hooks/use-current'
 import { getMediaSource } from '@/src/lib/utils'

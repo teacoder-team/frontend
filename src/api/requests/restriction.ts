@@ -1,6 +1,5 @@
 import type { ActiveRestrictionResponse } from '../generated'
-
-import { instance } from './instance'
+import { instance } from '../instance'
 
 export const getActiveRestriction = async () =>
 	await instance

@@ -1,6 +1,5 @@
 import type { CourseResponse, LessonResponse } from '../generated'
-
-import { api, instance } from './instance'
+import { api, instance } from '../instance'
 
 export const getCourses = async () =>
 	await api.get<CourseResponse[]>('/courses').then(response => response.data)

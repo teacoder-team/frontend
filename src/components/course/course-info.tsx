@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 
-import type { CourseResponse, LessonResponse } from '@/src/generated'
+import type { CourseResponse, LessonResponse } from '@/src/api/generated'
 import { useAuth } from '@/src/hooks'
 import { getLessonLabel } from '@/src/lib/utils'
 

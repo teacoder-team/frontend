@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -23,7 +23,8 @@ import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
 import { MfaForm } from './mfa-form'
-import { instance, login } from '@/src/api'
+import { useLogin } from '@/src/api/hooks'
+import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
@@ -45,13 +46,13 @@ export function LoginForm() {
 	const [ticket, setTicket] = useState<string | null>(null)
 
 	const { push } = useRouter()
+	const searchParams = useSearchParams()
 
-	const { mutateAsync, isPending } = useMutation({
-		mutationKey: ['login'],
-		mutationFn: (data: Login) => login(data),
+	const { mutateAsync, isPending } = useLogin({
 		onSuccess(data) {
 			if ('ticket' in data && typeof data.ticket === 'string') {
 				setTicket(data.ticket)
+				// @ts-ignore
 				setMethods(data.allowedMethods)
 			}
 
@@ -60,7 +61,10 @@ export function LoginForm() {
 
 				instance.defaults.headers['X-Session-Token'] = data.token
 
-				push('/account/settings')
+				const redirectTo =
+					searchParams.get('redirectTo') || ROUTES.progress
+
+				push(redirectTo)
 			}
 		},
 		onError(error: any) {

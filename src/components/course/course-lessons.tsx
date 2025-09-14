@@ -1,9 +1,10 @@
 import { CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 
+import type { LessonResponse } from '@/src/api/generated'
 import { ROUTES } from '@/src/constants'
-import type { LessonResponse } from '@/src/generated'
 import { useAuth } from '@/src/hooks'
+import { lessonsTranslator } from '@/src/lib/utils'
 
 interface CourseLessonsProps {
 	lessons: LessonResponse[]
@@ -20,16 +21,17 @@ export function CourseLessons({
 	const completedCount = completedLessons?.length ?? 0
 
 	return (
-		<div className='rounded-lg border bg-card'>
-			<div className='border-b p-4'>
-				<h2 className='text-xl font-bold'>Уроки</h2>
+		<div className='flex flex-col'>
+			<div className='flex items-center justify-between'>
+				<h1 className='text-3xl font-semibold'>Уроки</h1>
 				{isAuthorized && (
-					<p className='text-sm text-muted-foreground'>
-						{totalLessons} уроков • {completedCount} выполнено
+					<p className='text-sm text-neutral-600 dark:text-neutral-300'>
+						{totalLessons} {lessonsTranslator(totalLessons)} •{' '}
+						{completedCount} выполнено
 					</p>
 				)}
 			</div>
-			<ul className='divide-y'>
+			<ul className='mt-5 divide-y rounded-xl border'>
 				{lessons.map(lesson => {
 					const isCompleted = completedLessons.includes(lesson.id)
 
@@ -39,7 +41,9 @@ export function CourseLessons({
 								href={
 									isAuthorized
 										? ROUTES.lesson(lesson.slug)
-										: ROUTES.login
+										: ROUTES.login(
+												ROUTES.lesson(lesson.slug)
+											)
 								}
 								className='flex items-center justify-between p-4 transition-colors hover:bg-muted/50'
 							>
@@ -59,7 +63,14 @@ export function CourseLessons({
 											{lesson.title}
 										</h3>
 										{lesson.description && (
-											<p className='mt-1 text-sm text-muted-foreground'>
+											<p
+												className='mt-1 overflow-hidden text-sm text-neutral-600 dark:text-neutral-300'
+												style={{
+													display: '-webkit-box',
+													WebkitBoxOrient: 'vertical',
+													WebkitLineClamp: 2
+												}}
+											>
 												{lesson.description}
 											</p>
 										)}

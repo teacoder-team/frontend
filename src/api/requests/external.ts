@@ -2,8 +2,7 @@ import type {
 	ExternalConnectResponse,
 	ExternalStatusResponse
 } from '../generated'
-
-import { instance } from './instance'
+import { instance } from '../instance'
 
 export const getAuthUrl = async (provider: 'google' | 'github') =>
 	await instance

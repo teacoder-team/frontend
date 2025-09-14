@@ -8,7 +8,7 @@ import { Heading } from '../../shared/heading'
 
 import { RemoveAllSessions } from './remove-all-sessions'
 import { SessionItem } from './session-item'
-import { getSessions } from '@/src/api'
+import { getSessions } from '@/src/api/requests'
 
 export function Sessions() {
 	const { data, isLoading } = useQuery({

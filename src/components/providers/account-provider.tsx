@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 
 import { EllipsisLoader } from '../shared/ellipsis-loader'
 
-import { fetchMfaStatus } from '@/src/api'
+import { fetchMfaStatus } from '@/src/api/requests'
 import { useCurrent } from '@/src/hooks'
 
 export function AccountProvider({ children }: { children: ReactNode }) {

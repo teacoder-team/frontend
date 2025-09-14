@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { ConfirmDialog } from '../../shared/confirm-dialog'
 import { Button } from '../../ui/button'
 
-import { unlinkAccount } from '@/src/api/external'
+import { unlinkAccount } from '@/src/api/requests'
 
 interface UnlinkProviderProps {
 	provider: 'google' | 'github'

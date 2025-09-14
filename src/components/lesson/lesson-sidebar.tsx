@@ -14,8 +14,8 @@ import { CourseProgress } from '../shared/course-progress'
 import { buttonVariants } from '../ui/button'
 import { ScrollArea } from '../ui/scroll-area'
 
+import type { CourseResponse, LessonResponse } from '@/src/api/generated'
 import { ROUTES } from '@/src/constants'
-import type { CourseResponse, LessonResponse } from '@/src/generated'
 import { cn } from '@/src/lib/utils'
 
 interface LessonSidebarProps {

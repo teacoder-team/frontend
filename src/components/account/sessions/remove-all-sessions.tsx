@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { ConfirmDialog } from '../../shared/confirm-dialog'
 import { Button } from '../../ui/button'
 
-import { removeAllSessions } from '@/src/api'
+import { removeAllSessions } from '@/src/api/requests'
 
 export function RemoveAllSessions() {
 	const [isOpen, setIsOpen] = useState(false)

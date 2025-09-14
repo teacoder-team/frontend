@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 
-import { api, getCourseLessons, getLesson } from '@/src/api'
+import { api } from '@/src/api/instance'
+import { getCourseLessons, getLesson } from '@/src/api/requests'
 import { LessonCompleteButton } from '@/src/components/lesson/lesson-complete-button'
 import { LessonContainer } from '@/src/components/lesson/lesson-container'
 import { LessonPlayer } from '@/src/components/lesson/lesson-player'
@@ -43,7 +44,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const { slug } = await params
 
-	const lesson = await getLesson(slug).catch(error => {
+	const lesson = await getLesson(slug).catch(() => {
 		notFound()
 	})
 
@@ -82,7 +83,7 @@ export default async function LessonPage({
 				<h1 className='mb-4 text-3xl font-bold'>{lesson.title}</h1>
 
 				{lesson.description && (
-					<p className='mb-8 text-muted-foreground'>
+					<p className='mb-8 text-neutral-600 dark:text-neutral-300'>
 						{lesson.description}
 					</p>
 				)}

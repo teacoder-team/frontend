@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { Button } from '../ui/button'
 
 import { AuthWrapper } from './auth-wrapper'
-import { verifyEmail } from '@/src/api'
+import { verifyEmail } from '@/src/api/requests'
 
 export function VerifyEmail() {
 	const router = useRouter()

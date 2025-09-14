@@ -16,8 +16,8 @@ import {
 	CardTitle
 } from '../ui/card'
 
-import { logout } from '@/src/api'
-import { getActiveRestriction } from '@/src/api/restriction'
+import { logout } from '@/src/api/requests'
+import { getActiveRestriction } from '@/src/api/requests'
 import { useAuth } from '@/src/hooks'
 
 export function BanChecker() {

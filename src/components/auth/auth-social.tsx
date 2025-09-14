@@ -8,7 +8,8 @@ import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
 
-import { getAuthUrl } from '@/src/api/external'
+import { PasskeyLoginButton } from './passkey-login-button'
+import { getAuthUrl } from '@/src/api/requests'
 
 export function AuthSocial() {
 	const router = useRouter()
@@ -27,23 +28,26 @@ export function AuthSocial() {
 	})
 
 	return (
-		<div className='grid w-full grid-cols-2 gap-4'>
-			<Button
-				onClick={() => mutate('google')}
-				variant='outline'
-				className='[&_svg]:size-[23px]'
-				disabled={isPending}
-			>
-				<FcGoogle />
-			</Button>
-			<Button
-				onClick={() => mutate('github')}
-				variant='outline'
-				className='[&_svg]:size-5'
-				disabled={isPending}
-			>
-				<FaGithub />
-			</Button>
+		<div className='flex flex-col gap-4'>
+			<div className='grid w-full grid-cols-2 gap-4'>
+				<Button
+					onClick={() => mutate('google')}
+					variant='outline'
+					className='[&_svg]:size-[23px]'
+					disabled={isPending}
+				>
+					<FcGoogle />
+				</Button>
+				<Button
+					onClick={() => mutate('github')}
+					variant='outline'
+					className='[&_svg]:size-5'
+					disabled={isPending}
+				>
+					<FaGithub />
+				</Button>
+			</div>
+			{/* <PasskeyLoginButton /> */}
 		</div>
 	)
 }

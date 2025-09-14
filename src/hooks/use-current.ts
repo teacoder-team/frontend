@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-import { instance } from '../api'
-import { getMe } from '../api/account'
+import { instance } from '../api/instance'
+import { getMe } from '../api/requests'
 import { removeSessionToken } from '../lib/cookies/session'
 
 import { useAuth } from './use-auth'

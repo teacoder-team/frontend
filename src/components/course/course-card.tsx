@@ -5,8 +5,8 @@ import { FaYoutube } from 'react-icons/fa'
 
 import { Badge } from '../ui/badge'
 
+import type { CourseResponse } from '@/src/api/generated'
 import { ROUTES } from '@/src/constants'
-import type { CourseResponse } from '@/src/generated'
 import { getLessonLabel, getMediaSource } from '@/src/lib/utils'
 
 interface CourseCardProps {
@@ -31,7 +31,7 @@ export function CourseCard({ course }: CourseCardProps) {
 					{course.title}
 				</h3>
 				<p
-					className='mt-1 overflow-hidden text-sm text-muted-foreground'
+					className='mt-1 overflow-hidden text-sm text-neutral-600 dark:text-neutral-300'
 					style={{
 						display: '-webkit-box',
 
@@ -39,7 +39,7 @@ export function CourseCard({ course }: CourseCardProps) {
 						WebkitLineClamp: 2
 					}}
 				>
-					{course.description}
+					{course.shortDescription}
 				</p>
 				<Badge
 					variant={course.lessons > 0 ? 'default' : 'error'}

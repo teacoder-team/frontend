@@ -7,9 +7,9 @@ import type {
 	PasswordResetRequest,
 	SendPasswordResetRequest
 } from '../generated'
-import { setSessionToken } from '../lib/cookies/session'
+import { api, instance } from '../instance'
 
-import { api, instance } from './instance'
+import { setSessionToken } from '@/src/lib/cookies/session'
 
 export const getMe = async () =>
 	await instance

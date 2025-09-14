@@ -20,8 +20,8 @@ import { Input } from '../ui/input'
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs'
 
 import { AuthWrapper } from './auth-wrapper'
-import { api, instance } from '@/src/api'
-import { LoginSessionResponse } from '@/src/generated'
+import { LoginSessionResponse } from '@/src/api/generated'
+import { api, instance } from '@/src/api/instance'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
 const totpSchema = z.object({
@@ -48,7 +48,9 @@ interface MfaFormProps {
 export function MfaForm({ ticket, methods }: MfaFormProps) {
 	const { push } = useRouter()
 
-	const [method, setMethod] = useState<'totp' | 'recovery'>('totp')
+	const [method, setMethod] = useState<'totp' | 'passkey' | 'recovery'>(
+		'totp'
+	)
 
 	const schema = method === 'totp' ? totpSchema : recoverySchema
 
@@ -105,16 +107,23 @@ export function MfaForm({ ticket, methods }: MfaFormProps) {
 				className='w-full'
 				onValueChange={value => {
 					form.reset()
-					setMethod(value as 'totp' | 'recovery')
+					setMethod(value as 'totp' | 'passkey' | 'recovery')
 				}}
 			>
-				<TabsList className='mb-4 grid w-full grid-cols-2'>
+				<TabsList className='mb-4 grid w-full grid-cols-3'>
 					<TabsTrigger
 						value='totp'
 						className='flex items-center data-[state=active]:text-blue-600'
 					>
 						<Smartphone className='mr-2 size-4' />
 						TOTP-код
+					</TabsTrigger>
+					<TabsTrigger
+						value='passkey'
+						className='flex items-center data-[state=active]:text-blue-600'
+					>
+						<Smartphone className='mr-2 size-4' />
+						Ключ доступа
 					</TabsTrigger>
 					<TabsTrigger
 						value='recovery'
@@ -147,6 +156,9 @@ export function MfaForm({ ticket, methods }: MfaFormProps) {
 									</FormItem>
 								)}
 							/>
+						)}
+						{method === 'passkey' && (
+							<div>Использовать ключ доступа</div>
 						)}
 						{method === 'recovery' && (
 							<FormField

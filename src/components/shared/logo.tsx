@@ -5,7 +5,7 @@ interface Props {
 
 export function Logo({
 	className = 'size-14',
-	color = 'fill-blue-500'
+	color = 'fill-blue-600'
 }: Props) {
 	return (
 		<svg

@@ -17,7 +17,7 @@ import {
 } from '../../ui/dialog'
 import { Separator } from '../../ui/separator'
 
-import { fetchRecovery, regenerateRecovery } from '@/src/api'
+import { fetchRecovery, regenerateRecovery } from '@/src/api/requests'
 
 export function RecoveryCodesModal() {
 	const [isOpen, setIsOpen] = useState(false)

@@ -9,8 +9,8 @@ import { FaYoutube } from 'react-icons/fa'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 
+import type { CourseResponse, LessonResponse } from '@/src/api/generated'
 import { ROUTES } from '@/src/constants'
-import type { CourseResponse, LessonResponse } from '@/src/generated'
 import { useAuth } from '@/src/hooks'
 import { getMediaSource } from '@/src/lib/utils'
 
@@ -52,8 +52,10 @@ export function CourseSummary({
 					</h1>
 
 					<p className='mb-6 text-base text-muted-foreground md:text-lg'>
-						{course.description?.split('.').slice(0, 2).join('.') +
-							'.'}
+						{course.shortDescription
+							?.split('.')
+							.slice(0, 2)
+							.join('.') + '.'}
 					</p>
 
 					<div className='flex flex-wrap gap-4'>
@@ -90,7 +92,7 @@ export function CourseSummary({
 													course.attachment,
 													'attachments'
 												)
-											: ROUTES.login
+											: ROUTES.login()
 									}
 									download={isAuthorized}
 								>

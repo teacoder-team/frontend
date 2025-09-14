@@ -7,8 +7,8 @@ import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
 
-import { createProgress } from '@/src/api'
-import type { LessonResponse } from '@/src/generated'
+import type { LessonResponse } from '@/src/api/generated'
+import { createProgress } from '@/src/api/requests'
 import { cn } from '@/src/lib/utils'
 
 interface LessonCompleteButtonProps {
@@ -59,7 +59,7 @@ export function LessonCompleteButton({
 							? 'Вы завершили этот урок!'
 							: 'Вы готовы завершить этот урок?'}
 					</p>
-					<p className='text-sm text-muted-foreground'>
+					<p className='text-sm text-neutral-600 dark:text-neutral-300'>
 						{isCompleted
 							? 'Отличная работа! Вы можете посмотреть свою статистику в личном кабинете.'
 							: 'Не забудьте завершить урок, когда будете готовы.'}

@@ -12,15 +12,20 @@ interface NavLink {
 export const navLinks: NavLink[] = [
 	{ title: 'Курсы', href: ROUTES.courses },
 	{ title: 'Об основателе', href: ROUTES.about }
+	// { title: 'Статьи', href: ROUTES.articles }
 ]
 
 export function NavLinks() {
 	return (
-		<nav className='hidden flex-1 items-center gap-2 text-sm font-medium md:flex'>
+		<nav className='hidden items-center space-x-7 text-sm font-medium md:flex'>
 			{navLinks.map((link, index) => (
-				<Button key={index} variant='ghost' size='sm'>
-					<Link href={link.href}>{link.title}</Link>
-				</Button>
+				<Link
+					key={index}
+					href={link.href}
+					className='text-sm text-neutral-600 transition hover:text-foreground dark:text-neutral-300 dark:hover:text-white'
+				>
+					{link.title}
+				</Link>
 			))}
 		</nav>
 	)

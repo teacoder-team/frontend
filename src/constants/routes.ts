@@ -2,9 +2,10 @@ export const ROUTES = {
 	// Common
 	home: '/',
 	about: '/about',
+	articles: '/articles',
 
 	// Auth
-	login: '/auth/login',
+	login: (redirectTo?: string) => `/auth/login?redirectTo=${redirectTo}`,
 	register: '/auth/register',
 	recovery: '/auth/recovery',
 

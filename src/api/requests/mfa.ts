@@ -2,12 +2,14 @@ import type {
 	LoginSessionResponse,
 	MfaStatusResponse,
 	MfaVerifyRequest,
+	PasskeyResponse,
+	RegisterPasskeyRequest,
+	RegisterPasskeyResponse,
 	TotpDisableRequest,
 	TotpEnableRequest,
 	TotpGenerateSecretResponse
 } from '../generated'
-
-import { api, instance } from './instance'
+import { api, instance } from '../instance'
 
 export const fetchMfaStatus = async () =>
 	await instance
@@ -34,4 +36,6 @@ export const totpDisable = (data: TotpDisableRequest) =>
 	instance.delete('/auth/mfa/totp', { data })
 
 export const verifyMfa = (data: MfaVerifyRequest) =>
-	api.post<LoginSessionResponse>('/auth/mfa/verify', data)
+	api
+		.post<LoginSessionResponse>('/auth/mfa/verify', data)
+		.then(response => response.data)

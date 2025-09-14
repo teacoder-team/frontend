@@ -4,9 +4,9 @@ import type {
 	LoginSessionResponse,
 	SessionResponse
 } from '../generated'
-import { removeSessionToken } from '../lib/cookies/session'
+import { api, instance } from '../instance'
 
-import { api, instance } from './instance'
+import { removeSessionToken } from '@/src/lib/cookies/session'
 
 export const login = async (data: LoginRequest) =>
 	await api
