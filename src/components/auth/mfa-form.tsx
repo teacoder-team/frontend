@@ -118,13 +118,13 @@ export function MfaForm({ ticket, methods }: MfaFormProps) {
 						<Smartphone className='mr-2 size-4' />
 						TOTP-код
 					</TabsTrigger>
-					<TabsTrigger
+					{/* <TabsTrigger
 						value='passkey'
 						className='flex items-center data-[state=active]:text-blue-600'
 					>
 						<Smartphone className='mr-2 size-4' />
 						Ключ доступа
-					</TabsTrigger>
+					</TabsTrigger> */}
 					<TabsTrigger
 						value='recovery'
 						className='flex items-center data-[state=active]:text-blue-600'
