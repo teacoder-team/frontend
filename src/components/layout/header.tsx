@@ -29,14 +29,14 @@ export function Header() {
 	return (
 		<header
 			className={cn(
-				'fixed left-0 right-0 top-0 z-50 transition-all duration-300',
+				'sticky left-0 right-0 top-0 z-50 transition-all duration-300',
 				isScrolled
 					? 'bg-background/85 shadow-sm backdrop-blur-md'
 					: 'bg-background'
 			)}
 		>
 			<div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-				<div className='flex h-16 w-full items-center justify-between'>
+				<div className='relative flex h-16 w-full items-center justify-between'>
 					<div className='flex items-center'>
 						<Link
 							href={ROUTES.home}
@@ -46,7 +46,7 @@ export function Header() {
 							TeaCoder
 						</Link>
 					</div>
-					<div className='hidden items-center justify-center md:flex'>
+					<div className='absolute left-1/2 hidden -translate-x-1/2 items-center md:flex'>
 						<NavLinks />
 					</div>
 					<div className='flex items-center gap-4'>

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-import { getCourses } from '../api'
+import { getCourses } from '../api/requests'
 import { APP_CONFIG } from '../constants'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

@@ -31,7 +31,7 @@ export async function generateMetadata({
 
 	return {
 		title: course.title,
-		description: course.description,
+		description: course.shortDescription,
 		openGraph: {
 			images: [
 				{
@@ -42,7 +42,7 @@ export async function generateMetadata({
 		},
 		twitter: {
 			title: course.title,
-			description: course.description ?? '',
+			description: course.shortDescription ?? '',
 			images: [
 				{
 					url: getMediaSource(course.thumbnail ?? '', 'courses'),

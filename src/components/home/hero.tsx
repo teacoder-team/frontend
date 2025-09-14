@@ -12,8 +12,8 @@ import { ROUTES } from '@/src/constants'
 
 export function Hero() {
 	return (
-		<section className='relative mx-auto flex min-h-[calc(100vh-4.5rem)] max-w-screen-2xl flex-col items-center justify-center space-y-8 py-16 text-center sm:space-y-10 sm:py-20 md:py-28 lg:py-32'>
-			<div className='hero-accent absolute inset-0 mx-4 rounded-3xl' />
+		<section className='relative mx-auto flex min-h-[calc(100vh-9rem)] max-w-screen-2xl flex-col items-center justify-center space-y-8 py-16 text-center sm:space-y-10 sm:py-20 md:py-28'>
+			<div className='absolute inset-0 mx-4 rounded-3xl' />
 
 			<div className='pointer-events-none absolute inset-0 overflow-hidden'>
 				<div className='animate-float absolute left-10 top-20 flex h-16 w-16 items-center justify-center rounded-full bg-blue-500/5'>
