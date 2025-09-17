@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface CourseResponse {
+export interface CoursesResponse {
   /** Unique identifier */
   id: string;
   /** Title of the course */
@@ -19,22 +19,10 @@ export interface CourseResponse {
    */
   shortDescription: string | null;
   /**
-   * Full description of the course
-   * @nullable
-   */
-  fullDescription: string | null;
-  /**
    * Identifier of the course thumbnail
    * @nullable
    */
   thumbnail: string | null;
-  /**
-   * YouTube URL for course content or trailer
-   * @nullable
-   */
-  youtubeUrl: string | null;
-  /** Number of views the course has */
-  views: number;
-  /** Date when the course was created */
-  createdAt: string;
+  /** Number of lessons in the course */
+  lessons: number;
 }
