@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useQuery } from '@tanstack/react-query'
 import { CodeIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -9,7 +10,7 @@ import { z } from 'zod'
 
 import { FAQSection } from './faq'
 import { PaymentMethods } from './payment-methods'
-import { useInitPayment } from '@/src/api/hooks'
+import { useGetMe, useInitPayment } from '@/src/api/hooks'
 import { Button } from '@/src/components/ui/button'
 import {
 	Card,
@@ -24,6 +25,7 @@ import {
 	DialogTitle
 } from '@/src/components/ui/dialog'
 import { Form } from '@/src/components/ui/form'
+import { useAuth } from '@/src/hooks'
 
 export const paymentSchema = z.object({
 	method: z.enum(['BANK_CARD', 'CRYPTO'], {
@@ -35,6 +37,8 @@ export type PaymentFormValues = z.infer<typeof paymentSchema>
 
 export function Premium() {
 	const [isOpen, setIsOpen] = useState(false)
+	const { isAuthorized } = useAuth()
+
 	const router = useRouter()
 
 	const { mutate, isPending } = useInitPayment({
@@ -42,6 +46,10 @@ export function Premium() {
 			setIsOpen(false)
 			router.push(data.url)
 		}
+	})
+
+	const { data: user, isLoading } = useGetMe({
+		enabled: isAuthorized
 	})
 
 	const form = useForm<PaymentFormValues>({
@@ -115,6 +123,7 @@ export function Premium() {
 								variant='primary'
 								size='lg'
 								className='w-full'
+								isLoading={isLoading}
 							>
 								Оплатить
 							</Button>

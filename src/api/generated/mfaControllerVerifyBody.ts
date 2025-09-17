@@ -5,8 +5,7 @@
  * API for Teacoder educational platform
  * OpenAPI spec version: 1.0.0
  */
-// @ts-nocheck
-import type { MfaRecoveryRequest } from './mfaRecoveryRequest'
-import type { MfaTotpRequest } from './mfaTotpRequest'
+import type { MfaTotpRequest } from './mfaTotpRequest';
+import type { MfaRecoveryRequest } from './mfaRecoveryRequest';
 
-export type MfaControllerVerifyBody = MfaTotpRequest | MfaRecoveryRequest
+export type MfaControllerVerifyBody = MfaTotpRequest | MfaRecoveryRequest;

@@ -25,7 +25,7 @@ const faqs = [
 				<p className='mb-2'>
 					Отменить подписку можно в любое время в{' '}
 					<Link
-						href='/account/subscription'
+						href='/account/settings'
 						className='text-blue-600 hover:text-blue-600/90'
 					>
 						настройках аккаунта

@@ -17,4 +17,8 @@ export interface AccountResponse {
   avatar: string;
   /** Indicates whether the user has verified their email address */
   isEmailVerified: boolean;
+  /** Indicates whether auto billing is enabled for the user */
+  isAutoBilling: boolean;
+  /** Indicates whether the user has an active subscription */
+  isPremium: boolean;
 }
