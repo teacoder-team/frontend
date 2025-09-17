@@ -22,11 +22,12 @@ interface SocialLink {
 const generalLinks: NavLink[] = [
 	{ title: 'Курсы', href: ROUTES.courses },
 	{ title: 'Об основателе', href: ROUTES.about },
-	{
-		title: 'API документация',
-		href: 'https://api.teacoder.ru/docs',
-		isExternal: true
-	}
+	// {
+	// 	title: 'API документация',
+	// 	href: 'https://api.teacoder.ru/docs',
+	// 	isExternal: true
+	// }
+	{ title: 'Подписка', href: '/premium' }
 ]
 
 const documentsLinks: NavLink[] = [

@@ -1,5 +1,8 @@
-import { BitcoinIcon, CreditCardIcon, LucideIcon } from 'lucide-react'
+import { CreditCardIcon } from 'lucide-react'
+import { ComponentType, SVGProps } from 'react'
 import { Control } from 'react-hook-form'
+
+import { SbpIcon } from '../icons/sbp-icon'
 
 import type { PaymentFormValues } from './premium'
 import { FormControl, FormField, FormItem } from '@/src/components/ui/form'
@@ -11,7 +14,7 @@ interface PaymentMethod {
 	id: string
 	name: string
 	description: string
-	icon: LucideIcon
+	icon: ComponentType<SVGProps<SVGSVGElement>>
 	textColor: string
 	bgColor: string
 }
@@ -26,13 +29,21 @@ const paymentMethods: PaymentMethod[] = [
 		bgColor: 'bg-blue-100'
 	},
 	{
-		id: 'CRYPTO',
-		name: 'Криптовалюта',
-		description: 'Оплата с помощью BTC, USDT, TON',
-		icon: BitcoinIcon,
+		id: 'SBP',
+		name: 'СБП',
+		description: 'Оплата через Систему быстрых платежей',
+		icon: SbpIcon,
 		textColor: 'text-blue-600',
 		bgColor: 'bg-blue-100'
 	}
+	// {
+	// 	id: 'CRYPTO',
+	// 	name: 'Криптовалюта',
+	// 	description: 'Оплата с помощью BTC, USDT, TON',
+	// 	icon: BitcoinIcon,
+	// 	textColor: 'text-blue-600',
+	// 	bgColor: 'bg-blue-100'
+	// }
 ]
 
 interface PaymentMethodsProps {

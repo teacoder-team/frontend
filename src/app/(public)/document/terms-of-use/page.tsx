@@ -515,6 +515,23 @@ export default function AgreementPage() {
 							Администрации от своих прав в случае совершения в
 							последующем подобных либо сходных нарушений.
 						</p>
+
+						<h2 className='mt-6 text-xl font-bold'>
+							9. Реквизиты и контактная информация
+						</h2>
+						<p>
+							Владельцем сайта и Администрацией является: Нечеснюк
+							Вадим Михайлович, ИНН 780440762539.
+						</p>
+						<p>
+							Контактная информация:{' '}
+							<Link
+								href='mailto:support@teacoder.ru'
+								className='text-blue-600 hover:text-blue-600/90'
+							>
+								support@teacoder.ru
+							</Link>
+						</p>
 					</div>
 				</section>
 			</div>

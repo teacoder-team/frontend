@@ -153,7 +153,8 @@ export function Premium() {
 									variant='primary'
 									size='lg'
 									className='flex-1'
-									disabled={isPending}
+									// disabled={isPending}
+									disabled
 								>
 									Продолжить
 								</Button>
