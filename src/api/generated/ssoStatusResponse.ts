@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface ExternalStatusResponse {
+export interface SsoStatusResponse {
   /** Indicates whether the GitHub account is connected */
   github: boolean;
   /** Indicates whether the Google account is connected */

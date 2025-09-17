@@ -62,7 +62,7 @@ export function LoginForm() {
 				instance.defaults.headers['X-Session-Token'] = data.token
 
 				const redirectTo =
-					searchParams.get('redirectTo') || ROUTES.progress
+					searchParams.get('redirectTo') || ROUTES.ACCOUNT.ROOT
 
 				push(redirectTo)
 			}
@@ -104,7 +104,7 @@ export function LoginForm() {
 			description='Для входа на сайт используйте ваш email и пароль, которые были указаны при регистрации на сайте'
 			bottomText='Еще нет аккаунта?'
 			bottomLinkText='Регистрация'
-			bottomLinkHref={ROUTES.register}
+			bottomLinkHref={ROUTES.AUTH.REGISTER}
 			isShowSocial
 		>
 			<Form {...form}>
@@ -135,7 +135,7 @@ export function LoginForm() {
 									<div className='flex items-center justify-between'>
 										<FormLabel>Пароль</FormLabel>
 										<Link
-											href={ROUTES.recovery}
+											href={ROUTES.AUTH.RECOVERY}
 											className='ml-auto inline-block text-sm underline'
 										>
 											Забыли пароль?
@@ -172,6 +172,7 @@ export function LoginForm() {
 						<Button
 							type='submit'
 							variant='primary'
+							size='lg'
 							isLoading={isPending}
 							className='w-full'
 						>

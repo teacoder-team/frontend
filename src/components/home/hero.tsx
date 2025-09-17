@@ -69,7 +69,7 @@ export function Hero() {
 					className='rounded-full'
 					asChild
 				>
-					<Link href={ROUTES.courses}>
+					<Link href={ROUTES.COURSES.ROOT}>
 						<TerminalIcon />
 						Начать обучение
 					</Link>

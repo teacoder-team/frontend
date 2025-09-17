@@ -5,8 +5,8 @@
  * API for Teacoder educational platform
  * OpenAPI spec version: 1.0.0
  */
-import type { InitPaymentRequestMethod } from './initPaymentRequestMethod';
+import type { InitPaymentRequestMethod } from './initPaymentRequestMethod'
 
 export interface InitPaymentRequest {
-  method: InitPaymentRequestMethod;
+	method: InitPaymentRequestMethod
 }

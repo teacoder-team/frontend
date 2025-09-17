@@ -83,7 +83,8 @@ export function RegisterForm() {
 			description='Для регистрации достаточно ввести своё имя, email и придумать пароль'
 			bottomText='Уже есть аккаунт?'
 			bottomLinkText='Войти'
-			bottomLinkHref={ROUTES.login()}
+			bottomLinkHref={ROUTES.AUTH.LOGIN()}
+			isShowSocial
 		>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
@@ -159,6 +160,7 @@ export function RegisterForm() {
 						<Button
 							type='submit'
 							variant='primary'
+							size='lg'
 							isLoading={isPending}
 							className='w-full'
 						>

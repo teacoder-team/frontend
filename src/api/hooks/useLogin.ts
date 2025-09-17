@@ -8,7 +8,7 @@ import type {
 import { login } from '../requests'
 
 export const useLogin = (
-	options: Omit<
+	options?: Omit<
 		UseMutationOptions<
 			LoginSessionResponse | LoginMfaResponse,
 			unknown,

@@ -31,7 +31,7 @@ export default function PrivacyPage() {
 							Пользовательского соглашения (далее — «Соглашение»),
 							размещённого и/или доступного в сети Интернет по
 							адресу:{' '}
-							<Link href={ROUTES.terms}>
+							<Link href={ROUTES.DOCUMENTS.TERMS}>
 								https://teacoder.ru/document/terms-of-use
 							</Link>
 							, а также иных заключаемых с Пользователем
@@ -291,7 +291,7 @@ export default function PrivacyPage() {
 						<p>
 							6.2. Действующая редакция Политики находится на
 							Сайте в сети Интернет по адресу
-							<Link href={ROUTES.privacy}>
+							<Link href={ROUTES.DOCUMENTS.PRIVACY}>
 								https://teacoder.ru/document/privacy-policy
 							</Link>
 							.

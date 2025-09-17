@@ -1,11 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { ConfirmDialog } from '../../shared/confirm-dialog'
 import { Button } from '../../ui/button'
 
-import { revokeSession } from '@/src/api/requests'
+import { useRevokeSession } from '@/src/api/hooks'
 
 interface RevokeSessionProps {
 	id: string
@@ -16,9 +16,7 @@ export function RevokeSession({ id }: RevokeSessionProps) {
 
 	const queryClient = useQueryClient()
 
-	const { mutate, isPending } = useMutation({
-		mutationKey: ['revoke session', id],
-		mutationFn: () => revokeSession(id),
+	const { mutate, isPending } = useRevokeSession({
 		onSuccess() {
 			queryClient.invalidateQueries({ queryKey: ['get sessions'] })
 			setIsOpen(false)
@@ -36,7 +34,7 @@ export function RevokeSession({ id }: RevokeSessionProps) {
 			description='Вы собираетесь выйти с одного из ваших устройств. Вы уверены, что хотите продолжить?'
 			confirmText='Выйти с устройства'
 			destructive
-			handleConfirm={() => mutate()}
+			handleConfirm={() => mutate({ id })}
 			isLoading={isPending}
 			open={isOpen}
 			onOpenChange={setIsOpen}

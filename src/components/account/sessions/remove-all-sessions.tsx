@@ -1,20 +1,18 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { ConfirmDialog } from '../../shared/confirm-dialog'
 import { Button } from '../../ui/button'
 
-import { removeAllSessions } from '@/src/api/requests'
+import { useRemoveAllSessions } from '@/src/api/hooks'
 
 export function RemoveAllSessions() {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const queryClient = useQueryClient()
 
-	const { mutate, isPending } = useMutation({
-		mutationKey: ['remove all sessions'],
-		mutationFn: () => removeAllSessions(),
+	const { mutate, isPending } = useRemoveAllSessions({
 		onSuccess() {
 			queryClient.invalidateQueries({ queryKey: ['get sessions'] })
 			setIsOpen(false)

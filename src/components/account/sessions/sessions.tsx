@@ -1,6 +1,5 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
 import { Fragment } from 'react'
 
@@ -8,13 +7,10 @@ import { Heading } from '../../shared/heading'
 
 import { RemoveAllSessions } from './remove-all-sessions'
 import { SessionItem } from './session-item'
-import { getSessions } from '@/src/api/requests'
+import { useGetSessions } from '@/src/api/hooks'
 
 export function Sessions() {
-	const { data, isLoading } = useQuery({
-		queryKey: ['get sessions'],
-		queryFn: () => getSessions()
-	})
+	const { data, isLoading } = useGetSessions()
 
 	return (
 		<div className='w-full'>

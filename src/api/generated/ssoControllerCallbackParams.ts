@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface ExternalConnectResponse {
-  /** The URL for authorization via the external provider (e.g., Google, GitHub) */
-  url: string;
-}
+export type SsoControllerCallbackParams = {
+code: string;
+state: string;
+};

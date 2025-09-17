@@ -1,7 +1,5 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { Loader2 } from 'lucide-react'
 import { Fragment } from 'react'
 
 import { Heading } from '../../shared/heading'
@@ -12,16 +10,13 @@ import { Preferences } from './preferences'
 import { ProfileForm } from './profile-form'
 import { Subscription } from './subscription'
 import { TwoStepAuthForm } from './two-step-auth-form'
-import { fetchMfaStatus } from '@/src/api/requests'
+import { useFetchMfaStatus } from '@/src/api/hooks'
 import { useCurrent } from '@/src/hooks'
 
 export function Settings() {
 	const { user } = useCurrent()
 
-	const { data: status } = useQuery({
-		queryKey: ['mfa status'],
-		queryFn: () => fetchMfaStatus()
-	})
+	const { data: status } = useFetchMfaStatus()
 
 	return (
 		<div className='w-full'>

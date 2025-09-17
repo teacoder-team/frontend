@@ -37,7 +37,9 @@ export function CourseActions({ course }: CourseActionsProps) {
 
 	const handleDownload = async () => {
 		if (!isAuthorized)
-			return router.push(ROUTES.login(ROUTES.course(course.slug)))
+			return router.push(
+				ROUTES.AUTH.LOGIN(ROUTES.COURSES.SINGLE(course.slug))
+			)
 
 		try {
 			const { token } = await generate(course.id)

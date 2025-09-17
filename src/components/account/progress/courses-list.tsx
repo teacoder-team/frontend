@@ -19,7 +19,7 @@ interface CoursesListProps {
 }
 
 export function CoursesList({ onViewAll }: CoursesListProps) {
-	const { data, isLoading } = useQuery({
+	const { data } = useQuery({
 		queryKey: ['get me progress'],
 		queryFn: () => getMeProgress()
 	})

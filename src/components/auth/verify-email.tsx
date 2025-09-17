@@ -33,6 +33,7 @@ export function VerifyEmail() {
 			</p>
 			<Button
 				variant='primary'
+				size='lg'
 				className='mt-5 w-full'
 				onClick={() => mutate()}
 				isLoading={isPending}

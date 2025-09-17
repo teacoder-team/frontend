@@ -18,22 +18,22 @@ import { cn } from '@/src/lib/utils'
 export const links = [
 	{
 		title: 'Мой прогресс',
-		href: ROUTES.progress,
+		href: ROUTES.ACCOUNT.ROOT,
 		icon: ChartArea
 	},
 	{
 		title: 'Настройки аккаунта',
-		href: ROUTES.settings,
+		href: ROUTES.ACCOUNT.SETTINGS,
 		icon: Settings
 	},
 	{
 		title: 'Устройства',
-		href: ROUTES.sessions,
+		href: ROUTES.ACCOUNT.SESSIONS,
 		icon: MonitorSmartphone
 	},
 	{
 		title: 'Связанные аккаунты',
-		href: ROUTES.connections,
+		href: ROUTES.ACCOUNT.CONNECTIONS,
 		icon: LinkIcon
 	}
 ]
