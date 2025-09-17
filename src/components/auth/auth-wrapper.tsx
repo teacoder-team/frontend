@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
@@ -71,13 +72,22 @@ export function AuthWrapper({
 			</div>
 
 			<div className='relative hidden h-full flex-col p-10 text-primary lg:flex'>
-				<div className='absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-400 to-blue-800'>
+				<div className='absolute inset-0'>
+					<Image
+						src='/images/bg-auth.png'
+						alt='Background'
+						className='h-full w-full object-cover'
+						fill
+					/>
+				</div>
+
+				{/* <div className='absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-400 to-blue-800'>
 					<div className='absolute inset-0 backdrop-blur-[100px]'>
 						<div className='absolute left-1/4 top-1/4 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl'></div>
 						<div className='absolute bottom-1/3 right-1/3 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl'></div>
 						<div className='absolute left-1/3 top-2/3 h-48 w-48 rounded-full bg-sky-400/20 blur-3xl'></div>
 					</div>
-				</div>
+				</div> */}
 
 				{/* Блок с совой и сообщением */}
 				{/* <div className='absolute bottom-0 right-0 flex flex-col items-end gap-2 p-4'>

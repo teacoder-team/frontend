@@ -32,3 +32,6 @@ export const changeAvatar = async (formData: FormData) =>
 
 export const patchUser = (data: PatchUserRequest) =>
 	instance.patch('/users/@me', data)
+
+export const toggleAutoBilling = async () =>
+	await instance.patch('/users/@me/billing').then(res => res.data)

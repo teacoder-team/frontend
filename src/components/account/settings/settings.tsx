@@ -10,6 +10,7 @@ import { AccountActions } from './account-actions'
 import { AccountForm } from './account-form'
 import { Preferences } from './preferences'
 import { ProfileForm } from './profile-form'
+import { Subscription } from './subscription'
 import { TwoStepAuthForm } from './two-step-auth-form'
 import { fetchMfaStatus } from '@/src/api/requests'
 import { useCurrent } from '@/src/hooks'
@@ -34,6 +35,7 @@ export function Settings() {
 						<ProfileForm user={user} />
 						<AccountForm user={user} />
 						<TwoStepAuthForm status={status} />
+						<Subscription user={user} />
 						<Preferences />
 						<AccountActions />
 					</div>
