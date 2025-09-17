@@ -1,9 +1,9 @@
 import { CourseCard } from '../course/course-card'
 
-import { CourseResponse } from '@/src/api/generated'
+import { CoursesResponse } from '@/src/api/generated'
 
 interface PopularProps {
-	courses: CourseResponse[]
+	courses: CoursesResponse[]
 }
 
 export function Popular({ courses }: PopularProps) {

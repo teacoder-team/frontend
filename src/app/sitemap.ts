@@ -6,7 +6,7 @@ import { APP_CONFIG } from '../constants'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const courses: MetadataRoute.Sitemap = (await getCourses()).map(course => ({
 		url: `${APP_CONFIG.baseUrl}/${course.slug}`,
-		lastModified: course.updatedAt,
+		lastModified: new Date(),
 		changeFrequency: 'monthly',
 		priority: 0.9
 	}))
