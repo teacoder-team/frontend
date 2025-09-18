@@ -108,7 +108,7 @@ export function Premium() {
 						<CardContent className='flex flex-col items-center gap-6'>
 							<div className='text-center'>
 								<span className='text-5xl font-extrabold text-foreground'>
-									299&#8381;
+									349&#8381;
 								</span>
 								<span className='ml-1 text-lg text-neutral-500 dark:text-neutral-400'>
 									/ месяц
@@ -174,8 +174,8 @@ export function Premium() {
 									variant='primary'
 									size='lg'
 									className='flex-1'
-									disabled={isPending}
-									// disabled
+									// disabled={isPending}
+									disabled
 								>
 									Продолжить
 								</Button>
