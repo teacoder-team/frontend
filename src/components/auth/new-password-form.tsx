@@ -75,7 +75,7 @@ export function NewPasswordForm() {
 			description='Установите новый пароль для вашего аккаунта'
 			bottomText='Уже есть аккаунт?'
 			bottomLinkText='Войти'
-			bottomLinkHref={ROUTES.login()}
+			bottomLinkHref={ROUTES.AUTH.LOGIN()}
 		>
 			<Form {...form}>
 				<form
@@ -103,6 +103,7 @@ export function NewPasswordForm() {
 					<Button
 						type='submit'
 						variant='primary'
+						size='lg'
 						isLoading={isPending}
 						className='w-full'
 					>

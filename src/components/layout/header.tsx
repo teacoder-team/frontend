@@ -39,7 +39,7 @@ export function Header() {
 				<div className='relative flex h-16 w-full items-center justify-between'>
 					<div className='flex items-center'>
 						<Link
-							href={ROUTES.home}
+							href={ROUTES.HOME}
 							className='mr-10 flex items-center gap-x-3 text-xl font-bold text-blue-600'
 						>
 							<Logo className='size-8' />
@@ -55,11 +55,23 @@ export function Header() {
 								<UserMenu />
 							) : (
 								<div className='flex items-center gap-5'>
-									<Button variant='outline' size='sm' asChild>
-										<Link href={ROUTES.login()}>Войти</Link>
+									<Button
+										variant='outline'
+										size='sm'
+										className='rounded-full'
+										asChild
+									>
+										<Link href={ROUTES.AUTH.LOGIN()}>
+											Войти
+										</Link>
 									</Button>
-									<Button variant='primary' size='sm' asChild>
-										<Link href={ROUTES.register}>
+									<Button
+										variant='primary'
+										size='sm'
+										className='rounded-full'
+										asChild
+									>
+										<Link href={ROUTES.AUTH.REGISTER}>
 											Регистрация
 										</Link>
 									</Button>

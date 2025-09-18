@@ -19,7 +19,7 @@ export default function NotFoundPage() {
 				</p>
 				<div className='mt-6 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3'>
 					<Button variant='primary' asChild>
-						<Link href={ROUTES.home}>
+						<Link href={ROUTES.HOME}>
 							<ChevronLeft />
 							На главную
 						</Link>

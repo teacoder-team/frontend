@@ -25,10 +25,11 @@ import {
 	DialogTitle
 } from '@/src/components/ui/dialog'
 import { Form } from '@/src/components/ui/form'
+import { ROUTES } from '@/src/constants'
 import { useAuth } from '@/src/hooks'
 
 export const paymentSchema = z.object({
-	method: z.enum(['BANK_CARD', 'CRYPTO'], {
+	method: z.enum(['BANK_CARD', 'SBP', 'CRYPTO'], {
 		required_error: 'Выберите метод оплаты'
 	})
 })
@@ -54,7 +55,9 @@ export function Premium() {
 
 	const form = useForm<PaymentFormValues>({
 		resolver: zodResolver(paymentSchema),
-		defaultValues: { method: 'BANK_CARD' }
+		defaultValues: {
+			method: 'BANK_CARD'
+		}
 	})
 
 	const onSubmit = (data: PaymentFormValues) => {
@@ -105,7 +108,7 @@ export function Premium() {
 						<CardContent className='flex flex-col items-center gap-6'>
 							<div className='text-center'>
 								<span className='text-5xl font-extrabold text-foreground'>
-									249&#8381;
+									299&#8381;
 								</span>
 								<span className='ml-1 text-lg text-neutral-500 dark:text-neutral-400'>
 									/ месяц
@@ -119,13 +122,22 @@ export function Premium() {
 
 						<CardFooter className='flex justify-center'>
 							<Button
-								onClick={() => setIsOpen(true)}
+								onClick={() => {
+									if (!isAuthorized)
+										return router.push(
+											ROUTES.AUTH.LOGIN(ROUTES.PREMIUM)
+										)
+									setIsOpen(true)
+								}}
 								variant='primary'
 								size='lg'
 								className='w-full'
 								isLoading={isLoading}
+								disabled={user?.isPremium}
 							>
-								Оплатить
+								{user?.isPremium
+									? 'У вас уже есть подписка'
+									: 'Оплатить'}
 							</Button>
 						</CardFooter>
 					</Card>
@@ -162,8 +174,8 @@ export function Premium() {
 									variant='primary'
 									size='lg'
 									className='flex-1'
-									// disabled={isPending}
-									disabled
+									disabled={isPending}
+									// disabled
 								>
 									Продолжить
 								</Button>

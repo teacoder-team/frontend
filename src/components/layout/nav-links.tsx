@@ -1,7 +1,5 @@
 import Link from 'next/link'
 
-import { Button } from '../ui/button'
-
 import { ROUTES } from '@/src/constants'
 
 interface NavLink {
@@ -10,9 +8,9 @@ interface NavLink {
 }
 
 export const navLinks: NavLink[] = [
-	{ title: 'Курсы', href: ROUTES.courses },
-	{ title: 'Об основателе', href: ROUTES.about },
-	{ title: 'Подписка', href: '/premium' }
+	{ title: 'Курсы', href: ROUTES.COURSES.ROOT },
+	{ title: 'Об основателе', href: ROUTES.ABOUT },
+	{ title: 'Подписка', href: ROUTES.PREMIUM }
 ]
 
 export function NavLinks() {

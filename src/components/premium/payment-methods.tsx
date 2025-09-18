@@ -73,8 +73,8 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 										className={cn(
 											'flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 transition-all duration-200',
 											isSelected
-												? 'border-blue-500 bg-blue-50 dark:bg-blue-900'
-												: 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-neutral-800'
+												? 'border-blue-500 bg-blue-50 dark:border-border dark:bg-neutral-800'
+												: 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-background'
 										)}
 									>
 										<div
@@ -99,7 +99,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 												className={cn(
 													'font-medium',
 													isSelected
-														? 'text-blue-900'
+														? 'text-blue-900 dark:text-white'
 														: 'text-foreground'
 												)}
 											>
@@ -109,7 +109,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 												className={cn(
 													'mt-0.5 text-sm font-normal',
 													isSelected
-														? 'text-blue-700'
+														? 'text-blue-700 dark:text-neutral-300'
 														: 'text-muted-foreground'
 												)}
 											>

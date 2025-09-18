@@ -69,7 +69,7 @@ export function CoursesTab() {
 										asChild
 									>
 										<Link
-											href={ROUTES.lesson(
+											href={ROUTES.COURSES.LESSON(
 												course.lastLesson?.slug
 											)}
 										>

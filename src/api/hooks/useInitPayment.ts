@@ -1,15 +1,16 @@
 import { type UseMutationOptions, useMutation } from '@tanstack/react-query'
 
+import { InitPaymentRequest } from '../generated'
 import { initPayment } from '../requests/payment'
 
 export const useInitPayment = (
-	options: Omit<
-		UseMutationOptions<any, unknown, { method: string }>,
+	options?: Omit<
+		UseMutationOptions<any, unknown, InitPaymentRequest>,
 		'mutationKey' | 'mutationFn'
 	>
 ) =>
 	useMutation({
 		mutationKey: ['login'],
-		mutationFn: (data: { method: string }) => initPayment(data),
+		mutationFn: (data: InitPaymentRequest) => initPayment(data),
 		...options
 	})

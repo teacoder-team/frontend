@@ -1,8 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
+import { useGetMe } from '../api/hooks'
 import { instance } from '../api/instance'
-import { getMe } from '../api/requests'
 import { removeSessionToken } from '../lib/cookies/session'
 
 import { useAuth } from './use-auth'
@@ -14,9 +13,7 @@ export function useCurrent() {
 		data: user,
 		isLoading,
 		error
-	} = useQuery({
-		queryKey: ['get current'],
-		queryFn: () => getMe(),
+	} = useGetMe({
 		retry: false,
 		enabled: isAuthorized
 	})

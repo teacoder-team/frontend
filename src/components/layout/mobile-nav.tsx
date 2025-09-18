@@ -16,6 +16,7 @@ import {
 } from '../ui/sheet'
 
 import { navLinks } from './nav-links'
+import { useLogout } from '@/src/api/hooks'
 import { logout } from '@/src/api/requests'
 import { ROUTES } from '@/src/constants'
 import { useAuth } from '@/src/hooks'
@@ -27,9 +28,7 @@ export function MobileNav() {
 
 	const { isAuthorized } = useAuth()
 
-	const { mutate } = useMutation({
-		mutationKey: ['logout'],
-		mutationFn: () => logout(),
+	const { mutate } = useLogout({
 		onSuccess() {
 			setIsOpen(false)
 			router.push('/auth/login')
@@ -78,7 +77,7 @@ export function MobileNav() {
 						<>
 							<Button
 								onClick={() => {
-									router.push('/account')
+									router.push(ROUTES.ACCOUNT.ROOT)
 									setIsOpen(false)
 								}}
 								variant='ghost'
@@ -90,7 +89,7 @@ export function MobileNav() {
 							</Button>
 							<Button
 								onClick={() => {
-									router.push('/account/settings')
+									router.push(ROUTES.ACCOUNT.SETTINGS)
 									setIsOpen(false)
 								}}
 								variant='ghost'
@@ -114,23 +113,23 @@ export function MobileNav() {
 						<>
 							<Button
 								onClick={() => {
-									router.push(ROUTES.login())
+									router.push(ROUTES.AUTH.LOGIN())
 									setIsOpen(false)
 								}}
 								variant='outline'
 								size='sm'
 							>
-								<Link href={ROUTES.login()}>Войти</Link>
+								Войти
 							</Button>
 							<Button
 								onClick={() => {
-									router.push(ROUTES.register)
+									router.push(ROUTES.AUTH.REGISTER)
 									setIsOpen(false)
 								}}
 								variant='primary'
 								size='sm'
 							>
-								<Link href={ROUTES.register}>Регистрация</Link>
+								Регистрация
 							</Button>
 						</>
 					)}

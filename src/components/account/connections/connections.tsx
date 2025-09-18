@@ -1,8 +1,7 @@
 'use client'
 
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { type ReactNode, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { type ReactNode } from 'react'
 import { FaGithub, FaGoogle } from 'react-icons/fa6'
 import { toast } from 'sonner'
 
@@ -12,27 +11,27 @@ import { Card, CardContent } from '../../ui/card'
 
 import { ConnectionError } from './connection-error'
 import { UnlinkProvider } from './unlink-provider'
-import { fetchExternalStatus, getConnectUrl } from '@/src/api/requests'
+import { useFetchSsoStatus, useSsoConnect } from '@/src/api/hooks'
 
 interface Provider {
+	id: 'google' | 'github'
 	name: string
 	icon: ReactNode
-	key: 'google' | 'github'
 	description: string
 }
 
 export const providers: Provider[] = [
 	{
+		id: 'google',
 		name: 'Google',
 		icon: <FaGoogle className='size-5 text-white' />,
-		key: 'google',
 		description:
 			'Настройте вход через Google для удобной и быстрой авторизации'
 	},
 	{
+		id: 'github',
 		name: 'Github',
 		icon: <FaGithub className='size-5 text-white' />,
-		key: 'github',
 		description:
 			'Настройте вход через Github для удобной и быстрой авторизации'
 	}
@@ -41,14 +40,9 @@ export const providers: Provider[] = [
 export function Connections() {
 	const router = useRouter()
 
-	const { data, isLoading } = useQuery({
-		queryKey: ['fetch external status'],
-		queryFn: () => fetchExternalStatus()
-	})
+	const { data, isLoading } = useFetchSsoStatus()
 
-	const { mutate, isPending } = useMutation({
-		mutationKey: ['connect external account'],
-		mutationFn: (provider: 'google' | 'github') => getConnectUrl(provider),
+	const { mutate, isPending } = useSsoConnect({
 		onSuccess(data) {
 			router.push(data.url)
 		},
@@ -86,13 +80,17 @@ export function Connections() {
 											</p>
 										</div>
 									</div>
-									{data?.[provider.key] ? (
+									{data?.[provider.id] ? (
 										<UnlinkProvider
-											provider={provider.key}
+											provider={provider.id}
 										/>
 									) : (
 										<Button
-											onClick={() => mutate(provider.key)}
+											onClick={() =>
+												mutate({
+													provider: provider.id
+												})
+											}
 											variant='outline'
 											isLoading={isPending}
 										>

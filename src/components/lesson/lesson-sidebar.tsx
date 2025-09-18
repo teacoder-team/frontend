@@ -39,7 +39,7 @@ export function LessonSidebar({
 				<div className='flex flex-col gap-y-4 border-b p-5'>
 					<div className='flex items-center justify-between'>
 						<Link
-							href={ROUTES.courses}
+							href={ROUTES.COURSES.ROOT}
 							className='flex items-center gap-x-2 text-sm hover:text-blue-600 hover:transition-colors'
 						>
 							<ArrowLeft className='size-4' />
@@ -71,7 +71,8 @@ export function LessonSidebar({
 									lesson.id
 								)
 								const isActive =
-									pathname === ROUTES.lesson(lesson.slug)
+									pathname ===
+									ROUTES.COURSES.LESSON(lesson.slug)
 
 								const Icon = isActive
 									? PauseCircle
@@ -82,7 +83,9 @@ export function LessonSidebar({
 								return (
 									<Link
 										key={index}
-										href={ROUTES.lesson(lesson.slug)}
+										href={ROUTES.COURSES.LESSON(
+											lesson.slug
+										)}
 										className={cn(
 											buttonVariants({
 												variant: 'ghost',

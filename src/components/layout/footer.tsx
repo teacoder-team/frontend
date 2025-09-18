@@ -20,19 +20,19 @@ interface SocialLink {
 }
 
 const generalLinks: NavLink[] = [
-	{ title: 'Курсы', href: ROUTES.courses },
-	{ title: 'Об основателе', href: ROUTES.about },
+	{ title: 'Курсы', href: ROUTES.COURSES.ROOT },
+	{ title: 'Об основателе', href: ROUTES.ABOUT },
 	// {
 	// 	title: 'API документация',
 	// 	href: 'https://api.teacoder.ru/docs',
 	// 	isExternal: true
 	// }
-	{ title: 'Подписка', href: '/premium' }
+	{ title: 'Подписка', href: ROUTES.PREMIUM }
 ]
 
 const documentsLinks: NavLink[] = [
-	{ title: 'Пользовательское соглашение', href: ROUTES.terms },
-	{ title: 'Политика конфиденциальности', href: ROUTES.privacy }
+	{ title: 'Пользовательское соглашение', href: ROUTES.DOCUMENTS.TERMS },
+	{ title: 'Политика конфиденциальности', href: ROUTES.DOCUMENTS.PRIVACY }
 ]
 
 const socialLinks: SocialLink[] = [

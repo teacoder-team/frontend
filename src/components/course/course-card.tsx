@@ -16,7 +16,7 @@ interface CourseCardProps {
 export function CourseCard({ course }: CourseCardProps) {
 	return (
 		<Link
-			href={ROUTES.course(course.slug)}
+			href={ROUTES.COURSES.SINGLE(course.slug)}
 			className='group relative rounded-lg'
 		>
 			<div className='relative aspect-video overflow-hidden rounded-md transition-all'>

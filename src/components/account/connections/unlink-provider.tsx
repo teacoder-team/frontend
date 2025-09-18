@@ -1,11 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { ConfirmDialog } from '../../shared/confirm-dialog'
 import { Button } from '../../ui/button'
 
-import { unlinkAccount } from '@/src/api/requests'
+import { useUnlinkAccount } from '@/src/api/hooks'
 
 interface UnlinkProviderProps {
 	provider: 'google' | 'github'
@@ -16,12 +16,10 @@ export function UnlinkProvider({ provider }: UnlinkProviderProps) {
 
 	const queryClient = useQueryClient()
 
-	const { mutate, isPending } = useMutation({
-		mutationKey: ['unlink account'],
-		mutationFn: () => unlinkAccount(provider),
+	const { mutate, isPending } = useUnlinkAccount({
 		onSuccess() {
 			queryClient.invalidateQueries({
-				queryKey: ['fetch external status']
+				queryKey: ['fetch sso status']
 			})
 			setIsOpen(false)
 		},
@@ -38,7 +36,7 @@ export function UnlinkProvider({ provider }: UnlinkProviderProps) {
 			description={`Вы уверены, что хотите отключить аккаунт ${provider.charAt(0).toUpperCase() + provider.slice(1)}? После этого вы не сможете входить с его помощью.`}
 			confirmText='Отключить'
 			destructive
-			handleConfirm={() => mutate()}
+			handleConfirm={() => mutate({ provider })}
 			isLoading={isPending}
 			open={isOpen}
 			onOpenChange={setIsOpen}

@@ -1,6 +1,5 @@
 'use client'
 
-import { useMutation } from '@tanstack/react-query'
 import { ChartArea, LogOut, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -18,7 +17,7 @@ import {
 	DropdownMenuTrigger
 } from '../ui/dropdown-menu'
 
-import { logout } from '@/src/api/requests'
+import { useLogout } from '@/src/api/hooks'
 import { ROUTES } from '@/src/constants'
 import { useCurrent } from '@/src/hooks/use-current'
 import { getMediaSource } from '@/src/lib/utils'
@@ -28,9 +27,7 @@ export function UserMenu() {
 
 	const { user } = useCurrent()
 
-	const { mutate } = useMutation({
-		mutationKey: ['logout'],
-		mutationFn: () => logout(),
+	const { mutate } = useLogout({
 		onSuccess() {
 			router.push('/auth/login')
 		},
@@ -71,13 +68,13 @@ export function UserMenu() {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem asChild>
-						<Link href={ROUTES.progress}>
+						<Link href={ROUTES.ACCOUNT.ROOT}>
 							<ChartArea />
 							Мой прогресс
 						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem asChild>
-						<Link href={ROUTES.settings}>
+						<Link href={ROUTES.ACCOUNT.SETTINGS}>
 							<Settings />
 							Настройки
 						</Link>

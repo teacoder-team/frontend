@@ -9,4 +9,4 @@
 import type { MfaTotpRequest } from './mfaTotpRequest';
 import type { MfaRecoveryRequest } from './mfaRecoveryRequest';
 
-export type MfaControllerVerifyBody = MfaTotpRequest | MfaRecoveryRequest;
+export type MfaControllerVerifyBody = MfaTotpRequest | MfaRecoveryRequest

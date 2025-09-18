@@ -4,7 +4,7 @@ import type { CreateUserRequest, CreateUserResponse } from '../generated'
 import { createAccount } from '../requests'
 
 export const useRegister = (
-	options: Omit<
+	options?: Omit<
 		UseMutationOptions<CreateUserResponse, unknown, CreateUserRequest>,
 		'mutationKey' | 'mutationFn'
 	>

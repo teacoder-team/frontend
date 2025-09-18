@@ -23,7 +23,7 @@ export function CourseSidebar({
 
 	return (
 		<div className='order-2 lg:col-span-2'>
-			<div className='flex flex-col gap-4 lg:sticky lg:top-10'>
+			<div className='flex flex-col gap-4 lg:sticky lg:top-20'>
 				<div className='relative flex flex-col gap-2 rounded-xl border border-blue-500 bg-blue-600 p-5'>
 					{lessons.length === 0 ? (
 						<>
@@ -52,7 +52,11 @@ export function CourseSidebar({
 								className='mt-3 w-full'
 								asChild
 							>
-								<Link href={ROUTES.lesson(nextLesson.slug)}>
+								<Link
+									href={ROUTES.COURSES.LESSON(
+										nextLesson.slug
+									)}
+								>
 									{lastIndex + 1 === lessons.length
 										? 'Смотреть курс'
 										: 'Продолжить'}
@@ -73,7 +77,11 @@ export function CourseSidebar({
 								className='mt-3 w-full'
 								asChild
 							>
-								<Link href={ROUTES.lesson(lessons[0].slug)}>
+								<Link
+									href={ROUTES.COURSES.LESSON(
+										lessons[0].slug
+									)}
+								>
 									Начать просмотр
 								</Link>
 							</Button>

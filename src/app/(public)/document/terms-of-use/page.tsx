@@ -98,7 +98,7 @@ export default function AgreementPage() {
 								1.4.1. Политики конфиденциальности, размещённой
 								и/или доступной на Сайте в сети Интернет по
 								адресу{' '}
-								<Link href={ROUTES.privacy}>
+								<Link href={ROUTES.DOCUMENTS.PRIVACY}>
 									https://teacoder.ru/document/privacy-policy
 								</Link>
 								.
@@ -131,7 +131,7 @@ export default function AgreementPage() {
 						<p>
 							1.6. Действующая редакция Соглашения находится на
 							Сайте в сети Интернет по адресу
-							<Link href={ROUTES.terms}>
+							<Link href={ROUTES.DOCUMENTS.TERMS}>
 								https://teacoder.ru/document/terms-of-use
 							</Link>
 							.
