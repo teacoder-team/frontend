@@ -9,8 +9,8 @@ import { Button } from '../ui/button'
 
 import type { CourseResponse } from '@/src/api/generated'
 import { generateDownloadLink, resolveDownloadToken } from '@/src/api/requests'
-import { ROUTES } from '@/src/constants'
-import { useAuth } from '@/src/hooks'
+import { APP_CONFIG, ROUTES } from '@/src/constants'
+import { useAuth, useCurrent } from '@/src/hooks'
 
 interface CourseActionsProps {
 	course: CourseResponse
@@ -18,8 +18,8 @@ interface CourseActionsProps {
 
 export function CourseActions({ course }: CourseActionsProps) {
 	const router = useRouter()
-
 	const { isAuthorized } = useAuth()
+	const { user } = useCurrent()
 
 	const { mutateAsync: generate, isPending: isGenerating } = useMutation({
 		mutationFn: (courseId: string) => generateDownloadLink(courseId),
@@ -28,32 +28,14 @@ export function CourseActions({ course }: CourseActionsProps) {
 		}
 	})
 
-	const { mutateAsync: resolve, isPending: isResolving } = useMutation({
-		mutationFn: (token: string) => resolveDownloadToken(token),
-		onError() {
-			toast.error('Не удалось скачать файл')
-		}
-	})
-
 	const handleDownload = async () => {
-		if (!isAuthorized)
-			return router.push(
-				ROUTES.AUTH.LOGIN(ROUTES.COURSES.SINGLE(course.slug))
-			)
+		if (!isAuthorized || !user?.isPremium)
+			return router.push(ROUTES.PREMIUM)
 
 		try {
-			const { token } = await generate(course.id)
+			const { url } = await generate(course.id)
 
-			const blob = await resolve(token)
-
-			const url = window.URL.createObjectURL(blob)
-			const a = document.createElement('a')
-			a.href = url
-			a.download = `${course.title}.zip`
-			document.body.appendChild(a)
-			a.click()
-			a.remove()
-			window.URL.revokeObjectURL(url)
+			window.open(url)
 		} catch (err) {
 			console.error(err)
 		}
@@ -72,7 +54,7 @@ export function CourseActions({ course }: CourseActionsProps) {
 					variant='primary'
 					className='w-full'
 					onClick={handleDownload}
-					isLoading={isGenerating || isResolving}
+					isLoading={isGenerating}
 				>
 					<DownloadCloud />
 					Скачать код

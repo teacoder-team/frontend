@@ -25,7 +25,7 @@ export function AutoBillingForm({ user }: AutoBillingFormProps) {
 		mutationFn: toggleAutoBilling,
 		onSuccess: () => {
 			setIsOpen(false)
-			queryClient.invalidateQueries({ queryKey: ['get current'] })
+			queryClient.invalidateQueries({ queryKey: ['get me'] })
 			toast.success(
 				user?.isAutoBilling
 					? 'Автосписания отключены'

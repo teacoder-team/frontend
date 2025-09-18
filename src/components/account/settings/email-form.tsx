@@ -77,7 +77,7 @@ export function EmailForm({ user }: EmailFormProps) {
 		onSuccess() {
 			form.reset()
 			setIsOpen(false)
-			queryClient.invalidateQueries({ queryKey: ['get current'] })
+			queryClient.invalidateQueries({ queryKey: ['get me'] })
 		},
 		onError(error: any) {
 			toast.error(

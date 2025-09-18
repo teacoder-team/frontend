@@ -8,7 +8,7 @@ import { CourseContent } from './course-content'
 import { CourseSidebar } from './course-sidebar'
 import type { CourseResponse, LessonResponse } from '@/src/api/generated'
 import { getCompletedLessons } from '@/src/api/requests'
-import { useAuth } from '@/src/hooks'
+import { useAuth, useCurrent } from '@/src/hooks'
 
 interface CourseDetailsProps {
 	course: CourseResponse
@@ -18,13 +18,15 @@ interface CourseDetailsProps {
 export function CourseDetails({ course, lessons }: CourseDetailsProps) {
 	const { isAuthorized } = useAuth()
 
+	const { isLoading: isUserLoading } = useCurrent()
+
 	const { data: completedLessons, isLoading } = useQuery({
 		queryKey: ['get completed lessons'],
 		queryFn: () => getCompletedLessons(course.id),
 		enabled: isAuthorized
 	})
 
-	if (isLoading) {
+	if (isUserLoading || isLoading) {
 		return (
 			<div className='mx-auto mt-4 max-w-screen-xl animate-pulse px-5 pb-10 md:px-0'>
 				<div className='grid grid-cols-1 gap-8 lg:grid-cols-6'>
