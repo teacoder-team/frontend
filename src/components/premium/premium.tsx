@@ -66,7 +66,7 @@ export function Premium() {
 
 	return (
 		<>
-			<main className='mx-auto my-20 max-w-7xl'>
+			<main className='mx-auto my-20 overflow-x-hidden'>
 				<div className='mx-auto w-full pb-14 text-center'>
 					<h1 className='text-4xl font-extrabold text-foreground md:text-5xl lg:text-6xl'>
 						Откройте весь исходный код
@@ -81,7 +81,7 @@ export function Premium() {
 				<div className='relative mx-auto flex justify-center px-6 lg:px-8'>
 					<div
 						aria-hidden='true'
-						className='pointer-events-none absolute left-1/2 top-24 -z-10 w-[140vw] -translate-x-1/2 -rotate-[10deg] transform overflow-visible'
+						className='pointer-events-none absolute left-1/2 top-24 -z-10 w-[100vw] -translate-x-1/2 -rotate-[10deg] scale-x-150 transform'
 					>
 						<div className='flex flex-col'>
 							<div className='h-12 w-full bg-blue-200 opacity-90 dark:bg-blue-700' />
