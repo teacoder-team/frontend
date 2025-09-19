@@ -41,15 +41,15 @@ const paymentMethods: PaymentMethod[] = [
 		bgColor: 'bg-blue-100',
 		isAllowed: true
 	},
-	{
-		id: InitPaymentRequestMethod.YOOMONEY,
-		name: 'ЮMoney',
-		description: 'Оплата через кошелек ЮMoney',
-		icon: YoomoneyIcon,
-		textColor: 'text-blue-600',
-		bgColor: 'bg-blue-100',
-		isAllowed: false
-	}
+	// {
+	// 	id: InitPaymentRequestMethod.YOOMONEY,
+	// 	name: 'ЮMoney',
+	// 	description: 'Оплата через кошелек ЮMoney',
+	// 	icon: YoomoneyIcon,
+	// 	textColor: 'text-blue-600',
+	// 	bgColor: 'bg-blue-100',
+	// 	isAllowed: false
+	// },
 	// {
 	// 	id: InitPaymentRequestMethod.STARS,
 	// 	name: 'Telegram Stars',
@@ -59,15 +59,15 @@ const paymentMethods: PaymentMethod[] = [
 	// 	bgColor: 'bg-blue-100',
 	// 	isAllowed: true
 	// }
-	// {
-	// 	id: 'CRYPTO',
-	// 	name: 'Криптовалюта',
-	// 	description: 'Оплата с помощью BTC, USDT, TON',
-	// 	icon: BitcoinIcon,
-	// 	textColor: 'text-blue-600',
-	// 	bgColor: 'bg-blue-100',
-	// 	isAllowed: true
-	// }
+	{
+		id: 'CRYPTO',
+		name: 'Криптовалюта',
+		description: 'Оплата с помощью BTC, USDT, TON',
+		icon: BitcoinIcon,
+		textColor: 'text-blue-600',
+		bgColor: 'bg-blue-100',
+		isAllowed: true
+	}
 ]
 
 interface PaymentMethodsProps {
