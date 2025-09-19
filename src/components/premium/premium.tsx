@@ -1,7 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQuery } from '@tanstack/react-query'
 import { CodeIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -10,6 +9,7 @@ import { z } from 'zod'
 
 import { FAQSection } from './faq'
 import { PaymentMethods } from './payment-methods'
+import { InitPaymentRequestMethod } from '@/src/api/generated'
 import { useGetMe, useInitPayment } from '@/src/api/hooks'
 import { Button } from '@/src/components/ui/button'
 import {
@@ -29,9 +29,12 @@ import { ROUTES } from '@/src/constants'
 import { useAuth } from '@/src/hooks'
 
 export const paymentSchema = z.object({
-	method: z.enum(['BANK_CARD', 'SBP', 'CRYPTO'], {
-		required_error: 'Выберите метод оплаты'
-	})
+	method: z.enum(
+		Object.values(InitPaymentRequestMethod) as [string, ...string[]],
+		{
+			required_error: 'Выберите метод оплаты'
+		}
+	)
 })
 
 export type PaymentFormValues = z.infer<typeof paymentSchema>
@@ -56,12 +59,12 @@ export function Premium() {
 	const form = useForm<PaymentFormValues>({
 		resolver: zodResolver(paymentSchema),
 		defaultValues: {
-			method: 'BANK_CARD'
+			method: InitPaymentRequestMethod.BANK_CARD
 		}
 	})
 
 	const onSubmit = (data: PaymentFormValues) => {
-		mutate(data)
+		mutate({ method: data.method as InitPaymentRequestMethod })
 	}
 
 	return (
@@ -174,8 +177,7 @@ export function Premium() {
 									variant='primary'
 									size='lg'
 									className='flex-1'
-									// disabled={isPending}
-									disabled
+									disabled={isPending}
 								>
 									Продолжить
 								</Button>

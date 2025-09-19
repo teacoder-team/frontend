@@ -29,10 +29,8 @@ export function CourseActions({ course }: CourseActionsProps) {
 	})
 
 	const handleDownload = async () => {
-		// if (!isAuthorized || !user?.isPremium)
-		// 	return router.push(ROUTES.PREMIUM)
-
-		if (!isAuthorized) return router.push('/auth/login')
+		if (!isAuthorized || !user?.isPremium)
+			return router.push(ROUTES.PREMIUM)
 
 		try {
 			const { url } = await generate(course.id)
