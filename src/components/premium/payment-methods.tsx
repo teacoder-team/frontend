@@ -66,7 +66,7 @@ const paymentMethods: PaymentMethod[] = [
 		icon: BitcoinIcon,
 		textColor: 'text-blue-600',
 		bgColor: 'bg-blue-100',
-		isAllowed: true
+		isAllowed: false
 	}
 ]
 
