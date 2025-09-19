@@ -1,4 +1,4 @@
-import { CreditCardIcon } from 'lucide-react'
+import { BitcoinIcon, CreditCardIcon, StarIcon } from 'lucide-react'
 import { ComponentType, SVGProps } from 'react'
 import { Control } from 'react-hook-form'
 
@@ -39,7 +39,7 @@ const paymentMethods: PaymentMethod[] = [
 		icon: SbpIcon,
 		textColor: 'text-blue-600',
 		bgColor: 'bg-blue-100',
-		isAllowed: false
+		isAllowed: true
 	},
 	{
 		id: InitPaymentRequestMethod.YOOMONEY,
@@ -51,12 +51,22 @@ const paymentMethods: PaymentMethod[] = [
 		isAllowed: false
 	}
 	// {
+	// 	id: InitPaymentRequestMethod.STARS,
+	// 	name: 'Telegram Stars',
+	// 	description: 'Оплата подписки через звёзды Telegram',
+	// 	icon: StarIcon,
+	// 	textColor: 'text-blue-600',
+	// 	bgColor: 'bg-blue-100',
+	// 	isAllowed: true
+	// }
+	// {
 	// 	id: 'CRYPTO',
 	// 	name: 'Криптовалюта',
 	// 	description: 'Оплата с помощью BTC, USDT, TON',
 	// 	icon: BitcoinIcon,
 	// 	textColor: 'text-blue-600',
-	// 	bgColor: 'bg-blue-100'
+	// 	bgColor: 'bg-blue-100',
+	// 	isAllowed: true
 	// }
 ]
 
