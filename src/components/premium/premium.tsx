@@ -1,7 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQuery } from '@tanstack/react-query'
 import { CodeIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -10,6 +9,7 @@ import { z } from 'zod'
 
 import { FAQSection } from './faq'
 import { PaymentMethods } from './payment-methods'
+import { InitPaymentRequestMethod } from '@/src/api/generated'
 import { useGetMe, useInitPayment } from '@/src/api/hooks'
 import { Button } from '@/src/components/ui/button'
 import {
@@ -29,9 +29,12 @@ import { ROUTES } from '@/src/constants'
 import { useAuth } from '@/src/hooks'
 
 export const paymentSchema = z.object({
-	method: z.enum(['BANK_CARD', 'SBP', 'CRYPTO'], {
-		required_error: 'Выберите метод оплаты'
-	})
+	method: z.enum(
+		Object.values(InitPaymentRequestMethod) as [string, ...string[]],
+		{
+			required_error: 'Выберите метод оплаты'
+		}
+	)
 })
 
 export type PaymentFormValues = z.infer<typeof paymentSchema>
@@ -56,17 +59,17 @@ export function Premium() {
 	const form = useForm<PaymentFormValues>({
 		resolver: zodResolver(paymentSchema),
 		defaultValues: {
-			method: 'BANK_CARD'
+			method: InitPaymentRequestMethod.BANK_CARD
 		}
 	})
 
 	const onSubmit = (data: PaymentFormValues) => {
-		mutate(data)
+		mutate({ method: data.method as InitPaymentRequestMethod })
 	}
 
 	return (
 		<>
-			<main className='mx-auto my-20 max-w-7xl'>
+			<main className='mx-auto my-20 overflow-x-hidden'>
 				<div className='mx-auto w-full pb-14 text-center'>
 					<h1 className='text-4xl font-extrabold text-foreground md:text-5xl lg:text-6xl'>
 						Откройте весь исходный код
@@ -81,7 +84,7 @@ export function Premium() {
 				<div className='relative mx-auto flex justify-center px-6 lg:px-8'>
 					<div
 						aria-hidden='true'
-						className='pointer-events-none absolute left-1/2 top-24 -z-10 w-[140vw] -translate-x-1/2 -rotate-[10deg] transform overflow-visible'
+						className='pointer-events-none absolute left-1/2 top-24 -z-10 w-[100vw] -translate-x-1/2 -rotate-[10deg] scale-x-150 transform'
 					>
 						<div className='flex flex-col'>
 							<div className='h-12 w-full bg-blue-200 opacity-90 dark:bg-blue-700' />
@@ -174,8 +177,7 @@ export function Premium() {
 									variant='primary'
 									size='lg'
 									className='flex-1'
-									// disabled={isPending}
-									disabled
+									disabled={isPending}
 								>
 									Продолжить
 								</Button>

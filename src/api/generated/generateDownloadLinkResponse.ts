@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface SsoConnectResponse {
-  /** The URL for authorization via the external provider (e.g., Google, GitHub) */
+export interface GenerateDownloadLinkResponse {
+  /** URL to download the course */
   url: string;
 }

@@ -3,38 +3,52 @@ import { ComponentType, SVGProps } from 'react'
 import { Control } from 'react-hook-form'
 
 import { SbpIcon } from '../icons/sbp-icon'
+import { YoomoneyIcon } from '../icons/yoomoney-icon'
 
 import type { PaymentFormValues } from './premium'
+import { InitPaymentRequestMethod } from '@/src/api/generated'
 import { FormControl, FormField, FormItem } from '@/src/components/ui/form'
 import { Label } from '@/src/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/src/components/ui/radio-group'
 import { cn } from '@/src/lib/utils'
 
 interface PaymentMethod {
-	id: string
+	id: InitPaymentRequestMethod
 	name: string
 	description: string
 	icon: ComponentType<SVGProps<SVGSVGElement>>
 	textColor: string
 	bgColor: string
+	isAllowed?: boolean
 }
 
 const paymentMethods: PaymentMethod[] = [
 	{
-		id: 'BANK_CARD',
+		id: InitPaymentRequestMethod.BANK_CARD,
 		name: 'Банковская карта',
 		description: 'Оплата кредитной или дебетовой карты',
 		icon: CreditCardIcon,
 		textColor: 'text-blue-600',
-		bgColor: 'bg-blue-100'
+		bgColor: 'bg-blue-100',
+		isAllowed: true
 	},
 	{
-		id: 'SBP',
+		id: InitPaymentRequestMethod.SBP,
 		name: 'СБП',
 		description: 'Оплата через Систему быстрых платежей',
 		icon: SbpIcon,
 		textColor: 'text-blue-600',
-		bgColor: 'bg-blue-100'
+		bgColor: 'bg-blue-100',
+		isAllowed: false
+	},
+	{
+		id: InitPaymentRequestMethod.YOOMONEY,
+		name: 'ЮMoney',
+		description: 'Оплата через кошелек ЮMoney',
+		icon: YoomoneyIcon,
+		textColor: 'text-blue-600',
+		bgColor: 'bg-blue-100',
+		isAllowed: false
 	}
 	// {
 	// 	id: 'CRYPTO',
@@ -72,9 +86,11 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 										htmlFor={method.id}
 										className={cn(
 											'flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 transition-all duration-200',
-											isSelected
-												? 'border-blue-500 bg-blue-50 dark:border-border dark:bg-neutral-800'
-												: 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-background'
+											!method.isAllowed
+												? 'cursor-not-allowed opacity-50'
+												: isSelected
+													? 'border-blue-500 bg-blue-50 dark:border-border dark:bg-neutral-800'
+													: 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-background'
 										)}
 									>
 										<div
@@ -119,6 +135,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 										<RadioGroupItem
 											value={method.id}
 											id={method.id}
+											disabled={!method.isAllowed}
 											className='sr-only'
 										/>
 									</Label>

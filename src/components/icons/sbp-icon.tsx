@@ -1,4 +1,4 @@
-import { SVGProps } from 'react'
+import type { SVGProps } from 'react'
 
 interface SbpIconProps extends SVGProps<SVGSVGElement> {}
 

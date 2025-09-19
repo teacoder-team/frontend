@@ -6,6 +6,9 @@
  * OpenAPI spec version: 1.0.0
  */
 
+/**
+ * Payment method
+ */
 export type InitPaymentRequestMethod = typeof InitPaymentRequestMethod[keyof typeof InitPaymentRequestMethod];
 
 
@@ -13,5 +16,6 @@ export type InitPaymentRequestMethod = typeof InitPaymentRequestMethod[keyof typ
 export const InitPaymentRequestMethod = {
   BANK_CARD: 'BANK_CARD',
   SBP: 'SBP',
+  YOOMONEY: 'YOOMONEY',
   CRYPTO: 'CRYPTO',
 } as const;
