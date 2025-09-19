@@ -26,7 +26,7 @@ const paymentMethods: PaymentMethod[] = [
 	{
 		id: InitPaymentRequestMethod.BANK_CARD,
 		name: 'Банковская карта',
-		description: 'Оплата кредитной или дебетовой карты',
+		description: 'Оплата кредитной или дебетовой картой',
 		icon: CreditCardIcon,
 		textColor: 'text-blue-600',
 		bgColor: 'bg-blue-100',
