@@ -1,74 +1,11 @@
-import { BitcoinIcon, CreditCardIcon, StarIcon } from 'lucide-react'
-import { ComponentType, SVGProps } from 'react'
 import { Control } from 'react-hook-form'
 
-import { SbpIcon } from '../icons/sbp-icon'
-import { YoomoneyIcon } from '../icons/yoomoney-icon'
-
 import type { PaymentFormValues } from './premium'
-import { InitPaymentRequestMethod } from '@/src/api/generated'
 import { FormControl, FormField, FormItem } from '@/src/components/ui/form'
 import { Label } from '@/src/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/src/components/ui/radio-group'
+import { paymentMethods } from '@/src/constants'
 import { cn } from '@/src/lib/utils'
-
-interface PaymentMethod {
-	id: InitPaymentRequestMethod
-	name: string
-	description: string
-	icon: ComponentType<SVGProps<SVGSVGElement>>
-	textColor: string
-	bgColor: string
-	isAllowed?: boolean
-}
-
-const paymentMethods: PaymentMethod[] = [
-	{
-		id: InitPaymentRequestMethod.BANK_CARD,
-		name: 'Банковская карта',
-		description: 'Оплата кредитной или дебетовой картой',
-		icon: CreditCardIcon,
-		textColor: 'text-blue-600',
-		bgColor: 'bg-blue-100',
-		isAllowed: true
-	},
-	{
-		id: InitPaymentRequestMethod.SBP,
-		name: 'СБП',
-		description: 'Оплата через Систему быстрых платежей',
-		icon: SbpIcon,
-		textColor: 'text-blue-600',
-		bgColor: 'bg-blue-100',
-		isAllowed: true
-	},
-	// {
-	// 	id: InitPaymentRequestMethod.YOOMONEY,
-	// 	name: 'ЮMoney',
-	// 	description: 'Оплата через кошелек ЮMoney',
-	// 	icon: YoomoneyIcon,
-	// 	textColor: 'text-blue-600',
-	// 	bgColor: 'bg-blue-100',
-	// 	isAllowed: false
-	// },
-	// {
-	// 	id: InitPaymentRequestMethod.STARS,
-	// 	name: 'Telegram Stars',
-	// 	description: 'Оплата подписки через звёзды Telegram',
-	// 	icon: StarIcon,
-	// 	textColor: 'text-blue-600',
-	// 	bgColor: 'bg-blue-100',
-	// 	isAllowed: true
-	// }
-	{
-		id: 'CRYPTO',
-		name: 'Криптовалюта',
-		description: 'Оплата с помощью BTC, USDT, TON',
-		icon: BitcoinIcon,
-		textColor: 'text-blue-600',
-		bgColor: 'bg-blue-100',
-		isAllowed: false
-	}
-]
 
 interface PaymentMethodsProps {
 	control: Control<PaymentFormValues>
