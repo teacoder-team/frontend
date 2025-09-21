@@ -1,3 +1,4 @@
+import { startAuthentication } from '@simplewebauthn/browser'
 import { ArrowLeftIcon, KeyIcon } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
@@ -10,6 +11,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp'
 import { AuthWrapper } from './auth-wrapper'
 import { useVerifyMfa } from '@/src/api/hooks/useVerifyMfa'
 import { instance } from '@/src/api/instance'
+import { generateAuthenticationOptions } from '@/src/api/requests'
 import { MFA_OPTIONS, MfaMethod, ROUTES } from '@/src/constants'
 import { setSessionToken } from '@/src/lib/cookies/session'
 import { cn } from '@/src/lib/utils'
@@ -17,10 +19,11 @@ import { cn } from '@/src/lib/utils'
 interface MfaFormProps {
 	ticket: string
 	methods: string[]
+	userId: string
 	onBack?: () => void
 }
 
-export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
+export function MfaForm({ ticket, methods, userId, onBack }: MfaFormProps) {
 	const [selectedMethod, setSelectedMethod] = useState<MfaMethod | null>(null)
 	const [code, setCode] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
@@ -76,9 +79,12 @@ export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
 	const handlePasskeyAuth = async () => {
 		setIsLoading(true)
 		try {
-			console.log('Starting WebAuthn flow with ticket:', ticket)
+			const options = await generateAuthenticationOptions({ userId })
 
-			await new Promise(resolve => setTimeout(resolve, 1500))
+			const attestationResponse = await startAuthentication(options)
+
+			// @ts-ignore
+			mutate({ ticket, attestationResponse })
 		} catch (error) {
 			console.error('Passkey authentication failed:', error)
 		} finally {

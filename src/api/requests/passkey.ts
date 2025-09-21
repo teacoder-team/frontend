@@ -1,30 +1,27 @@
-import {
-	GeneratePasskeyOptionsResponse,
-	PasskeyResponse,
-	RegisterPasskeyRequest,
-	RegisterPasskeyResponse
-} from '../generated'
-import { api, instance } from '../instance'
+import { PasskeyResponse } from '../generated'
+import { instance } from '../instance'
 
 export const fetchPasskeys = () =>
 	instance
 		.get<PasskeyResponse[]>('/auth/passkey')
 		.then(response => response.data)
 
-export const registerPasskey = (data: RegisterPasskeyRequest) =>
+export const generateRegistrationOptions = () =>
 	instance
-		.post<RegisterPasskeyResponse>('/auth/passkey', data)
+		.post<any>('/auth/passkey/register/options')
 		.then(response => response.data)
 
-export const generateLoginOptions = () =>
-	api.post('/auth/passkey/login-options').then(response => response.data)
-
-export const passkeyLogin = (data: any) =>
-	api.post('/auth/passkey/login', data).then(response => response.data)
-
-export const generatePasskeyOptions = () =>
+export const verifyRegistration = (data: {
+	deviceName: string
+	attestationResponse: any
+}) =>
 	instance
-		.post<GeneratePasskeyOptionsResponse>('/auth/passkey/register-options')
+		.post<any>('/auth/passkey/register/verify', data)
+		.then(response => response.data)
+
+export const generateAuthenticationOptions = (data: { userId: string }) =>
+	instance
+		.post<any>('/auth/passkey/login/options', data)
 		.then(response => response.data)
 
 export const deletePasskey = (id: string) =>

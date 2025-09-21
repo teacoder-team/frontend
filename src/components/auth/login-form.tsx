@@ -44,6 +44,7 @@ export type Login = z.infer<typeof loginSchema>
 export function LoginForm() {
 	const [methods, setMethods] = useState<string[]>([])
 	const [ticket, setTicket] = useState<string | null>(null)
+	const [userId, setUserId] = useState<string | null>(null)
 
 	const router = useRouter()
 	const searchParams = useSearchParams()
@@ -52,8 +53,8 @@ export function LoginForm() {
 		onSuccess(data) {
 			if ('ticket' in data && typeof data.ticket === 'string') {
 				setTicket(data.ticket)
-				// @ts-ignore
 				setMethods(data.allowedMethods)
+				setUserId(data.userId)
 			}
 
 			if ('token' in data && typeof data.token === 'string') {
@@ -100,6 +101,7 @@ export function LoginForm() {
 		<MfaForm
 			ticket={ticket ?? ''}
 			methods={methods}
+			userId={userId ?? ''}
 			onBack={() => {
 				setTicket(null)
 				setMethods([])

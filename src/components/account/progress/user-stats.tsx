@@ -66,7 +66,7 @@ export function UserStats() {
 						<div className='size-20'>
 							<CircularProgressbar
 								value={data?.learningProgressPercentage ?? 0}
-								text={`${data?.learningProgressPercentage}%`}
+								text={`${data?.learningProgressPercentage ?? 0}%`}
 								styles={{
 									trail: {
 										color: '#E2E8F0'
