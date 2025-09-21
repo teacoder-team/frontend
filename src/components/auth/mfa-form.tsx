@@ -1,17 +1,17 @@
-import {
-	ArrowLeftIcon,
-	KeyIcon,
-	ShieldIcon,
-	SmartphoneIcon
-} from 'lucide-react'
-import { ComponentType, useState } from 'react'
+import { ArrowLeftIcon, KeyIcon } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp'
 
 import { AuthWrapper } from './auth-wrapper'
-import { MFA_OPTIONS, MfaMethod } from '@/src/constants'
+import { useVerifyMfa } from '@/src/api/hooks/useVerifyMfa'
+import { instance } from '@/src/api/instance'
+import { MFA_OPTIONS, MfaMethod, ROUTES } from '@/src/constants'
+import { setSessionToken } from '@/src/lib/cookies/session'
 import { cn } from '@/src/lib/utils'
 
 interface MfaFormProps {
@@ -24,6 +24,25 @@ export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
 	const [selectedMethod, setSelectedMethod] = useState<MfaMethod | null>(null)
 	const [code, setCode] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
+
+	const router = useRouter()
+	const searchParams = useSearchParams()
+
+	const { mutate, isPending } = useVerifyMfa({
+		onSuccess(data) {
+			setSessionToken(data.token)
+
+			instance.defaults.headers['X-Session-Token'] = data.token
+
+			const redirectTo =
+				searchParams.get('redirectTo') || ROUTES.ACCOUNT.ROOT
+
+			router.push(redirectTo)
+		},
+		onError(error: any) {
+			toast.error(error.response?.data?.message ?? 'Ошибка при входе')
+		}
+	})
 
 	const availableOptions = MFA_OPTIONS.filter(option =>
 		methods.includes(option.id)
@@ -43,23 +62,15 @@ export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
 		}
 	}
 
-	const handleVerify = async () => {
+	const handleVerify = () => {
 		if (!selectedMethod || !code.trim()) return
 
-		setIsLoading(true)
-		try {
-			console.log('Verifying MFA:', {
-				method: selectedMethod,
-				code,
-				ticket
-			})
+		const payload =
+			selectedMethod === 'totp'
+				? { ticket, totpCode: code }
+				: { ticket, recoveryCode: code }
 
-			await new Promise(resolve => setTimeout(resolve, 1000))
-		} catch (error) {
-			console.error('MFA verification failed:', error)
-		} finally {
-			setIsLoading(false)
-		}
+		mutate(payload)
 	}
 
 	const handlePasskeyAuth = async () => {
@@ -146,7 +157,11 @@ export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
 							Код подтверждения
 						</label>
 
-						<InputOTP maxLength={6}>
+						<InputOTP
+							maxLength={6}
+							value={code}
+							onChange={val => setCode(val)}
+						>
 							<InputOTPGroup>
 								<InputOTPSlot index={0} />
 								<InputOTPSlot index={1} />
@@ -162,7 +177,8 @@ export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
 						onClick={handleVerify}
 						variant='primary'
 						className='w-full'
-						isLoading={isLoading}
+						disabled={!code.trim() || code.length !== 6}
+						isLoading={isPending}
 					>
 						Продолжить
 					</Button>
@@ -211,7 +227,7 @@ export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
 						variant='ghost'
 						onClick={handleBack}
 						className='w-full'
-						disabled={isLoading}
+						disabled={isPending}
 					>
 						<ArrowLeftIcon className='mr-2 h-4 w-4' />
 						Выбрать другой метод
@@ -253,8 +269,8 @@ export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
 						onClick={handleVerify}
 						variant='primary'
 						className='w-full'
-						isLoading={isLoading}
-						disabled={!code.trim()}
+						isLoading={isPending}
+						disabled={!code.trim() || code.length !== 11}
 					>
 						Продолжить
 					</Button>
@@ -263,7 +279,7 @@ export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
 						variant='ghost'
 						onClick={handleBack}
 						className='w-full'
-						disabled={isLoading}
+						disabled={isPending}
 					>
 						<ArrowLeftIcon className='mr-2 h-4 w-4' />
 						Выбрать другой метод
