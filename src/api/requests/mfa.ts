@@ -30,3 +30,20 @@ export const totpGenerateSecret = async () =>
 
 export const totpDisable = (data: TotpDisableRequest) =>
 	instance.delete('/auth/mfa/totp', { data })
+
+export interface VerifyTotpRequest {
+	ticket: string
+	totpCode: string
+}
+
+export interface VerifyRecoveryRequest {
+	ticket: string
+	recoveryCode: string
+}
+
+export const verifyMfa = async (
+	data: VerifyTotpRequest | VerifyRecoveryRequest
+): Promise<LoginSessionResponse> =>
+	await instance
+		.post<LoginSessionResponse>('/auth/mfa/verify', data)
+		.then(res => res.data)

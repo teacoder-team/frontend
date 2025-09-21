@@ -1,10 +1,10 @@
-import { Control } from 'react-hook-form'
+import type { Control } from 'react-hook-form'
 
 import type { PaymentFormValues } from './premium'
 import { FormControl, FormField, FormItem } from '@/src/components/ui/form'
 import { Label } from '@/src/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/src/components/ui/radio-group'
-import { paymentMethods } from '@/src/constants'
+import { PAYMENT_METHODS } from '@/src/constants'
 import { cn } from '@/src/lib/utils'
 
 interface PaymentMethodsProps {
@@ -24,7 +24,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 							onValueChange={field.onChange}
 							className='flex flex-col gap-4'
 						>
-							{paymentMethods.map(method => {
+							{PAYMENT_METHODS.map(method => {
 								const isSelected = field.value === method.id
 
 								return (

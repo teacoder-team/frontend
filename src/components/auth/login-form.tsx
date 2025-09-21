@@ -45,7 +45,7 @@ export function LoginForm() {
 	const [methods, setMethods] = useState<string[]>([])
 	const [ticket, setTicket] = useState<string | null>(null)
 
-	const { push } = useRouter()
+	const router = useRouter()
 	const searchParams = useSearchParams()
 
 	const { mutateAsync, isPending } = useLogin({
@@ -64,7 +64,7 @@ export function LoginForm() {
 				const redirectTo =
 					searchParams.get('redirectTo') || ROUTES.ACCOUNT.ROOT
 
-				push(redirectTo)
+				router.push(redirectTo)
 			}
 		},
 		onError(error: any) {
@@ -97,7 +97,14 @@ export function LoginForm() {
 	}
 
 	return methods.length ? (
-		<MfaForm ticket={ticket ?? ''} methods={methods} />
+		<MfaForm
+			ticket={ticket ?? ''}
+			methods={methods}
+			onBack={() => {
+				setTicket(null)
+				setMethods([])
+			}}
+		/>
 	) : (
 		<AuthWrapper
 			heading='Войти в аккаунт'
