@@ -30,7 +30,7 @@ export function Settings() {
 						<ProfileForm user={user} />
 						<AccountForm user={user} />
 						<TwoStepAuthForm status={status} />
-						{!user?.isPremium && <Subscription user={user} />}
+						{user?.isPremium && <Subscription user={user} />}
 						<Preferences />
 						<AccountActions />
 					</div>
