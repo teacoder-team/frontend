@@ -97,7 +97,14 @@ export function LoginForm() {
 	}
 
 	return methods.length ? (
-		<MfaForm ticket={ticket ?? ''} methods={methods} />
+		<MfaForm
+			ticket={ticket ?? ''}
+			methods={methods}
+			onBack={() => {
+				setTicket(null)
+				setMethods([])
+			}}
+		/>
 	) : (
 		<AuthWrapper
 			heading='Войти в аккаунт'
