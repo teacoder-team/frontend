@@ -15,7 +15,7 @@ interface PaymentMethod {
 	isAllowed?: boolean
 }
 
-export const paymentMethods: PaymentMethod[] = [
+export const PAYMENT_METHODS: PaymentMethod[] = [
 	{
 		id: InitPaymentRequestMethod.BANK_CARD,
 		name: 'Банковская карта',

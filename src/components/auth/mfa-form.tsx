@@ -11,6 +11,7 @@ import { Input } from '../ui/input'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '../ui/input-otp'
 
 import { AuthWrapper } from './auth-wrapper'
+import { MFA_OPTIONS, MfaMethod } from '@/src/constants'
 import { cn } from '@/src/lib/utils'
 
 interface MfaFormProps {
@@ -19,42 +20,12 @@ interface MfaFormProps {
 	onBack?: () => void
 }
 
-type MfaMethod = 'totp' | 'passkey' | 'recovery'
-
-interface MfaOption {
-	id: MfaMethod
-	name: string
-	description: string
-	icon: ComponentType<{ className?: string }>
-}
-
-const mfaOptions: MfaOption[] = [
-	{
-		id: 'totp',
-		name: 'Приложение-аутентификатор',
-		description: 'Коды из приложения на телефоне',
-		icon: SmartphoneIcon
-	},
-	{
-		id: 'passkey',
-		name: 'Passkey',
-		description: 'Биометрия или ключ доступа',
-		icon: KeyIcon
-	},
-	{
-		id: 'recovery',
-		name: 'Резервный код',
-		description: 'Используйте одноразовые запасные коды',
-		icon: ShieldIcon
-	}
-]
-
 export function MfaForm({ ticket, methods, onBack }: MfaFormProps) {
 	const [selectedMethod, setSelectedMethod] = useState<MfaMethod | null>(null)
 	const [code, setCode] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 
-	const availableOptions = mfaOptions.filter(option =>
+	const availableOptions = MFA_OPTIONS.filter(option =>
 		methods.includes(option.id)
 	)
 
