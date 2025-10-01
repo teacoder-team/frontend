@@ -45,7 +45,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 												'flex size-10 items-center justify-center rounded-lg',
 												isSelected
 													? 'bg-blue-500'
-													: method.bgColor
+													: 'bg-blue-100'
 											)}
 										>
 											<method.icon
@@ -53,7 +53,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 													'size-5',
 													isSelected
 														? 'text-white'
-														: method.textColor
+														: 'text-blue-500'
 												)}
 											/>
 										</div>
