@@ -83,6 +83,8 @@ export function RegisterPasskeyForm() {
 
 			const attestationResponse = await startRegistration(options)
 
+			console.log(attestationResponse)
+
 			await mutateAsync({
 				deviceName: data.deviceName,
 				attestationResponse

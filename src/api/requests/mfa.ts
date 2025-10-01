@@ -36,13 +36,18 @@ export interface VerifyTotpRequest {
 	totpCode: string
 }
 
+export interface VerifyPasskeyRequest {
+	ticket: string
+	attestationResponse: any
+}
+
 export interface VerifyRecoveryRequest {
 	ticket: string
 	recoveryCode: string
 }
 
 export const verifyMfa = async (
-	data: VerifyTotpRequest | VerifyRecoveryRequest
+	data: VerifyTotpRequest | VerifyPasskeyRequest | VerifyRecoveryRequest
 ): Promise<LoginSessionResponse> =>
 	await instance
 		.post<LoginSessionResponse>('/auth/mfa/verify', data)

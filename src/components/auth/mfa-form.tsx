@@ -83,7 +83,6 @@ export function MfaForm({ ticket, methods, userId, onBack }: MfaFormProps) {
 
 			const attestationResponse = await startAuthentication(options)
 
-			// @ts-ignore
 			mutate({ ticket, attestationResponse })
 		} catch (error) {
 			console.error('Passkey authentication failed:', error)

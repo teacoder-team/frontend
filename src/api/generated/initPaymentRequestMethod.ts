@@ -9,14 +9,13 @@
 /**
  * Payment method
  */
-export type InitPaymentRequestMethod =
-	(typeof InitPaymentRequestMethod)[keyof typeof InitPaymentRequestMethod]
+export type InitPaymentRequestMethod = typeof InitPaymentRequestMethod[keyof typeof InitPaymentRequestMethod];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const InitPaymentRequestMethod = {
-	BANK_CARD: 'BANK_CARD',
-	SBP: 'SBP',
-	YOOMONEY: 'YOOMONEY',
-	STARS: 'STARS',
-	CRYPTO: 'CRYPTO'
-} as const
+  BANK_CARD: 'BANK_CARD',
+  SBP: 'SBP',
+  YOOMONEY: 'YOOMONEY',
+  CRYPTO: 'CRYPTO',
+} as const;
