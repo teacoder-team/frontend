@@ -8,7 +8,6 @@ import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
 
-import { PasskeyLoginButton } from './passkey-login-button'
 import { getAuthUrl } from '@/src/api/requests'
 
 export function AuthSocial() {

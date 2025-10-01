@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { startRegistration } from '@simplewebauthn/browser'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import base64url from 'base64url'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -29,14 +28,16 @@ import {
 import { Input } from '../../ui/input'
 
 import { RegisterPasskeyRequest } from '@/src/api/generated'
-import { generatePasskeyOptions, registerPasskey } from '@/src/api/requests'
-import { useCurrent } from '@/src/hooks'
+import {
+	generateRegistrationOptions,
+	verifyRegistration
+} from '@/src/api/requests'
 
 const registerPasskeySchema = z.object({
 	deviceName: z
 		.string()
 		.min(1, {
-			message: 'Название устройства должно содержать минимум 1 символ'
+			message: 'Название устройства обязательно'
 		})
 		.max(50, {
 			message: 'Название устройства не должно превышать 50 символов'
@@ -49,13 +50,11 @@ export function RegisterPasskeyForm() {
 	const [isOpen, setIsOpen] = useState(false)
 	const [isRegistering, setIsRegistering] = useState(false)
 
-	const { user } = useCurrent()
-
 	const queryClient = useQueryClient()
 
 	const { mutateAsync, isPending } = useMutation({
 		mutationKey: ['register passkey'],
-		mutationFn: (data: RegisterPasskeyRequest) => registerPasskey(data),
+		mutationFn: (data: any) => verifyRegistration(data),
 		onSuccess() {
 			form.reset()
 			queryClient.invalidateQueries({ queryKey: ['mfa status'] })
@@ -77,33 +76,21 @@ export function RegisterPasskeyForm() {
 	})
 
 	async function onSubmit(data: RegisterPasskey) {
+		setIsRegistering(true)
+
 		try {
-			setIsRegistering(true)
-			const options = await generatePasskeyOptions()
+			const options = await generateRegistrationOptions()
 
-			// @ts-ignore
-			const attResp = await startRegistration(options)
-
-			setIsRegistering(false)
+			const attestationResponse = await startRegistration(options)
 
 			await mutateAsync({
 				deviceName: data.deviceName,
-				credential: {
-					id: attResp.id,
-					rawId: attResp.rawId,
-					response: {
-						clientDataJSON: attResp.response.clientDataJSON,
-						attestationObject: attResp.response.attestationObject
-					},
-					authenticatorAttachment: attResp.authenticatorAttachment,
-					clientExtensionResults: attResp.clientExtensionResults,
-					type: attResp.type
-				},
-				transports: attResp.response.transports ?? []
+				attestationResponse
 			})
 		} catch (error) {
-			setIsRegistering(false)
 			throw error
+		} finally {
+			setIsRegistering(false)
 		}
 	}
 
