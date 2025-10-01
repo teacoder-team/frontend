@@ -8,8 +8,6 @@ import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
 
-import { generateLoginOptions, passkeyLogin } from '@/src/api/requests'
-
 export function PasskeyLoginButton() {
 	const [isLoading, setIsLoading] = useState(false)
 
@@ -18,22 +16,22 @@ export function PasskeyLoginButton() {
 			setIsLoading(true)
 
 			// 1. Получаем challenge от сервера
-			const options = await generateLoginOptions()
+			// const options = await generateLoginOptions()
 
 			// 2. Преобразуем поле challenge и credentialID
 			// options.challenge = Uint8Array.from(atob(options.challenge), c =>
 			// 	c.charCodeAt(0)
 			// )
 
-			const authenticationResponse = await startAuthentication(options)
+			// const authenticationResponse = await startAuthentication(options)
 
-			console.log('PASSKEY AUTH DATA: ', authenticationResponse)
+			// console.log('PASSKEY AUTH DATA: ', authenticationResponse)
 
-			const login = await passkeyLogin({
-				credential: authenticationResponse
-			})
+			// const login = await passkeyLogin({
+			// 	credential: authenticationResponse
+			// })
 
-			console.log('SUCCESS LOGIN: ', login)
+			// console.log('SUCCESS LOGIN: ', login)
 		},
 		onError() {
 			toast.error('Ошибка входа по ключу')
