@@ -59,7 +59,7 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 							</div>
 						</div>
 
-						{/* <div className='flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0'>
+						<div className='flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0'>
 							<div className='mr-5 flex items-start gap-x-4 md:items-center'>
 								<div className='hidden rounded-full bg-blue-600 p-2.5 md:flex'>
 									<KeyRound className='size-5 stroke-[1.7px] text-white' />
@@ -69,7 +69,7 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 										<h2 className='font-semibold'>
 											Ключи доступа
 										</h2>
-										{status?.passkeyMfa ? (
+										{/* {status?.passkeyMfa ? (
 											<Badge variant='success'>
 												Включено
 											</Badge>
@@ -77,7 +77,7 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 											<Badge variant='error'>
 												Отключено
 											</Badge>
-										)}
+										)} */}
 									</div>
 									<p className='text-sm text-muted-foreground'>
 										{status?.passkeyMfa
@@ -90,7 +90,7 @@ export function TwoStepAuthForm({ status }: TwoFactorAuthFormProps) {
 								{status?.passkeyMfa && <PasskeyModal />}
 								<RegisterPasskeyForm />
 							</div>
-						</div> */}
+						</div>
 
 						{status?.recoveryActive && (
 							<div className='flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0'>

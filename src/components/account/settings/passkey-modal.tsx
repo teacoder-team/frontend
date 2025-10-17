@@ -6,7 +6,6 @@ import {
 	KeyRound,
 	Loader2,
 	MoreHorizontal,
-	Plus,
 	Trash
 } from 'lucide-react'
 import { useState } from 'react'
@@ -29,43 +28,10 @@ import {
 	DropdownMenuTrigger
 } from '../../ui/dropdown-menu'
 
-import { RegisterPasskeyForm } from './register-passkey-form'
 import { deletePasskey, fetchPasskeys } from '@/src/api/requests'
 import { formatDate } from '@/src/lib/utils'
 
-interface Passkey {
-	id: string
-	name: string
-	createdAt: Date
-	lastUsedAt: Date | null
-}
-
-const mockPasskeys: Passkey[] = [
-	{
-		id: '1',
-		name: 'Мой ноутбук',
-		createdAt: new Date(2023, 5, 15),
-		lastUsedAt: new Date(2023, 11, 20)
-	},
-	{
-		id: '2',
-		name: 'Рабочий компьютер',
-		createdAt: new Date(2023, 8, 3),
-		lastUsedAt: new Date(2023, 12, 1)
-	}
-]
-
-interface PasskeyModalProps {
-	passkeys?: Passkey[]
-	onDelete?: (id: string) => void
-	onDisable?: () => void
-}
-
-export function PasskeyModal({
-	passkeys = mockPasskeys,
-	onDelete,
-	onDisable
-}: PasskeyModalProps) {
+export function PasskeyModal() {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const [deletePasskeyId, setDeletePasskeyId] = useState<string | null>(null)
@@ -82,6 +48,8 @@ export function PasskeyModal({
 		mutationKey: ['delete passkey'],
 		mutationFn: (id: string) => deletePasskey(id),
 		onSuccess: () => {
+			setIsOpen(false)
+			queryClient.invalidateQueries({ queryKey: ['mfa status'] })
 			queryClient.invalidateQueries({ queryKey: ['fetch passkeys'] })
 			setDeletePasskeyId(null)
 		}
