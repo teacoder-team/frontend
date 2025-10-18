@@ -1,2 +1,2 @@
-export * from './use-auth'
-export * from './use-current'
+export * from './useAuth'
+export * from './useCurrent'

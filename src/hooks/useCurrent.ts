@@ -4,7 +4,7 @@ import { useGetMe } from '../api/hooks'
 import { instance } from '../api/instance'
 import { removeSessionToken } from '../lib/cookies/session'
 
-import { useAuth } from './use-auth'
+import { useAuth } from './useAuth'
 
 export function useCurrent() {
 	const { isAuthorized } = useAuth()

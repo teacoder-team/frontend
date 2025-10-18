@@ -19,7 +19,7 @@ import {
 
 import { useLogout } from '@/src/api/hooks'
 import { ROUTES } from '@/src/constants'
-import { useCurrent } from '@/src/hooks/use-current'
+import { useCurrent } from '@/src/hooks/useCurrent'
 import { getMediaSource } from '@/src/lib/utils'
 
 export function UserMenu() {

@@ -12,6 +12,9 @@ interface PaymentMethodsProps {
 }
 
 export function PaymentMethods({ control }: PaymentMethodsProps) {
+	const availableMethods = PAYMENT_METHODS.filter(m => m.isAvailable)
+	const comingSoonMethods = PAYMENT_METHODS.filter(m => !m.isAvailable)
+
 	return (
 		<FormField
 			control={control}
@@ -24,20 +27,18 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 							onValueChange={field.onChange}
 							className='flex flex-col gap-4'
 						>
-							{PAYMENT_METHODS.map(method => {
+							{/* Доступные методы */}
+							{availableMethods.map(method => {
 								const isSelected = field.value === method.id
-
 								return (
 									<Label
 										key={method.id}
 										htmlFor={method.id}
 										className={cn(
 											'flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 transition-all duration-200',
-											!method.isAllowed
-												? 'cursor-not-allowed opacity-50'
-												: isSelected
-													? 'border-blue-500 bg-blue-50 dark:border-border dark:bg-neutral-800'
-													: 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-background'
+											isSelected
+												? 'border-blue-500 bg-blue-50 dark:border-border dark:bg-neutral-800'
+												: 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-background'
 										)}
 									>
 										<div
@@ -82,7 +83,44 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 										<RadioGroupItem
 											value={method.id}
 											id={method.id}
-											disabled={!method.isAllowed}
+											className='sr-only'
+										/>
+									</Label>
+								)
+							})}
+
+							{comingSoonMethods.length > 0 && (
+								<h3 className='text-[15px] font-medium text-muted-foreground'>
+									Скоро
+								</h3>
+							)}
+
+							{comingSoonMethods.map(method => {
+								return (
+									<Label
+										key={method.id}
+										htmlFor={method.id}
+										className={cn(
+											'flex cursor-not-allowed items-center gap-3 rounded-xl border p-3.5 opacity-50',
+											'border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-neutral-800'
+										)}
+									>
+										<div className='flex size-10 items-center justify-center rounded-lg bg-gray-300 dark:bg-neutral-600'>
+											<method.icon className='size-5 text-gray-500 dark:text-neutral-300' />
+										</div>
+										<div className='flex flex-1 flex-col'>
+											<span className='font-medium text-gray-600 dark:text-gray-400'>
+												{method.name}
+											</span>
+											<span className='mt-0.5 text-sm font-normal text-gray-500'>
+												{method.description}
+											</span>
+										</div>
+
+										<RadioGroupItem
+											value={method.id}
+											id={method.id}
+											disabled
 											className='sr-only'
 										/>
 									</Label>
