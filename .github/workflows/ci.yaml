@@ -11,6 +11,7 @@ jobs:
         name: 🏗️ Build and Deploy
         runs-on: ubuntu-latest
         env:
+            APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
             API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         steps:
             - name: Checkout repository
