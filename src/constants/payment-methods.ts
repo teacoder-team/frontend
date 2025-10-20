@@ -37,7 +37,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 	// },
 
 	{
-		id: 'CRYPTO',
+		id: InitPaymentRequestMethod.CRYPTO,
 		name: 'Криптовалюта',
 		description: 'Оплата с помощью BTC, USDT, TON',
 		icon: BitcoinIcon,

@@ -27,9 +27,9 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 							onValueChange={field.onChange}
 							className='flex flex-col gap-4'
 						>
-							{/* Доступные методы */}
 							{availableMethods.map(method => {
 								const isSelected = field.value === method.id
+
 								return (
 									<Label
 										key={method.id}
