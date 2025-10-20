@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build and Deploy
 
 on:
     push:
@@ -6,20 +6,13 @@ on:
             - main
     workflow_dispatch:
 
-permissions:
-    contents: read
-    packages: write
-    id-token: write
-
 jobs:
     install:
-        name: 🛠️ Install dependencies
+        name: 📦 Install dependencies
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
 
             - name: Setup Bun
               uses: oven-sh/setup-bun@v2
@@ -29,10 +22,13 @@ jobs:
             - name: Install dependencies
               run: bun install
 
-    build-nextjs:
+    build:
         name: 🏗️ Build Next.js
         runs-on: ubuntu-latest
         needs: install
+        env:
+            APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+            API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -47,33 +43,31 @@ jobs:
 
             - name: Build Next.js project
               run: bun run build
-              env:
-                  NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-                  NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
 
-    build-docker:
-        name: 🐳 Build Docker Image
+    deploy:
+        name: 🚀 Deploy to Dokploy
         runs-on: ubuntu-latest
-        needs: build-nextjs
+        needs: build
+        env:
+            DOKPLOY_URL: ${{ secrets.DOKPLOY_URL }}
+            DOKPLOY_API_KEY: ${{ secrets.DOKPLOY_API_KEY }}
+            DOKPLOY_APP_ID: ${{ secrets.DOKPLOY_APP_ID }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
 
-            - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v3
-
-            - name: Log in to Docker Hub
-              uses: docker/login-action@v2
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v2
               with:
-                  username: ${{ secrets.DOCKERHUB_USERNAME }}
-                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+                  bun-version: latest
 
-            - name: Build Docker image
-              uses: docker/build-push-action@v5
-              with:
-                  context: .
-                  file: ./Dockerfile
-                  push: true
-                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
-                  cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
-                  cache-to: type=inline
+            - name: Deploy to Dokploy
+              run: |
+                  echo "🚀 Deploying frontend to Dokploy..."
+                  curl -X POST "$DOKPLOY_URL/api/application.deploy" \
+                    -H "accept: application/json" \
+                    -H "Content-Type: application/json" \
+                    -H "x-api-key: $DOKPLOY_API_KEY" \
+                    -d '{
+                      "applicationId": "'"$DOKPLOY_APP_ID"'"
+                    }'
