@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CodeIcon } from 'lucide-react'
+import { AlertCircle, AlertCircleIcon, CodeIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -66,6 +66,8 @@ export function Premium() {
 	const onSubmit = (data: PaymentFormValues) => {
 		mutate({ method: data.method as InitPaymentRequestMethod })
 	}
+
+	console.log(form.watch('method'))
 
 	return (
 		<>
@@ -136,7 +138,7 @@ export function Premium() {
 								size='lg'
 								className='w-full'
 								isLoading={isLoading}
-								disabled={user?.isPremium}
+								disabled={user?.isPremium || isLoading}
 							>
 								{user?.isPremium
 									? 'У вас уже есть подписка'
@@ -161,6 +163,18 @@ export function Premium() {
 							className='mt-2'
 						>
 							<PaymentMethods control={form.control} />
+
+							{[
+								'BANK_CARD',
+								'SBP',
+								'INTERNATIONAL_CARD'
+							].includes(form.watch('method')) && (
+								<p className='mt-4 text-xs text-muted-foreground'>
+									Выбирая данный способ оплаты, вы разрешаете
+									будущие автосписания раз в месяц. Их можно
+									отключить в настройках.
+								</p>
+							)}
 
 							<div className='flex gap-x-3 pt-6'>
 								<Button
