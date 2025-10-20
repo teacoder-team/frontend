@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { ChevronRight, Trophy, Users } from 'lucide-react'
+import { ChevronRightIcon, GemIcon, TrophyIcon, UsersIcon } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 
@@ -13,7 +13,7 @@ import {
 	CardHeader,
 	CardTitle
 } from '@/src/components/ui/card'
-import { getMediaSource } from '@/src/lib/utils'
+import { cn, getMediaSource } from '@/src/lib/utils'
 
 interface LeaderboardProps {
 	limit?: number
@@ -37,7 +37,7 @@ export function Leaderboard({
 		<Card>
 			<CardHeader>
 				<CardTitle className='flex items-center text-lg font-medium'>
-					<Users className='mr-2 size-5' /> Рейтинг пользователей
+					<UsersIcon className='mr-2 size-5' /> Рейтинг пользователей
 				</CardTitle>
 				<CardDescription>
 					Пользователи с наибольшим количеством очков
@@ -56,13 +56,13 @@ export function Leaderboard({
 								<div className='flex items-center'>
 									<div className='w-8 text-center text-[15px] font-semibold'>
 										{position === 1 && (
-											<Trophy className='mx-auto size-5 text-yellow-500' />
+											<TrophyIcon className='mx-auto size-5 text-yellow-500' />
 										)}
 										{position === 2 && (
-											<Trophy className='mx-auto size-5 text-gray-400' />
+											<TrophyIcon className='mx-auto size-5 text-gray-400' />
 										)}
 										{position === 3 && (
-											<Trophy className='mx-auto size-5 text-amber-700' />
+											<TrophyIcon className='mx-auto size-5 text-amber-700' />
 										)}
 										{position > 3 && position}
 									</div>
@@ -73,15 +73,24 @@ export function Leaderboard({
 													user.avatar,
 													'users'
 												)}
-												alt='Аватарка'
+												alt={user.displayName}
 											/>
 											<AvatarFallback>
 												{user?.displayName.slice(0, 1)}
 											</AvatarFallback>
 										</Avatar>
-										<p className='font-medium'>
-											{user.displayName}
-										</p>
+
+										<div className='flex items-center gap-2'>
+											<p className='font-medium'>
+												{user.displayName}
+											</p>
+											{user.isPremium && (
+												<span className='flex items-center gap-1 rounded-full bg-blue-100 px-2 py-[3px] text-xs font-medium text-blue-600'>
+													<GemIcon className='size-3 text-blue-500' />
+													Premium
+												</span>
+											)}
+										</div>
 									</div>
 								</div>
 								<div className='font-medium'>
@@ -100,7 +109,7 @@ export function Leaderboard({
 						onClick={onViewAll}
 					>
 						Посмотреть полный рейтинг{' '}
-						<ChevronRight className='ml-2 size-4' />
+						<ChevronRightIcon className='ml-2 size-4' />
 					</Button>
 				</CardFooter>
 			)}

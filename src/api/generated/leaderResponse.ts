@@ -15,4 +15,6 @@ export interface LeaderResponse {
   avatar: string;
   /** Points accumulated by the user */
   points: number;
+  /** Whether the user has an active premium subscription */
+  isPremium: boolean;
 }
