@@ -51,7 +51,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
 		isAvailable: false
 	},
 	{
-		id: InitPaymentRequestMethod.STARS,
+		id: InitPaymentRequestMethod.TELEGRAM_STARS,
 		name: 'Telegram Stars',
 		description: 'Оплата подписки через звёзды Telegram',
 		icon: StarIcon,
