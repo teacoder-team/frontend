@@ -170,9 +170,16 @@ export function Premium() {
 								'INTERNATIONAL_CARD'
 							].includes(form.watch('method')) && (
 								<p className='mt-4 text-xs text-muted-foreground'>
-									Выбирая данный способ оплаты, вы разрешаете
-									будущие автосписания раз в месяц. Их можно
-									отключить в настройках.
+									Я даю согласие на будущие автосписания раз в
+									месяц и принимаю условия{' '}
+									<a
+										href='/document/terms-of-use'
+										className='text-blue-500 underline'
+									>
+										пользовательского соглашения
+									</a>
+									. Автосписания можно отключить в настройках
+									аккаунта.
 								</p>
 							)}
 
