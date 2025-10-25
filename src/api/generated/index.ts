@@ -57,6 +57,8 @@ export * from './mfaStatusResponse';
 export * from './passkeyResponse';
 export * from './passwordResetRequest';
 export * from './patchUserRequest';
+export * from './paymentMethodResponse';
+export * from './paymentMethodResponseId';
 export * from './progressResponse';
 export * from './publicKeyCredentialParameter';
 export * from './registerPasskeyRequest';

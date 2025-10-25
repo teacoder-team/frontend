@@ -1,7 +1,7 @@
 import { type UseMutationOptions, useMutation } from '@tanstack/react-query'
 
 import { InitPaymentRequest } from '../generated'
-import { initPayment } from '../requests/payment'
+import { initPayment } from '../requests'
 
 export const useInitPayment = (
 	options?: Omit<

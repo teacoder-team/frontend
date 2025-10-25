@@ -1,6 +1,7 @@
 export * from './useFetchMfaStatus'
 export * from './useFetchSsoStauts'
 export * from './useGetMe'
+export * from './useGetPaymentMethods'
 export * from './useGetSessions'
 export * from './useInitPayment'
 export * from './useLogin'

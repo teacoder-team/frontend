@@ -42,8 +42,6 @@ export function AvatarForm({ user }: AvatarFormProps) {
 			const formData = new FormData()
 			formData.append('file', file)
 
-			console.log('File added to FormData:', formData.get('file'))
-
 			mutate(formData)
 		} else {
 			toast.error('Пожалуйста, выберите файл')

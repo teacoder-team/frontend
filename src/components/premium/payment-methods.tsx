@@ -1,10 +1,13 @@
 import type { Control } from 'react-hook-form'
 
+import { Skeleton } from '../ui/skeleton'
+
 import type { PaymentFormValues } from './premium'
+import { useGetPaymentMethods } from '@/src/api/hooks'
 import { FormControl, FormField, FormItem } from '@/src/components/ui/form'
 import { Label } from '@/src/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/src/components/ui/radio-group'
-import { PAYMENT_METHODS } from '@/src/constants'
+import { PAYMENT_METHOD_ICONS } from '@/src/constants'
 import { cn } from '@/src/lib/utils'
 
 interface PaymentMethodsProps {
@@ -12,8 +15,19 @@ interface PaymentMethodsProps {
 }
 
 export function PaymentMethods({ control }: PaymentMethodsProps) {
-	const availableMethods = PAYMENT_METHODS.filter(m => m.isAvailable)
-	const comingSoonMethods = PAYMENT_METHODS.filter(m => !m.isAvailable)
+	const { data, isLoading } = useGetPaymentMethods()
+
+	if (isLoading || !data)
+		return (
+			<div className='flex flex-col gap-4'>
+				{Array.from({ length: 3 }).map((_, index) => (
+					<PaymentMethodSkeleton key={index} />
+				))}
+			</div>
+		)
+
+	const availableMethods = data?.filter(m => m.isAvailable)
+	const comingSoonMethods = data?.filter(m => !m.isAvailable)
 
 	return (
 		<FormField
@@ -28,6 +42,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 							className='flex flex-col gap-4'
 						>
 							{availableMethods.map(method => {
+								const Icon = PAYMENT_METHOD_ICONS[method.id]
 								const isSelected = field.value === method.id
 
 								return (
@@ -38,7 +53,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 											'flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 transition-all duration-200',
 											isSelected
 												? 'border-blue-500 bg-blue-50 dark:border-border dark:bg-neutral-800'
-												: 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-background'
+												: 'border-neutral-200 bg-white hover:border-neutral-300 dark:border-neutral-700 dark:bg-background'
 										)}
 									>
 										<div
@@ -49,7 +64,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 													: 'bg-blue-100'
 											)}
 										>
-											<method.icon
+											<Icon
 												className={cn(
 													'size-5',
 													isSelected
@@ -96,6 +111,8 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 							)}
 
 							{comingSoonMethods.map(method => {
+								const Icon = PAYMENT_METHOD_ICONS[method.id]
+
 								return (
 									<Label
 										key={method.id}
@@ -106,7 +123,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 										)}
 									>
 										<div className='flex size-10 items-center justify-center rounded-lg bg-gray-300 dark:bg-neutral-600'>
-											<method.icon className='size-5 text-gray-500 dark:text-neutral-300' />
+											<Icon className='size-5 text-gray-500 dark:text-neutral-300' />
 										</div>
 										<div className='flex flex-1 flex-col'>
 											<span className='font-medium text-gray-600 dark:text-gray-400'>
@@ -131,5 +148,17 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 				</FormItem>
 			)}
 		/>
+	)
+}
+
+export function PaymentMethodSkeleton() {
+	return (
+		<div className='flex items-center gap-3 rounded-xl border border-neutral-200 bg-white p-3.5 dark:border-neutral-700 dark:bg-neutral-900'>
+			<Skeleton className='h-10 w-10 rounded-lg' />
+			<div className='flex flex-1 flex-col gap-2'>
+				<Skeleton className='h-4 w-1/3' />
+				<Skeleton className='h-3 w-2/3' />
+			</div>
+		</div>
 	)
 }
