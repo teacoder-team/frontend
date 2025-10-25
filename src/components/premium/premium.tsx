@@ -68,8 +68,6 @@ export function Premium() {
 		mutate({ method: data.method as InitPaymentRequestMethod })
 	}
 
-	console.log(form.watch('method'))
-
 	return (
 		<>
 			<main className='mx-auto my-20 overflow-x-hidden'>

@@ -1,5 +1,7 @@
 import type { Control } from 'react-hook-form'
 
+import { Skeleton } from '../ui/skeleton'
+
 import type { PaymentFormValues } from './premium'
 import { useGetPaymentMethods } from '@/src/api/hooks'
 import { FormControl, FormField, FormItem } from '@/src/components/ui/form'
@@ -15,7 +17,14 @@ interface PaymentMethodsProps {
 export function PaymentMethods({ control }: PaymentMethodsProps) {
 	const { data, isLoading } = useGetPaymentMethods()
 
-	if (isLoading || !data) return <div>Загрузка...</div>
+	if (isLoading || !data)
+		return (
+			<div className='flex flex-col gap-4'>
+				{Array.from({ length: 3 }).map((_, index) => (
+					<PaymentMethodSkeleton key={index} />
+				))}
+			</div>
+		)
 
 	const availableMethods = data?.filter(m => m.isAvailable)
 	const comingSoonMethods = data?.filter(m => !m.isAvailable)
@@ -44,7 +53,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 											'flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 transition-all duration-200',
 											isSelected
 												? 'border-blue-500 bg-blue-50 dark:border-border dark:bg-neutral-800'
-												: 'border-gray-200 bg-white hover:border-gray-300 dark:border-gray-700 dark:bg-background'
+												: 'border-neutral-200 bg-white hover:border-neutral-300 dark:border-neutral-700 dark:bg-background'
 										)}
 									>
 										<div
@@ -139,5 +148,17 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 				</FormItem>
 			)}
 		/>
+	)
+}
+
+export function PaymentMethodSkeleton() {
+	return (
+		<div className='flex items-center gap-3 rounded-xl border border-neutral-200 bg-white p-3.5 dark:border-neutral-700 dark:bg-neutral-900'>
+			<Skeleton className='h-10 w-10 rounded-lg' />
+			<div className='flex flex-1 flex-col gap-2'>
+				<Skeleton className='h-4 w-1/3' />
+				<Skeleton className='h-3 w-2/3' />
+			</div>
+		</div>
 	)
 }

@@ -61,8 +61,6 @@ export class API {
 				...this.headers
 			}
 		}
-		console.log(options)
-
 		const response: Response = await fetch(url, config)
 
 		if (!response.ok) {

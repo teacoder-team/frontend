@@ -1,6 +1,5 @@
 export * from './app'
 export * from './mfa-methods'
 export * from './payment-icons'
-export * from './payment-methods'
 export * from './seo'
 export * from './routes'
