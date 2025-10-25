@@ -2,7 +2,7 @@
 
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import { FaGithub } from 'react-icons/fa6'
+import { FaDiscord, FaGithub } from 'react-icons/fa6'
 import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'sonner'
 
@@ -15,7 +15,8 @@ export function AuthSocial() {
 
 	const { mutate, isPending } = useMutation({
 		mutationKey: ['oauth login'],
-		mutationFn: (provider: 'google' | 'github') => getAuthUrl(provider),
+		mutationFn: (provider: 'google' | 'github' | 'discord') =>
+			getAuthUrl(provider),
 		onSuccess(data) {
 			router.push(data.url)
 		},
@@ -28,11 +29,11 @@ export function AuthSocial() {
 
 	return (
 		<div className='flex flex-col gap-4'>
-			<div className='grid w-full grid-cols-2 gap-4'>
+			<div className='grid w-full grid-cols-3 gap-4'>
 				<Button
 					onClick={() => mutate('google')}
 					variant='outline'
-					className='[&_svg]:size-[23px]'
+					className='[&_svg]:size-[22px]'
 					disabled={isPending}
 				>
 					<FcGoogle />
@@ -44,6 +45,14 @@ export function AuthSocial() {
 					disabled={isPending}
 				>
 					<FaGithub />
+				</Button>
+				<Button
+					onClick={() => mutate('discord')}
+					variant='outline'
+					className='[&_svg]:size-[23px] [&_svg]:text-[#5D6AF2]'
+					disabled={isPending}
+				>
+					<FaDiscord />
 				</Button>
 			</div>
 			{/* <PasskeyLoginButton /> */}

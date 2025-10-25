@@ -6,15 +6,18 @@ export const fetchSsoStatus = async () =>
 		.get<SsoStatusResponse>('/auth/sso')
 		.then(response => response.data)
 
-export const getAuthUrl = async (provider: 'google' | 'github') =>
+export const getAuthUrl = async (provider: 'google' | 'github' | 'discord') =>
 	await instance
 		.post<SsoConnectResponse>(`/auth/sso/login/${provider}`)
 		.then(response => response.data)
 
-export const getConnectUrl = async (provider: 'google' | 'github') =>
+export const getConnectUrl = async (
+	provider: 'google' | 'github' | 'discord'
+) =>
 	await instance
 		.post<SsoConnectResponse>(`/auth/sso/connect/${provider}`)
 		.then(response => response.data)
 
-export const unlinkAccount = async (provider: 'google' | 'github') =>
-	await instance.delete(`/auth/sso/${provider}`)
+export const unlinkAccount = async (
+	provider: 'google' | 'github' | 'discord'
+) => await instance.delete(`/auth/sso/${provider}`)

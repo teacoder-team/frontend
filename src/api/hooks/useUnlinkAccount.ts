@@ -4,13 +4,20 @@ import { unlinkAccount } from '../requests'
 
 export const useUnlinkAccount = (
 	options?: Omit<
-		UseMutationOptions<unknown, unknown, { provider: 'google' | 'github' }>,
+		UseMutationOptions<
+			unknown,
+			unknown,
+			{ provider: 'google' | 'github' | 'discord' }
+		>,
 		'mutationKey' | 'mutationFn'
 	>
 ) =>
 	useMutation({
 		mutationKey: ['unlink account'],
-		mutationFn: ({ provider }: { provider: 'google' | 'github' }) =>
-			unlinkAccount(provider),
+		mutationFn: ({
+			provider
+		}: {
+			provider: 'google' | 'github' | 'discord'
+		}) => unlinkAccount(provider),
 		...options
 	})

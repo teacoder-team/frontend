@@ -8,7 +8,7 @@ import { Button } from '../../ui/button'
 import { useUnlinkAccount } from '@/src/api/hooks'
 
 interface UnlinkProviderProps {
-	provider: 'google' | 'github'
+	provider: 'google' | 'github' | 'discord'
 }
 
 export function UnlinkProvider({ provider }: UnlinkProviderProps) {

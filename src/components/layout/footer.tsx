@@ -50,12 +50,12 @@ const socialLinks: SocialLink[] = [
 		href: 'https://github.com/teacoder-team',
 		icon: <FaGithub className='size-6' />,
 		label: 'GitHub'
-	},
-	{
-		href: 'https://boosty.to/teacoder',
-		icon: <SiBoosty className='size-6' />,
-		label: 'Boosty'
 	}
+	// {
+	// 	href: 'https://boosty.to/teacoder',
+	// 	icon: <SiBoosty className='size-6' />,
+	// 	label: 'Boosty'
+	// }
 ]
 
 export function Footer() {
