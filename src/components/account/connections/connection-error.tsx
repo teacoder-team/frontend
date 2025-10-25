@@ -1,7 +1,7 @@
 'use client'
 
 import { AlertTriangle } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { Button } from '../../ui/button'
@@ -15,13 +15,15 @@ import {
 } from '../../ui/card'
 
 export function ConnectionError() {
-	const searchParams = useSearchParams()
 	const [isVisible, setIsVisible] = useState(false)
 	const [errorInfo, setErrorInfo] = useState<{
 		title: string
 		description: string
 		details: string
 	} | null>(null)
+
+	const searchParams = useSearchParams()
+	const router = useRouter()
 
 	useEffect(() => {
 		const error = searchParams.get('error')
@@ -44,7 +46,7 @@ export function ConnectionError() {
 					'Попробуйте использовать другой адрес электронной почты или восстановить доступ к старому аккаунту.'
 			})
 			setIsVisible(true)
-		} else if (error === 'access-denied') {
+		} else if (error === 'access_denied') {
 			setErrorInfo({
 				title: 'Доступ запрещён',
 				description:
@@ -55,6 +57,18 @@ export function ConnectionError() {
 			setIsVisible(true)
 		}
 	}, [searchParams])
+
+	const handleClose = () => {
+		setIsVisible(false)
+
+		const params = new URLSearchParams(searchParams.toString())
+
+		params.delete('error')
+
+		router.replace(`${window.location.pathname}?${params.toString()}`, {
+			scroll: false
+		})
+	}
 
 	if (!isVisible || !errorInfo) return null
 
@@ -77,7 +91,7 @@ export function ConnectionError() {
 					<Button
 						variant='primary'
 						className='w-full'
-						onClick={() => setIsVisible(false)}
+						onClick={handleClose}
 					>
 						Понятно
 					</Button>
