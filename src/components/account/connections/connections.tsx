@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { type ReactNode } from 'react'
-import { FaGithub, FaGoogle } from 'react-icons/fa6'
+import { FaDiscord, FaGithub, FaGoogle } from 'react-icons/fa6'
 import { toast } from 'sonner'
 
 import { Heading } from '../../shared/heading'
@@ -14,7 +14,7 @@ import { UnlinkProvider } from './unlink-provider'
 import { useFetchSsoStatus, useSsoConnect } from '@/src/api/hooks'
 
 interface Provider {
-	id: 'google' | 'github'
+	id: 'google' | 'github' | 'discord'
 	name: string
 	icon: ReactNode
 	description: string
@@ -34,6 +34,13 @@ export const providers: Provider[] = [
 		icon: <FaGithub className='size-5 text-white' />,
 		description:
 			'Настройте вход через Github для удобной и быстрой авторизации'
+	},
+	{
+		id: 'discord',
+		name: 'Discord',
+		icon: <FaDiscord className='size-5 text-white' />,
+		description:
+			'Настройте вход через Discord для удобной и быстрой авторизации'
 	}
 ]
 

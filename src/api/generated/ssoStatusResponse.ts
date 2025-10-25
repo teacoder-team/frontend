@@ -11,4 +11,6 @@ export interface SsoStatusResponse {
   github: boolean;
   /** Indicates whether the Google account is connected */
   google: boolean;
+  /** Indicates whether the Discord account is connected */
+  discord: boolean;
 }

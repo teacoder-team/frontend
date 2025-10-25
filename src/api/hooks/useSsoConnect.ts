@@ -8,14 +8,17 @@ export const useSsoConnect = (
 		UseMutationOptions<
 			SsoConnectResponse,
 			unknown,
-			{ provider: 'google' | 'github' }
+			{ provider: 'google' | 'github' | 'discord' }
 		>,
 		'mutationKey' | 'mutationFn'
 	>
 ) =>
 	useMutation({
 		mutationKey: ['sso connect'],
-		mutationFn: ({ provider }: { provider: 'google' | 'github' }) =>
-			getConnectUrl(provider),
+		mutationFn: ({
+			provider
+		}: {
+			provider: 'google' | 'github' | 'discord'
+		}) => getConnectUrl(provider),
 		...options
 	})
