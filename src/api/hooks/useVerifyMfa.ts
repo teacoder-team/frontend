@@ -6,7 +6,7 @@ import {
 	type VerifyRecoveryRequest,
 	type VerifyTotpRequest,
 	verifyMfa
-} from '../requests/mfa'
+} from '../requests'
 
 type MfaVerifyRequest =
 	| VerifyTotpRequest

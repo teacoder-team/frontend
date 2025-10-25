@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AlertCircle, AlertCircleIcon, CodeIcon } from 'lucide-react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -172,12 +173,12 @@ export function Premium() {
 								<p className='mt-4 text-xs text-muted-foreground'>
 									Я даю согласие на будущие автосписания раз в
 									месяц и принимаю условия{' '}
-									<a
+									<Link
 										href='/document/terms-of-use'
 										className='text-blue-500 underline'
 									>
 										пользовательского соглашения
-									</a>
+									</Link>
 									. Автосписания можно отключить в настройках
 									аккаунта.
 								</p>

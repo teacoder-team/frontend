@@ -1,10 +1,11 @@
 import type { Control } from 'react-hook-form'
 
 import type { PaymentFormValues } from './premium'
+import { useGetPaymentMethods } from '@/src/api/hooks'
 import { FormControl, FormField, FormItem } from '@/src/components/ui/form'
 import { Label } from '@/src/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/src/components/ui/radio-group'
-import { PAYMENT_METHODS } from '@/src/constants'
+import { PAYMENT_METHOD_ICONS } from '@/src/constants'
 import { cn } from '@/src/lib/utils'
 
 interface PaymentMethodsProps {
@@ -12,8 +13,12 @@ interface PaymentMethodsProps {
 }
 
 export function PaymentMethods({ control }: PaymentMethodsProps) {
-	const availableMethods = PAYMENT_METHODS.filter(m => m.isAvailable)
-	const comingSoonMethods = PAYMENT_METHODS.filter(m => !m.isAvailable)
+	const { data, isLoading } = useGetPaymentMethods()
+
+	if (isLoading || !data) return <div>Загрузка...</div>
+
+	const availableMethods = data?.filter(m => m.isAvailable)
+	const comingSoonMethods = data?.filter(m => !m.isAvailable)
 
 	return (
 		<FormField
@@ -28,6 +33,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 							className='flex flex-col gap-4'
 						>
 							{availableMethods.map(method => {
+								const Icon = PAYMENT_METHOD_ICONS[method.id]
 								const isSelected = field.value === method.id
 
 								return (
@@ -49,7 +55,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 													: 'bg-blue-100'
 											)}
 										>
-											<method.icon
+											<Icon
 												className={cn(
 													'size-5',
 													isSelected
@@ -96,6 +102,8 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 							)}
 
 							{comingSoonMethods.map(method => {
+								const Icon = PAYMENT_METHOD_ICONS[method.id]
+
 								return (
 									<Label
 										key={method.id}
@@ -106,7 +114,7 @@ export function PaymentMethods({ control }: PaymentMethodsProps) {
 										)}
 									>
 										<div className='flex size-10 items-center justify-center rounded-lg bg-gray-300 dark:bg-neutral-600'>
-											<method.icon className='size-5 text-gray-500 dark:text-neutral-300' />
+											<Icon className='size-5 text-gray-500 dark:text-neutral-300' />
 										</div>
 										<div className='flex flex-1 flex-col'>
 											<span className='font-medium text-gray-600 dark:text-gray-400'>
