@@ -19,7 +19,7 @@ export function UnlinkProvider({ provider }: UnlinkProviderProps) {
 	const { mutate, isPending } = useUnlinkAccount({
 		onSuccess() {
 			queryClient.invalidateQueries({
-				queryKey: ['fetch sso status']
+				queryKey: ['sso status']
 			})
 			setIsOpen(false)
 		},
