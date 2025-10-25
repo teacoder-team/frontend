@@ -1,6 +1,6 @@
 'use client'
 
-import { AlertCircle, AlertTriangle } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -42,6 +42,15 @@ export function ConnectionError() {
 					'Указанная почта уже используется другим аккаунтом.',
 				details:
 					'Попробуйте использовать другой адрес электронной почты или восстановить доступ к старому аккаунту.'
+			})
+			setIsVisible(true)
+		} else if (error === 'access-denied') {
+			setErrorInfo({
+				title: 'Доступ запрещён',
+				description:
+					'Вы отменили авторизацию через внешнего провайдера',
+				details:
+					'Если это было случайно, попробуйте снова. Иначе используйте другой способ входа или свяжитесь с поддержкой.'
 			})
 			setIsVisible(true)
 		}
