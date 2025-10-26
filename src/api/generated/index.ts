@@ -64,6 +64,8 @@ export * from './ssoConnectResponse';
 export * from './ssoControllerCallbackParams';
 export * from './ssoStatusResponse';
 export * from './statisticsResponse';
+export * from './telegramAuthRequest';
+export * from './telegramAuthResponse';
 export * from './totpDisableRequest';
 export * from './totpEnableRequest';
 export * from './totpGenerateSecretResponse';

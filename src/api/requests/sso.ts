@@ -1,4 +1,9 @@
-import type { SsoConnectResponse, SsoStatusResponse } from '../generated'
+import type {
+	SsoConnectResponse,
+	SsoStatusResponse,
+	TelegramAuthRequest,
+	TelegramAuthResponse
+} from '../generated'
 import { api, instance } from '../instance'
 
 export const fetchSsoStatus = async () =>
@@ -18,6 +23,11 @@ export const getConnectUrl = async (provider: string) =>
 	await instance
 		.post<SsoConnectResponse>(`/auth/sso/connect/${provider}`)
 		.then(response => response.data)
+
+export const loginWithTelegram = async (data: TelegramAuthRequest) =>
+	await instance
+		.post<TelegramAuthResponse>('/auth/sso/callback/telegram', data)
+		.then(res => res.data)
 
 export const unlinkAccount = async (provider: string) =>
 	await instance.delete(`/auth/sso/${provider}`)
