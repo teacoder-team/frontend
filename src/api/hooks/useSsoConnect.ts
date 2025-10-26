@@ -5,20 +5,13 @@ import { getConnectUrl } from '../requests'
 
 export const useSsoConnect = (
 	options?: Omit<
-		UseMutationOptions<
-			SsoConnectResponse,
-			unknown,
-			{ provider: 'google' | 'github' | 'discord' }
-		>,
+		UseMutationOptions<SsoConnectResponse, unknown, { provider: string }>,
 		'mutationKey' | 'mutationFn'
 	>
 ) =>
 	useMutation({
 		mutationKey: ['sso connect'],
-		mutationFn: ({
-			provider
-		}: {
-			provider: 'google' | 'github' | 'discord'
-		}) => getConnectUrl(provider),
+		mutationFn: ({ provider }: { provider: string }) =>
+			getConnectUrl(provider),
 		...options
 	})
