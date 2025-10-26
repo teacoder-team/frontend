@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { type ReactNode } from 'react'
-import { FaDiscord, FaGithub, FaGoogle } from 'react-icons/fa6'
 import { toast } from 'sonner'
 
 import { Heading } from '../../shared/heading'
@@ -16,6 +15,7 @@ import {
 	useGetAvailableSsoProviders,
 	useSsoConnect
 } from '@/src/api/hooks'
+import { SSO_PROVIDERS } from '@/src/constants'
 
 interface Provider {
 	id: 'google' | 'github' | 'discord'
@@ -23,27 +23,6 @@ interface Provider {
 	icon: ReactNode
 	description: string
 }
-
-const providerMeta = {
-	google: {
-		name: 'Google',
-		icon: <FaGoogle className='size-5 text-white' />,
-		description: 'Настройте вход через Google для быстрой авторизации',
-		color: 'bg-red-500'
-	},
-	github: {
-		name: 'GitHub',
-		icon: <FaGithub className='size-5 text-white' />,
-		description: 'Настройте вход через GitHub для удобной авторизации',
-		color: 'bg-gray-800'
-	},
-	discord: {
-		name: 'Discord',
-		icon: <FaDiscord className='size-5 text-white' />,
-		description: 'Настройте вход через Discord для авторизации в 1 клик',
-		color: 'bg-indigo-600'
-	}
-} as const
 
 export function Connections() {
 	const router = useRouter()
@@ -77,8 +56,8 @@ export function Connections() {
 					<div className='mt-2 space-y-5'>
 						{availableProviders?.map((provider, index) => {
 							const meta =
-								providerMeta[
-									provider as keyof typeof providerMeta
+								SSO_PROVIDERS[
+									provider as keyof typeof SSO_PROVIDERS
 								]
 
 							if (!meta) return null
@@ -91,7 +70,7 @@ export function Connections() {
 									<CardContent className='flex items-center justify-between p-4'>
 										<div className='flex items-center gap-x-3'>
 											<div className='rounded-full bg-blue-600 p-2.5'>
-												{meta.icon}
+												<meta.icon className='size-5 text-white' />
 											</div>
 											<div>
 												<h2 className='font-semibold'>
