@@ -106,44 +106,67 @@ export function EmailForm({ user }: EmailFormProps) {
 				<div className='flex w-full flex-col'>
 					<div className='mb-1 flex items-center gap-2'>
 						<h2 className='font-semibold'>Почта</h2>
-						{user?.isEmailVerified ? (
-							<Badge variant='success'>Подтверждёна</Badge>
+						{user?.email ? (
+							user.isEmailVerified ? (
+								<Badge variant='success'>Подтверждена</Badge>
+							) : (
+								<Badge variant='error'>Не подтверждена</Badge>
+							)
 						) : (
-							<Badge variant='error'>Не подтверждёна</Badge>
+							<Badge variant='warning'>Не указана</Badge>
 						)}
 					</div>
-					<p className='text-sm text-muted-foreground'>
-						Ваша учетная запись привязана к адресу{' '}
-						<span className='font-medium text-primary'>
-							{user?.email}
-						</span>
-						. На него мы отправляем важные уведомления и информацию
-						о безопасности.
-					</p>
+					{user?.email ? (
+						<p className='text-sm text-muted-foreground'>
+							Ваша учетная запись привязана к адресу{' '}
+							<span className='font-medium text-primary'>
+								{user.email}
+							</span>
+							. На него мы отправляем уведомления и важную
+							информацию.
+						</p>
+					) : (
+						<p className='text-sm text-muted-foreground'>
+							У вашей учетной записи пока нет почты. Добавьте её,
+							чтобы получать уведомления и иметь возможность
+							восстановить доступ.
+						</p>
+					)}
 				</div>
 			</div>
 			<div>
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild className='border-none ring-0'>
-						<Button variant='ghost' size='icon'>
-							<MoreHorizontal className='size-5' />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align='end' side='top'>
-						<DropdownMenuGroup>
-							{!user?.isEmailVerified && (
-								<DropdownMenuItem onClick={() => send()}>
-									<CheckCircle />
-									Подтвердить
+				{user?.email ? (
+					<DropdownMenu>
+						<DropdownMenuTrigger
+							asChild
+							className='border-none ring-0'
+						>
+							<Button variant='ghost' size='icon'>
+								<MoreHorizontal className='size-5' />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align='end' side='top'>
+							<DropdownMenuGroup>
+								{!user.isEmailVerified && (
+									<DropdownMenuItem onClick={() => send()}>
+										<CheckCircle />
+										Подтвердить
+									</DropdownMenuItem>
+								)}
+								<DropdownMenuItem
+									onClick={() => setIsOpen(true)}
+								>
+									<Pencil />
+									Изменить
 								</DropdownMenuItem>
-							)}
-							<DropdownMenuItem onClick={() => setIsOpen(true)}>
-								<Pencil />
-								Изменить
-							</DropdownMenuItem>
-						</DropdownMenuGroup>
-					</DropdownMenuContent>
-				</DropdownMenu>
+							</DropdownMenuGroup>
+						</DropdownMenuContent>
+					</DropdownMenu>
+				) : (
+					<Button variant='outline' onClick={() => setIsOpen(true)}>
+						Привязать
+					</Button>
+				)}
 
 				<Dialog
 					open={isOpen}
