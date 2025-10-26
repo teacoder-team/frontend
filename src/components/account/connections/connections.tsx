@@ -1,6 +1,8 @@
 'use client'
 
+import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { FaGoogle } from 'react-icons/fa6'
 import { toast } from 'sonner'
 
@@ -11,15 +13,32 @@ import { Skeleton } from '../../ui/skeleton'
 
 import { ConnectionError } from './connection-error'
 import { UnlinkProvider } from './unlink-provider'
+import { TelegramAuthRequest } from '@/src/api/generated'
 import {
 	useFetchSsoStatus,
 	useGetAvailableSsoProviders,
-	useSsoConnect
+	useSsoConnect,
+	useTelegramConnect
 } from '@/src/api/hooks'
-import { SSO_PROVIDERS } from '@/src/constants'
+import { ROUTES, SSO_PROVIDERS } from '@/src/constants'
+
+function base64DecodeUnicode(str: string) {
+	try {
+		return decodeURIComponent(
+			atob(str.replace(/-/g, '+').replace(/_/g, '/'))
+				.split('')
+				.map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+				.join('')
+		)
+	} catch {
+		return null
+	}
+}
 
 export function Connections() {
 	const router = useRouter()
+
+	const queryClient = useQueryClient()
 
 	const { data: availableProviders, isLoading: isLoadingProviders } =
 		useGetAvailableSsoProviders()
@@ -35,6 +54,32 @@ export function Connections() {
 			)
 		}
 	})
+
+	const { mutate: connectTelegram } = useTelegramConnect({
+		onSuccess() {
+			queryClient.invalidateQueries({ queryKey: ['sso status'] })
+			router.push(ROUTES.ACCOUNT.CONNECTIONS)
+		},
+		onError() {
+			toast.error('Ошибка при привязке Telegram')
+		}
+	})
+
+	useEffect(() => {
+		const hashString = window.location.hash.replace('#tgAuthResult=', '')
+		if (!hashString) return
+
+		const decoded = base64DecodeUnicode(hashString)
+		if (!decoded) return
+
+		try {
+			const user: TelegramAuthRequest = JSON.parse(decoded)
+			connectTelegram(user)
+			window.history.replaceState(null, '', ROUTES.ACCOUNT.CONNECTIONS)
+		} catch {
+			router.push(ROUTES.ACCOUNT.CONNECTIONS)
+		}
+	}, [connectTelegram])
 
 	return (
 		<>

@@ -11,6 +11,6 @@ export const useTelegramAuth = (
 ) =>
 	useMutation({
 		mutationKey: ['telegram oauth finish'],
-		mutationFn: (tgUser: TelegramAuthRequest) => loginWithTelegram(tgUser),
+		mutationFn: loginWithTelegram,
 		...options
 	})

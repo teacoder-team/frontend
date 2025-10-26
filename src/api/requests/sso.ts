@@ -29,5 +29,10 @@ export const loginWithTelegram = async (data: TelegramAuthRequest) =>
 		.post<TelegramAuthResponse>('/auth/sso/callback/telegram', data)
 		.then(res => res.data)
 
+export const connectWithTelegram = async (data: TelegramAuthRequest) =>
+	await instance
+		.post<boolean>('/auth/sso/telegram/connect-callback', data)
+		.then(res => res.data)
+
 export const unlinkAccount = async (provider: string) =>
 	await instance.delete(`/auth/sso/${provider}`)
