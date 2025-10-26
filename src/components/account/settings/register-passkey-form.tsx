@@ -27,7 +27,6 @@ import {
 } from '../../ui/form'
 import { Input } from '../../ui/input'
 
-import { RegisterPasskeyRequest } from '@/src/api/generated'
 import {
 	generateRegistrationOptions,
 	verifyRegistration
