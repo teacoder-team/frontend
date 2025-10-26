@@ -3,7 +3,8 @@ export const ROUTES = {
 	ABOUT: '/about',
 	PREMIUM: '/premium',
 	AUTH: {
-		LOGIN: (redirectTo?: string) => `/auth/login?redirectTo=${redirectTo}`,
+		LOGIN: (redirectTo?: string) =>
+			redirectTo ? `/auth/login?redirectTo=${redirectTo}` : '/auth/login',
 		REGISTER: '/auth/register',
 		RECOVERY: '/auth/recovery'
 	},

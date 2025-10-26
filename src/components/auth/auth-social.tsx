@@ -2,21 +2,23 @@
 
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import { FaDiscord, FaGithub } from 'react-icons/fa6'
-import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
+import { Skeleton } from '../ui/skeleton'
 
+import { useGetAvailableSsoProviders } from '@/src/api/hooks'
 import { getAuthUrl } from '@/src/api/requests'
+import { SSO_PROVIDERS } from '@/src/constants'
 
 export function AuthSocial() {
 	const router = useRouter()
 
+	const { data, isLoading } = useGetAvailableSsoProviders()
+
 	const { mutate, isPending } = useMutation({
 		mutationKey: ['oauth login'],
-		mutationFn: (provider: 'google' | 'github' | 'discord') =>
-			getAuthUrl(provider),
+		mutationFn: (provider: string) => getAuthUrl(provider),
 		onSuccess(data) {
 			router.push(data.url)
 		},
@@ -29,31 +31,38 @@ export function AuthSocial() {
 
 	return (
 		<div className='flex flex-col gap-4'>
-			<div className='grid w-full grid-cols-3 gap-4'>
-				<Button
-					onClick={() => mutate('google')}
-					variant='outline'
-					className='[&_svg]:size-[22px]'
-					disabled={isPending}
-				>
-					<FcGoogle />
-				</Button>
-				<Button
-					onClick={() => mutate('github')}
-					variant='outline'
-					className='[&_svg]:size-5'
-					disabled={isPending}
-				>
-					<FaGithub />
-				</Button>
-				<Button
-					onClick={() => mutate('discord')}
-					variant='outline'
-					className='[&_svg]:size-[23px] [&_svg]:text-[#5D6AF2]'
-					disabled={isPending}
-				>
-					<FaDiscord />
-				</Button>
+			<div className='grid w-full grid-cols-4 gap-4'>
+				{isLoading
+					? Array.from({ length: 4 }).map((_, i) => (
+							<Skeleton
+								key={i}
+								className='h-10 w-full rounded-lg'
+							/>
+						))
+					: data?.map((provider, index) => {
+							const meta =
+								SSO_PROVIDERS[
+									provider as keyof typeof SSO_PROVIDERS
+								]
+
+							if (!meta) return null
+
+							return (
+								<Button
+									key={index}
+									onClick={() => mutate(meta.id)}
+									variant='outline'
+									className='[&_svg]:size-[21px]'
+									disabled={isPending}
+								>
+									<meta.icon
+										style={{
+											color: meta.color
+										}}
+									/>
+								</Button>
+							)
+						})}
 			</div>
 			{/* <PasskeyLoginButton /> */}
 		</div>

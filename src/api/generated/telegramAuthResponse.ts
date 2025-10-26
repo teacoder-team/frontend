@@ -6,9 +6,11 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface RpEntity {
-  /** Name of the relying party (the server) */
-  name: string;
-  /** Identifier of the relying party (the server) */
+export interface TelegramAuthResponse {
+  /** Unique session identifier */
   id: string;
+  /** Session token */
+  token: string;
+  /** Unique user identifier */
+  userId: string;
 }

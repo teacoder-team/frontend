@@ -13,4 +13,6 @@ export interface SsoStatusResponse {
   google: boolean;
   /** Indicates whether the Discord account is connected */
   discord: boolean;
+  /** Indicates whether the Telegram account is connected */
+  telegram: boolean;
 }

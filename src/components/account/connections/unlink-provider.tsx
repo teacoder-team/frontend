@@ -8,7 +8,7 @@ import { Button } from '../../ui/button'
 import { useUnlinkAccount } from '@/src/api/hooks'
 
 interface UnlinkProviderProps {
-	provider: 'google' | 'github' | 'discord'
+	provider: string
 }
 
 export function UnlinkProvider({ provider }: UnlinkProviderProps) {
@@ -19,7 +19,7 @@ export function UnlinkProvider({ provider }: UnlinkProviderProps) {
 	const { mutate, isPending } = useUnlinkAccount({
 		onSuccess() {
 			queryClient.invalidateQueries({
-				queryKey: ['fetch sso status']
+				queryKey: ['sso status']
 			})
 			setIsOpen(false)
 		},

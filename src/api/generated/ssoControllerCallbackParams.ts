@@ -8,5 +8,6 @@
 
 export type SsoControllerCallbackParams = {
 code: string;
+error: string;
 state: string;
 };

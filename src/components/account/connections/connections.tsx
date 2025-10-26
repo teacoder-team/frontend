@@ -1,53 +1,48 @@
 'use client'
 
+import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import { type ReactNode } from 'react'
-import { FaDiscord, FaGithub, FaGoogle } from 'react-icons/fa6'
+import { useEffect } from 'react'
+import { FaGoogle } from 'react-icons/fa6'
 import { toast } from 'sonner'
 
 import { Heading } from '../../shared/heading'
 import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
+import { Skeleton } from '../../ui/skeleton'
 
 import { ConnectionError } from './connection-error'
 import { UnlinkProvider } from './unlink-provider'
-import { useFetchSsoStatus, useSsoConnect } from '@/src/api/hooks'
+import { TelegramAuthRequest } from '@/src/api/generated'
+import {
+	useFetchSsoStatus,
+	useGetAvailableSsoProviders,
+	useSsoConnect,
+	useTelegramConnect
+} from '@/src/api/hooks'
+import { ROUTES, SSO_PROVIDERS } from '@/src/constants'
 
-interface Provider {
-	id: 'google' | 'github' | 'discord'
-	name: string
-	icon: ReactNode
-	description: string
-}
-
-export const providers: Provider[] = [
-	{
-		id: 'google',
-		name: 'Google',
-		icon: <FaGoogle className='size-5 text-white' />,
-		description:
-			'Настройте вход через Google для удобной и быстрой авторизации'
-	},
-	{
-		id: 'github',
-		name: 'Github',
-		icon: <FaGithub className='size-5 text-white' />,
-		description:
-			'Настройте вход через Github для удобной и быстрой авторизации'
-	},
-	{
-		id: 'discord',
-		name: 'Discord',
-		icon: <FaDiscord className='size-5 text-white' />,
-		description:
-			'Настройте вход через Discord для удобной и быстрой авторизации'
+function base64DecodeUnicode(str: string) {
+	try {
+		return decodeURIComponent(
+			atob(str.replace(/-/g, '+').replace(/_/g, '/'))
+				.split('')
+				.map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+				.join('')
+		)
+	} catch {
+		return null
 	}
-]
+}
 
 export function Connections() {
 	const router = useRouter()
 
-	const { data, isLoading } = useFetchSsoStatus()
+	const queryClient = useQueryClient()
+
+	const { data: availableProviders, isLoading: isLoadingProviders } =
+		useGetAvailableSsoProviders()
+	const { data: ssoStatus, isLoading: isLoadingStatus } = useFetchSsoStatus()
 
 	const { mutate, isPending } = useSsoConnect({
 		onSuccess(data) {
@@ -60,7 +55,31 @@ export function Connections() {
 		}
 	})
 
-	if (isLoading) return <div>Loading status...</div>
+	const { mutate: connectTelegram } = useTelegramConnect({
+		onSuccess() {
+			queryClient.invalidateQueries({ queryKey: ['sso status'] })
+			router.push(ROUTES.ACCOUNT.CONNECTIONS)
+		},
+		onError() {
+			toast.error('Ошибка при привязке Telegram')
+		}
+	})
+
+	useEffect(() => {
+		const hashString = window.location.hash.replace('#tgAuthResult=', '')
+		if (!hashString) return
+
+		const decoded = base64DecodeUnicode(hashString)
+		if (!decoded) return
+
+		try {
+			const user: TelegramAuthRequest = JSON.parse(decoded)
+			connectTelegram(user)
+			window.history.replaceState(null, '', ROUTES.ACCOUNT.CONNECTIONS)
+		} catch {
+			router.push(ROUTES.ACCOUNT.CONNECTIONS)
+		}
+	}, [connectTelegram])
 
 	return (
 		<>
@@ -71,46 +90,87 @@ export function Connections() {
 						description='Подключите и управляйте своими аккаунтами на сторонних сервисах, таких как Google и GitHub'
 					/>
 					<div className='mt-2 space-y-5'>
-						{providers.map((provider, index) => (
-							<Card key={index} className='shadow-none'>
-								<CardContent className='flex items-center justify-between p-4'>
-									<div className='flex items-center gap-x-3'>
-										<div className='rounded-full bg-blue-600 p-2.5'>
-											{provider.icon}
-										</div>
-										<div>
-											<h2 className='font-semibold'>
-												{provider.name}
-											</h2>
-											<p className='text-sm text-muted-foreground'>
-												{provider.description}
-											</p>
-										</div>
-									</div>
-									{data?.[provider.id] ? (
-										<UnlinkProvider
-											provider={provider.id}
-										/>
-									) : (
-										<Button
-											onClick={() =>
-												mutate({
-													provider: provider.id
-												})
-											}
-											variant='outline'
-											isLoading={isPending}
+						{isLoadingProviders || isLoadingStatus
+							? Array.from({ length: 4 }).map((_, index) => (
+									<ConnectionsSkeleton key={index} />
+								))
+							: availableProviders?.map((provider, index) => {
+									const meta =
+										SSO_PROVIDERS[
+											provider as keyof typeof SSO_PROVIDERS
+										]
+
+									if (!meta) return null
+
+									// @ts-ignore
+									const isConnected = ssoStatus?.[provider]
+
+									return (
+										<Card
+											key={index}
+											className='shadow-none'
 										>
-											Привязать
-										</Button>
-									)}
-								</CardContent>
-							</Card>
-						))}
+											<CardContent className='flex items-center justify-between p-4'>
+												<div className='flex items-center gap-x-3'>
+													<div className='rounded-full bg-blue-600 p-2.5'>
+														{provider ===
+														'google' ? (
+															<FaGoogle className='size-5 text-white' />
+														) : (
+															<meta.icon className='size-5 text-white' />
+														)}
+													</div>
+													<div>
+														<h2 className='font-semibold'>
+															{meta.name}
+														</h2>
+														<p className='text-sm text-muted-foreground'>
+															{meta.description}
+														</p>
+													</div>
+												</div>
+												{isConnected ? (
+													<UnlinkProvider
+														provider={provider}
+													/>
+												) : (
+													<Button
+														onClick={() =>
+															mutate({
+																provider
+															})
+														}
+														variant='outline'
+														isLoading={isPending}
+													>
+														Привязать
+													</Button>
+												)}
+											</CardContent>
+										</Card>
+									)
+								})}
 					</div>
 				</div>
 			</div>
 			<ConnectionError />
 		</>
+	)
+}
+
+export function ConnectionsSkeleton() {
+	return (
+		<Card className='shadow-none'>
+			<CardContent className='flex items-center justify-between p-4'>
+				<div className='flex items-center gap-x-3'>
+					<Skeleton className='h-10 w-10 rounded-full' />
+					<div className='flex flex-1 flex-col gap-2'>
+						<Skeleton className='h-4 w-24 rounded-md' />
+						<Skeleton className='h-3 w-40 rounded-md' />
+					</div>
+				</div>
+				<Skeleton className='h-10 w-28 rounded-lg' />
+			</CardContent>
+		</Card>
 	)
 }
