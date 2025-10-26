@@ -1,7 +1,6 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { type ReactNode } from 'react'
 import { toast } from 'sonner'
 
 import { Heading } from '../../shared/heading'
@@ -16,13 +15,6 @@ import {
 	useSsoConnect
 } from '@/src/api/hooks'
 import { SSO_PROVIDERS } from '@/src/constants'
-
-interface Provider {
-	id: 'google' | 'github' | 'discord'
-	name: string
-	icon: ReactNode
-	description: string
-}
 
 export function Connections() {
 	const router = useRouter()
