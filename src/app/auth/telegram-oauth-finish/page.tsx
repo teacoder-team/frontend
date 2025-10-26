@@ -46,14 +46,20 @@ export default function TelegramAuthFinishPage() {
 			if (decoded) {
 				try {
 					const user: TelegramAuthRequest = JSON.parse(decoded)
-
-					mutate(user)
+					if (typeof user === 'object' && user !== null) {
+						mutate(user)
+					} else {
+						throw new Error('Decoded value is not an object')
+					}
 				} catch (err) {
 					console.error(
 						'Ошибка парсинга JSON после декодирования:',
 						err
 					)
+					router.push(ROUTES.AUTH.LOGIN())
 				}
+			} else {
+				router.push(ROUTES.AUTH.LOGIN())
 			}
 		}
 	}, [mutate])
