@@ -1,5 +1,6 @@
 import type {
 	SsoConnectResponse,
+	SsoLoginRequest,
 	SsoStatusResponse,
 	TelegramAuthRequest,
 	TelegramAuthResponse
@@ -14,9 +15,9 @@ export const fetchSsoStatus = async () =>
 export const getAvailableSsoProviders = async () =>
 	await api.get<string[]>('/auth/sso/available').then(res => res.data)
 
-export const getAuthUrl = async (provider: string) =>
+export const getAuthUrl = async (provider: string, data: SsoLoginRequest) =>
 	await instance
-		.post<SsoConnectResponse>(`/auth/sso/login/${provider}`)
+		.post<SsoConnectResponse>(`/auth/sso/login/${provider}`, data)
 		.then(response => response.data)
 
 export const getConnectUrl = async (provider: string) =>

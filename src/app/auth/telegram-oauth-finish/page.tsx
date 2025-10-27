@@ -8,6 +8,7 @@ import { useTelegramAuth } from '@/src/api/hooks'
 import { instance } from '@/src/api/instance'
 import { EllipsisLoader } from '@/src/components/shared/ellipsis-loader'
 import { ROUTES } from '@/src/constants'
+import { useFingerprint } from '@/src/hooks'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
 function base64DecodeUnicode(str: string) {
@@ -26,6 +27,8 @@ function base64DecodeUnicode(str: string) {
 
 export default function TelegramAuthFinishPage() {
 	const router = useRouter()
+
+	const { data: fingerprint } = useFingerprint()
 
 	const { mutate } = useTelegramAuth({
 		onSuccess(data) {
@@ -46,11 +49,16 @@ export default function TelegramAuthFinishPage() {
 			if (decoded) {
 				try {
 					const user: TelegramAuthRequest = JSON.parse(decoded)
-					if (typeof user === 'object' && user !== null) {
-						mutate(user)
-					} else {
+
+					if (typeof user !== 'object' || user === null)
 						throw new Error('Decoded value is not an object')
-					}
+
+					if (fingerprint)
+						mutate({
+							...user,
+							visitorId: fingerprint.visitorId,
+							requestId: fingerprint.requestId
+						})
 				} catch (err) {
 					console.error(
 						'Ошибка парсинга JSON после декодирования:',
@@ -62,7 +70,7 @@ export default function TelegramAuthFinishPage() {
 				router.push(ROUTES.AUTH.LOGIN())
 			}
 		}
-	}, [mutate])
+	}, [fingerprint, mutate, router])
 
 	return (
 		<div className='flex min-h-screen items-center justify-center'>

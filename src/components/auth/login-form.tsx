@@ -110,7 +110,7 @@ export function LoginForm() {
 		await mutateAsync(payload)
 	}
 
-	if (isLoading && !error)
+	if (isLoading)
 		return (
 			<div className='flex min-h-screen items-center justify-center'>
 				<EllipsisLoader />
