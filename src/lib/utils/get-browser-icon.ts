@@ -7,6 +7,7 @@ import {
 	FaSafari,
 	FaYandex
 } from 'react-icons/fa'
+import { FaBrave } from 'react-icons/fa6'
 
 const browsers = [
 	{ names: ['chrome'], icon: FaChrome },
@@ -14,7 +15,8 @@ const browsers = [
 	{ names: ['safari'], icon: FaSafari },
 	{ names: ['edge', 'microsoft edge'], icon: FaEdge },
 	{ names: ['opera'], icon: FaOpera },
-	{ names: ['yandex', 'yandex browser'], icon: FaYandex }
+	{ names: ['yandex', 'yandex browser'], icon: FaYandex },
+	{ names: ['brave'], icon: FaBrave }
 ]
 
 export function getBrowserIcon(browser: string) {

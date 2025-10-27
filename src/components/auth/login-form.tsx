@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Captcha } from '../shared/captcha'
+import { EllipsisLoader } from '../shared/ellipsis-loader'
 import { Button } from '../ui/button'
 import {
 	Form,
@@ -26,6 +27,7 @@ import { MfaForm } from './mfa-form'
 import { useLogin } from '@/src/api/hooks'
 import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
+import { useFingerprint } from '@/src/hooks'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
 const loginSchema = z.object({
@@ -48,6 +50,8 @@ export function LoginForm() {
 
 	const router = useRouter()
 	const searchParams = useSearchParams()
+
+	const { data: fingerprint, isLoading, error } = useFingerprint()
 
 	const { mutateAsync, isPending } = useLogin({
 		onSuccess(data) {
@@ -88,14 +92,30 @@ export function LoginForm() {
 		}
 	}, [form, form.reset, form.formState.isSubmitSuccessful])
 
-	async function onSubmit(data: Login) {
-		if (!data.captcha) {
+	async function onSubmit(values: Login) {
+		if (!values.captcha) {
 			toast.warning('Пройдите капчу!')
 			return
 		}
 
-		await mutateAsync(data)
+		const payload: any = {
+			...values
+		}
+
+		if (fingerprint && !error) {
+			payload.visitorId = fingerprint.visitorId
+			payload.requestId = fingerprint.requestId
+		}
+
+		await mutateAsync(payload)
 	}
+
+	if (isLoading)
+		return (
+			<div className='flex min-h-screen items-center justify-center'>
+				<EllipsisLoader />
+			</div>
+		)
 
 	return methods.length ? (
 		<MfaForm

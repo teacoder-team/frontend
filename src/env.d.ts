@@ -10,6 +10,7 @@ declare namespace NodeJS {
 		API_DOCS: string
 		STORAGE_URL: string
 		TURNSTILE_SITE_KEY: string
+		FPJS_API_KEY: string
 		YANDEX_METRIKA_ID: string
 		GOOGLE_ANALYTICS_ID: string
 	}

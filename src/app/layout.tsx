@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 
 import { YandexMetrika } from '../components/analitycs/yandex-metrika'
 import { BanChecker } from '../components/providers/ban-checker'
+import { FingerprintProvider } from '../components/providers/fingerprint-provider'
 import { TanstackQueryProvider } from '../components/providers/tanstack-query-provider'
 import { ThemeProvider } from '../components/providers/theme-provider'
 import { Toaster } from '../components/shared/sonner'
@@ -71,40 +72,47 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 		<html className={GeistSans.variable} lang='ru' suppressHydrationWarning>
 			<body className='flex h-full w-full flex-col font-sans'>
 				<TanstackQueryProvider>
-					<ThemeProvider
-						attribute='class'
-						defaultTheme='light'
-						enableSystem
-						disableTransitionOnChange
-					>
-						{children}
-						<Toaster
-							toastOptions={{
-								classNames: {
-									error: 'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-200 border-0',
-									success:
-										'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200 border-0',
-									warning:
-										'bg-yellow-100 text-yellow-800 dark:bg-yellow-950 dark:text-yellow-200 border-0',
-									info: 'bg-sky-100 text-sky-800 dark:bg-gray-800 dark:text-gray-200 border-0'
-								}
-							}}
-						/>
-						<BanChecker />
-
-						{process.env['NODE_ENV'] === 'production' && (
-							<>
-								<YandexMetrika
-									id={process.env['YANDEX_METRIKA_ID'] ?? ''}
-								/>
-								<GoogleAnalytics
-									gaId={
-										process.env['GOOGLE_ANALYTICS_ID'] ?? ''
+					<FingerprintProvider>
+						<ThemeProvider
+							attribute='class'
+							defaultTheme='light'
+							enableSystem
+							disableTransitionOnChange
+						>
+							{children}
+							<Toaster
+								toastOptions={{
+									classNames: {
+										error: 'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-200 border-0',
+										success:
+											'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200 border-0',
+										warning:
+											'bg-yellow-100 text-yellow-800 dark:bg-yellow-950 dark:text-yellow-200 border-0',
+										info: 'bg-sky-100 text-sky-800 dark:bg-gray-800 dark:text-gray-200 border-0'
 									}
-								/>
-							</>
-						)}
-					</ThemeProvider>
+								}}
+							/>
+							<BanChecker />
+
+							{process.env['NODE_ENV'] === 'production' && (
+								<>
+									<YandexMetrika
+										id={
+											process.env['YANDEX_METRIKA_ID'] ??
+											''
+										}
+									/>
+									<GoogleAnalytics
+										gaId={
+											process.env[
+												'GOOGLE_ANALYTICS_ID'
+											] ?? ''
+										}
+									/>
+								</>
+							)}
+						</ThemeProvider>
+					</FingerprintProvider>
 				</TanstackQueryProvider>
 			</body>
 		</html>

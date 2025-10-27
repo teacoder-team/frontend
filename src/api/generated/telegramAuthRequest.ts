@@ -21,4 +21,8 @@ export interface TelegramAuthRequest {
   auth_date: number;
   /** Hash for validating the data integrity */
   hash: string;
+  /** Visitor fingerprint ID */
+  visitorId: string;
+  /** Request ID for fingerprint tracking */
+  requestId: string;
 }

@@ -10,15 +10,31 @@ import { Skeleton } from '../ui/skeleton'
 import { useGetAvailableSsoProviders } from '@/src/api/hooks'
 import { getAuthUrl } from '@/src/api/requests'
 import { SSO_PROVIDERS } from '@/src/constants'
+import { useFingerprint } from '@/src/hooks'
 
 export function AuthSocial() {
 	const router = useRouter()
 
 	const { data, isLoading } = useGetAvailableSsoProviders()
+	const {
+		data: fingerprint,
+		isLoading: isFpLoading,
+		error: fpError
+	} = useFingerprint()
 
 	const { mutate, isPending } = useMutation({
 		mutationKey: ['oauth login'],
-		mutationFn: (provider: string) => getAuthUrl(provider),
+		mutationFn: (provider: string) => {
+			const payload =
+				fingerprint && !fpError
+					? {
+							visitorId: fingerprint.visitorId,
+							requestId: fingerprint.requestId
+						}
+					: { visitorId: '', requestId: '' }
+
+			return getAuthUrl(provider, payload)
+		},
 		onSuccess(data) {
 			router.push(data.url)
 		},
@@ -32,7 +48,7 @@ export function AuthSocial() {
 	return (
 		<div className='flex flex-col gap-4'>
 			<div className='grid w-full grid-cols-4 gap-4'>
-				{isLoading
+				{isLoading || isFpLoading
 					? Array.from({ length: 4 }).map((_, i) => (
 							<Skeleton
 								key={i}
