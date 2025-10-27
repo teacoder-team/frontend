@@ -89,7 +89,7 @@ export function RegisterForm() {
 		await mutateAsync(payload)
 	}
 
-	if (isLoading)
+	if (isLoading || !error)
 		return (
 			<div className='flex min-h-screen items-center justify-center'>
 				<EllipsisLoader />
