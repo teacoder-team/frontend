@@ -5,7 +5,7 @@ config({ path: '.env' })
 
 export default defineConfig({
 	client: {
-		input: process.env['API_DOCS'],
+		input: 'http://localhost:14702/openapi.json',
 		output: {
 			schemas: './src/api/generated'
 		}

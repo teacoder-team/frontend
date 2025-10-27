@@ -42,7 +42,7 @@ export type Register = z.infer<typeof registerSchema>
 
 export function RegisterForm() {
 	const { push } = useRouter()
-	const { data: fingerprint, isLoading, error } = useFingerprint()
+	const { data: fingerprint, error } = useFingerprint()
 
 	const { mutateAsync, isPending } = useRegister({
 		onSuccess() {
@@ -88,13 +88,6 @@ export function RegisterForm() {
 
 		await mutateAsync(payload)
 	}
-
-	if (isLoading)
-		return (
-			<div className='flex min-h-screen items-center justify-center'>
-				<EllipsisLoader />
-			</div>
-		)
 
 	return (
 		<AuthWrapper

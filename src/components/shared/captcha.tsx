@@ -1,5 +1,4 @@
 import { useTheme } from 'next-themes'
-import { useEffect } from 'react'
 import Turnstile, { type TurnstileProps } from 'react-turnstile'
 
 interface CaptchaProps extends Omit<TurnstileProps, 'sitekey'> {
@@ -11,7 +10,7 @@ export function Captcha({ onVerify, ...props }: CaptchaProps) {
 
 	return (
 		<Turnstile
-			sitekey={process.env['TURNSTILE_SITE_KEY']}
+			sitekey={process.env['NEXT_PUBLIC_TURNSTILE_SITE_KEY']!}
 			onVerify={onVerify}
 			theme={
 				resolvedTheme === 'system'

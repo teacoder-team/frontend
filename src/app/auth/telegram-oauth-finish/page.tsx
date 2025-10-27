@@ -28,7 +28,7 @@ function base64DecodeUnicode(str: string) {
 export default function TelegramAuthFinishPage() {
 	const router = useRouter()
 
-	const { data: fingerprint, error } = useFingerprint()
+	const { data: fingerprint } = useFingerprint()
 
 	const { mutate } = useTelegramAuth({
 		onSuccess(data) {
