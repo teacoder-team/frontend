@@ -28,7 +28,7 @@ function base64DecodeUnicode(str: string) {
 export default function TelegramAuthFinishPage() {
 	const router = useRouter()
 
-	const { data: fingerprint } = useFingerprint()
+	const { data: fingerprint, error } = useFingerprint()
 
 	const { mutate } = useTelegramAuth({
 		onSuccess(data) {
@@ -53,12 +53,13 @@ export default function TelegramAuthFinishPage() {
 					if (typeof user !== 'object' || user === null)
 						throw new Error('Decoded value is not an object')
 
-					if (fingerprint)
-						mutate({
-							...user,
+					mutate({
+						...user,
+						...(fingerprint && {
 							visitorId: fingerprint.visitorId,
 							requestId: fingerprint.requestId
 						})
+					})
 				} catch (err) {
 					console.error(
 						'Ошибка парсинга JSON после декодирования:',
