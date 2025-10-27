@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Captcha } from '../shared/captcha'
+import { EllipsisLoader } from '../shared/ellipsis-loader'
 import { Button } from '../ui/button'
 import {
 	Form,
@@ -22,6 +23,7 @@ import { Input } from '../ui/input'
 import { AuthWrapper } from './auth-wrapper'
 import { useRegister } from '@/src/api/hooks'
 import { ROUTES } from '@/src/constants'
+import { useFingerprint } from '@/src/hooks'
 
 const registerSchema = z.object({
 	name: z.string().min(1, { message: 'Имя обязательно' }),
@@ -40,6 +42,7 @@ export type Register = z.infer<typeof registerSchema>
 
 export function RegisterForm() {
 	const { push } = useRouter()
+	const { data: fingerprint, isLoading, error } = useFingerprint()
 
 	const { mutateAsync, isPending } = useRegister({
 		onSuccess() {
@@ -68,14 +71,30 @@ export function RegisterForm() {
 		}
 	}, [form, form.reset, form.formState.isSubmitSuccessful])
 
-	async function onSubmit(data: Register) {
-		if (!data.captcha) {
+	async function onSubmit(values: Register) {
+		if (!values.captcha) {
 			toast.warning('Пройдите капчу!')
 			return
 		}
 
-		await mutateAsync(data)
+		const payload: any = {
+			...values
+		}
+
+		if (fingerprint && !error) {
+			payload.visitorId = fingerprint.visitorId
+			payload.requestId = fingerprint.requestId
+		}
+
+		await mutateAsync(payload)
 	}
+
+	if (isLoading)
+		return (
+			<div className='flex min-h-screen items-center justify-center'>
+				<EllipsisLoader />
+			</div>
+		)
 
 	return (
 		<AuthWrapper
