@@ -27,8 +27,8 @@ jobs:
         runs-on: ubuntu-latest
         needs: install
         env:
-            APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
-            API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+            NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+            NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
