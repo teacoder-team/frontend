@@ -51,7 +51,7 @@ export function LoginForm() {
 	const router = useRouter()
 	const searchParams = useSearchParams()
 
-	const { data: fingerprint, isLoading, error } = useFingerprint()
+	const { data: fingerprint, error } = useFingerprint()
 
 	const { mutateAsync, isPending } = useLogin({
 		onSuccess(data) {
@@ -109,13 +109,6 @@ export function LoginForm() {
 
 		await mutateAsync(payload)
 	}
-
-	if (isLoading || !error)
-		return (
-			<div className='flex min-h-screen items-center justify-center'>
-				<EllipsisLoader />
-			</div>
-		)
 
 	return methods.length ? (
 		<MfaForm
