@@ -163,11 +163,9 @@ export function Premium() {
 						>
 							<PaymentMethods control={form.control} />
 
-							{[
-								'BANK_CARD',
-								'SBP',
-								'INTERNATIONAL_CARD'
-							].includes(form.watch('method')) && (
+							{['BANK_CARD', 'SBP'].includes(
+								form.watch('method')
+							) && (
 								<p className='mt-4 text-xs text-muted-foreground'>
 									Я даю согласие на будущие автосписания раз в
 									месяц и принимаю условия{' '}
