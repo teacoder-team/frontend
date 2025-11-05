@@ -16,6 +16,8 @@ export type PaymentMethodResponseId = typeof PaymentMethodResponseId[keyof typeo
 export const PaymentMethodResponseId = {
   BANK_CARD: 'BANK_CARD',
   SBP: 'SBP',
+  T_PAY: 'T_PAY',
+  SBER_PAY: 'SBER_PAY',
   YOOMONEY: 'YOOMONEY',
   CRYPTO: 'CRYPTO',
   INTERNATIONAL_CARD: 'INTERNATIONAL_CARD',

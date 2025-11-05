@@ -163,7 +163,7 @@ export function Premium() {
 						>
 							<PaymentMethods control={form.control} />
 
-							{['BANK_CARD', 'SBP'].includes(
+							{['BANK_CARD', 'SBP', 'T_PAY'].includes(
 								form.watch('method')
 							) && (
 								<p className='mt-4 text-xs text-muted-foreground'>
