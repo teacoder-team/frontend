@@ -16,6 +16,8 @@ export type InitPaymentRequestMethod = typeof InitPaymentRequestMethod[keyof typ
 export const InitPaymentRequestMethod = {
   BANK_CARD: 'BANK_CARD',
   SBP: 'SBP',
+  T_PAY: 'T_PAY',
+  SBER_PAY: 'SBER_PAY',
   YOOMONEY: 'YOOMONEY',
   CRYPTO: 'CRYPTO',
   INTERNATIONAL_CARD: 'INTERNATIONAL_CARD',

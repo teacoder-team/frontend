@@ -1,2 +1,4 @@
+export * from './sberbank-icon'
 export * from './sbp-icon'
+export * from './tbank-icon'
 export * from './yoomoney-icon'
