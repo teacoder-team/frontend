@@ -10,4 +10,6 @@ import type { InitPaymentRequestMethod } from './initPaymentRequestMethod';
 export interface InitPaymentRequest {
   /** Payment method */
   method: InitPaymentRequestMethod;
+  /** User email (required if the account does not have one) */
+  email?: string;
 }
