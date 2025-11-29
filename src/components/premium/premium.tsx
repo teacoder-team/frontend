@@ -8,6 +8,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { Input } from '../ui/input'
+
 import { FAQSection } from './faq'
 import { PaymentMethods } from './payment-methods'
 import { InitPaymentRequestMethod } from '@/src/api/generated'
@@ -25,7 +27,14 @@ import {
 	DialogHeader,
 	DialogTitle
 } from '@/src/components/ui/dialog'
-import { Form } from '@/src/components/ui/form'
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage
+} from '@/src/components/ui/form'
 import { ROUTES } from '@/src/constants'
 import { useAuth } from '@/src/hooks'
 
@@ -35,7 +44,8 @@ export const paymentSchema = z.object({
 		{
 			required_error: 'Выберите метод оплаты'
 		}
-	)
+	),
+	email: z.string().email('Введите корректный email').optional()
 })
 
 export type PaymentFormValues = z.infer<typeof paymentSchema>
@@ -50,6 +60,28 @@ export function Premium() {
 		onSuccess(data) {
 			setIsOpen(false)
 			router.push(data.url)
+		},
+		onError(error: any) {
+			if (error.response?.status === 409) {
+				form.setError('email', {
+					type: 'manual',
+					message: 'Этот email уже используется'
+				})
+				return
+			}
+
+			if (error.response?.status === 400) {
+				form.setError('email', {
+					type: 'manual',
+					message: 'Для проведения платежа необходимо указать почту'
+				})
+				return
+			}
+
+			form.setError('method', {
+				type: 'manual',
+				message: 'Не удалось создать платеж. Попробуйте позже.'
+			})
 		}
 	})
 
@@ -65,7 +97,10 @@ export function Premium() {
 	})
 
 	const onSubmit = (data: PaymentFormValues) => {
-		mutate({ method: data.method as InitPaymentRequestMethod })
+		mutate({
+			method: data.method as InitPaymentRequestMethod,
+			email: data.email
+		})
 	}
 
 	return (
@@ -178,6 +213,26 @@ export function Premium() {
 									. Автосписания можно отключить в настройках
 									аккаунта.
 								</p>
+							)}
+
+							{!user?.email && (
+								<FormField
+									control={form.control}
+									name='email'
+									render={({ field }) => (
+										<FormItem className='mt-4'>
+											<FormLabel>Email</FormLabel>
+											<FormControl>
+												<Input
+													placeholder='tony@starkindustries.com'
+													disabled={isPending}
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
 							)}
 
 							<div className='flex gap-x-3 pt-6'>
