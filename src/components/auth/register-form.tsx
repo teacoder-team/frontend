@@ -25,6 +25,7 @@ import { useRegister } from '@/src/api/hooks'
 import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
 import { useFingerprint } from '@/src/hooks'
+import { analytics } from '@/src/lib/analytics'
 import { cookies } from '@/src/lib/cookie'
 
 const registerSchema = z.object({
@@ -48,16 +49,20 @@ export function RegisterForm() {
 
 	const { mutateAsync, isPending } = useRegister({
 		onSuccess(data) {
+			analytics.auth.register.success()
+
 			cookies.set('token', data.token, { expires: 30 })
 
 			instance.defaults.headers['X-Session-Token'] = data.token
 
-			push('/account')
+			push(ROUTES.ACCOUNT.ROOT)
 		},
 		onError(error: any) {
-			toast.error(
+			const message =
 				error.response?.data?.message ?? 'Ошибка при регистрации'
-			)
+			analytics.auth.register.fail(message)
+
+			toast.error(message)
 		}
 	})
 
@@ -72,12 +77,18 @@ export function RegisterForm() {
 	})
 
 	useEffect(() => {
+		analytics.auth.register.view()
+	}, [])
+
+	useEffect(() => {
 		if (form.formState.isSubmitSuccessful && form.getValues('captcha')) {
 			form.reset()
 		}
 	}, [form, form.reset, form.formState.isSubmitSuccessful])
 
 	async function onSubmit(values: Register) {
+		analytics.auth.register.submit()
+
 		if (!values.captcha) {
 			toast.warning('Пройдите капчу!')
 			return
@@ -118,6 +129,10 @@ export function RegisterForm() {
 											placeholder='Tony Stark'
 											disabled={isPending}
 											{...field}
+											onChange={e => {
+												field.onChange(e)
+												analytics.auth.register.nameInput()
+											}}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -135,6 +150,10 @@ export function RegisterForm() {
 											placeholder='tony@starkindustries.com'
 											disabled={isPending}
 											{...field}
+											onChange={e => {
+												field.onChange(e)
+												analytics.auth.register.emailInput()
+											}}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -153,6 +172,10 @@ export function RegisterForm() {
 											placeholder='******'
 											disabled={isPending}
 											{...field}
+											onChange={e => {
+												field.onChange(e)
+												analytics.auth.register.passwordInput()
+											}}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -181,6 +204,7 @@ export function RegisterForm() {
 							size='lg'
 							isLoading={isPending}
 							className='w-full'
+							onClick={() => analytics.auth.register.click()}
 						>
 							Продолжить
 						</Button>

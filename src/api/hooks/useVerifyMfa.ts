@@ -8,10 +8,14 @@ import {
 	verifyMfa
 } from '../requests'
 
-type MfaVerifyRequest =
-	| VerifyTotpRequest
-	| VerifyPasskeyRequest
-	| VerifyRecoveryRequest
+type AnalyticsMeta = {
+	method?: string
+}
+
+export type MfaVerifyRequest =
+	| (VerifyTotpRequest & AnalyticsMeta)
+	| (VerifyPasskeyRequest & AnalyticsMeta)
+	| (VerifyRecoveryRequest & AnalyticsMeta)
 
 export const useVerifyMfa = (
 	options?: Omit<

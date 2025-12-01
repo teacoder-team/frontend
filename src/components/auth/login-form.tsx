@@ -26,7 +26,7 @@ import { useLogin } from '@/src/api/hooks'
 import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
 import { useFingerprint } from '@/src/hooks'
-import { analytics } from '@/src/lib/analytics/events'
+import { analytics } from '@/src/lib/analytics'
 import { cookies } from '@/src/lib/cookie'
 
 const loginSchema = z.object({
@@ -54,15 +54,17 @@ export function LoginForm() {
 
 	const { mutateAsync, isPending } = useLogin({
 		onSuccess(data) {
-			analytics.auth.login.success()
-
 			if ('ticket' in data && typeof data.ticket === 'string') {
+				analytics.auth.login.mfaRequested(data.allowedMethods)
+
 				setTicket(data.ticket)
 				setMethods(data.allowedMethods)
 				setUserId(data.userId)
 			}
 
 			if ('token' in data && typeof data.token === 'string') {
+				analytics.auth.login.success()
+
 				cookies.set('token', data.token, { expires: 30 })
 
 				instance.defaults.headers['X-Session-Token'] = data.token
@@ -89,6 +91,10 @@ export function LoginForm() {
 			captcha: ''
 		}
 	})
+
+	useEffect(() => {
+		analytics.auth.login.view()
+	}, [])
 
 	useEffect(() => {
 		if (form.formState.isSubmitSuccessful && form.getValues('captcha')) {
@@ -149,6 +155,10 @@ export function LoginForm() {
 											placeholder='tony@starkindustries.com'
 											disabled={isPending}
 											{...field}
+											onChange={e => {
+												field.onChange(e)
+												analytics.auth.login.emailInput()
+											}}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -175,6 +185,10 @@ export function LoginForm() {
 											placeholder='******'
 											disabled={isPending}
 											{...field}
+											onChange={e => {
+												field.onChange(e)
+												analytics.auth.login.passwordInput()
+											}}
 										/>
 									</FormControl>
 									<FormMessage />

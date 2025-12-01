@@ -22,6 +22,7 @@ import { Input } from '../ui/input'
 import { AuthWrapper } from './auth-wrapper'
 import { passwordReset } from '@/src/api/requests'
 import { ROUTES } from '@/src/constants'
+import { analytics } from '@/src/lib/analytics'
 
 const newPasswordSchema = z.object({
 	token: z.string().max(128, { message: 'Некорректный токен' }),
@@ -41,12 +42,15 @@ export function NewPasswordForm() {
 		mutationKey: ['password reset'],
 		mutationFn: (data: NewPassword) => passwordReset(data),
 		onSuccess() {
+			analytics.auth.newPassword.success()
 			push('/auth/login')
 		},
 		onError(error: any) {
-			toast.error(
-				error.response?.data?.message ?? 'Ошибка при регистрации'
-			)
+			const message =
+				error.response?.data?.message ?? 'Ошибка при сбросе пароля'
+			analytics.auth.newPassword.fail(message)
+
+			toast.error(message)
 		}
 	})
 
@@ -59,10 +63,16 @@ export function NewPasswordForm() {
 	})
 
 	useEffect(() => {
+		analytics.auth.newPassword.view()
+	}, [])
+
+	useEffect(() => {
 		form.reset()
 	}, [form, form.reset, form.formState.isSubmitSuccessful])
 
 	async function onSubmit(data: NewPassword) {
+		analytics.auth.newPassword.submit()
+
 		await mutateAsync({
 			token,
 			password: data.password

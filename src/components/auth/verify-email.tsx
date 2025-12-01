@@ -8,6 +8,7 @@ import { Button } from '../ui/button'
 
 import { AuthWrapper } from './auth-wrapper'
 import { verifyEmail } from '@/src/api/requests'
+import { ROUTES } from '@/src/constants'
 
 export function VerifyEmail() {
 	const router = useRouter()
@@ -17,7 +18,7 @@ export function VerifyEmail() {
 		mutationKey: ['verify email'],
 		mutationFn: () => verifyEmail(token),
 		onSuccess() {
-			router.push('/account/settings')
+			router.push(ROUTES.ACCOUNT.SETTINGS)
 		},
 		onError(error: any) {
 			toast.error(

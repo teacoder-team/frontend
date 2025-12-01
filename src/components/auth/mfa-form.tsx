@@ -1,7 +1,7 @@
 import { startAuthentication } from '@simplewebauthn/browser'
 import { ArrowLeftIcon, KeyIcon } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
@@ -13,6 +13,7 @@ import { useVerifyMfa } from '@/src/api/hooks/useVerifyMfa'
 import { instance } from '@/src/api/instance'
 import { generateAuthenticationOptions } from '@/src/api/requests'
 import { MFA_OPTIONS, MfaMethod, ROUTES } from '@/src/constants'
+import { analytics } from '@/src/lib/analytics'
 import { cookies } from '@/src/lib/cookie'
 import { cn } from '@/src/lib/utils'
 
@@ -32,7 +33,11 @@ export function MfaForm({ ticket, methods, userId, onBack }: MfaFormProps) {
 	const searchParams = useSearchParams()
 
 	const { mutate, isPending } = useVerifyMfa({
-		onSuccess(data) {
+		onSuccess(data, variables) {
+			console.log('METHOD: ', variables.method)
+
+			analytics.auth.mfa.success(variables.method!)
+
 			cookies.set('token', data.token, { expires: 30 })
 
 			instance.defaults.headers['X-Session-Token'] = data.token
@@ -42,16 +47,24 @@ export function MfaForm({ ticket, methods, userId, onBack }: MfaFormProps) {
 
 			router.push(redirectTo)
 		},
-		onError(error: any) {
-			toast.error(error.response?.data?.message ?? 'Ошибка при входе')
+		onError(error: any, variables) {
+			const message = error.response?.data?.message ?? 'Ошибка при входе'
+			analytics.auth.mfa.fail(variables.method!, message)
+
+			toast.error(message)
 		}
 	})
+
+	useEffect(() => {
+		analytics.auth.mfa.methodsShown(methods)
+	}, [methods])
 
 	const availableOptions = MFA_OPTIONS.filter(option =>
 		methods.includes(option.id)
 	)
-
 	const handleMethodSelect = (method: MfaMethod) => {
+		analytics.auth.mfa.select(method)
+
 		setSelectedMethod(method)
 		setCode('')
 	}
@@ -68,6 +81,8 @@ export function MfaForm({ ticket, methods, userId, onBack }: MfaFormProps) {
 	const handleVerify = () => {
 		if (!selectedMethod || !code.trim()) return
 
+		analytics.auth.mfa.submit(selectedMethod)
+
 		const payload =
 			selectedMethod === 'totp'
 				? { ticket, totpCode: code }
@@ -77,14 +92,17 @@ export function MfaForm({ ticket, methods, userId, onBack }: MfaFormProps) {
 	}
 
 	const handlePasskeyAuth = async () => {
+		analytics.auth.mfa.passkeyStart()
 		setIsLoading(true)
 		try {
 			const options = await generateAuthenticationOptions({ userId })
-
 			const attestationResponse = await startAuthentication(options)
 
+			analytics.auth.mfa.passkeySuccess()
+
 			mutate({ ticket, attestationResponse })
-		} catch (error) {
+		} catch (error: any) {
+			analytics.auth.mfa.passkeyFail(error?.message)
 			console.error('Passkey authentication failed:', error)
 		} finally {
 			setIsLoading(false)
