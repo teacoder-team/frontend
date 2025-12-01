@@ -1,7 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -10,7 +9,6 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Captcha } from '../shared/captcha'
-import { EllipsisLoader } from '../shared/ellipsis-loader'
 import { Button } from '../ui/button'
 import {
 	Form,
@@ -28,7 +26,8 @@ import { useLogin } from '@/src/api/hooks'
 import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
 import { useFingerprint } from '@/src/hooks'
-import { setSessionToken } from '@/src/lib/cookies/session'
+import { analytics } from '@/src/lib/analytics'
+import { cookies } from '@/src/lib/cookie'
 
 const loginSchema = z.object({
 	email: z
@@ -56,13 +55,17 @@ export function LoginForm() {
 	const { mutateAsync, isPending } = useLogin({
 		onSuccess(data) {
 			if ('ticket' in data && typeof data.ticket === 'string') {
+				analytics.auth.login.mfaRequested(data.allowedMethods)
+
 				setTicket(data.ticket)
 				setMethods(data.allowedMethods)
 				setUserId(data.userId)
 			}
 
 			if ('token' in data && typeof data.token === 'string') {
-				setSessionToken(data.token)
+				analytics.auth.login.success()
+
+				cookies.set('token', data.token, { expires: 30 })
 
 				instance.defaults.headers['X-Session-Token'] = data.token
 
@@ -73,7 +76,10 @@ export function LoginForm() {
 			}
 		},
 		onError(error: any) {
-			toast.error(error.response?.data?.message ?? 'Ошибка при входе')
+			const message = error.response?.data?.message ?? 'Ошибка при входе'
+			analytics.auth.login.fail(message)
+
+			toast.error(message)
 		}
 	})
 
@@ -87,12 +93,18 @@ export function LoginForm() {
 	})
 
 	useEffect(() => {
+		analytics.auth.login.view()
+	}, [])
+
+	useEffect(() => {
 		if (form.formState.isSubmitSuccessful && form.getValues('captcha')) {
 			form.reset()
 		}
 	}, [form, form.reset, form.formState.isSubmitSuccessful])
 
 	async function onSubmit(values: Login) {
+		analytics.auth.login.submit()
+
 		if (!values.captcha) {
 			toast.warning('Пройдите капчу!')
 			return
@@ -143,6 +155,10 @@ export function LoginForm() {
 											placeholder='tony@starkindustries.com'
 											disabled={isPending}
 											{...field}
+											onChange={e => {
+												field.onChange(e)
+												analytics.auth.login.emailInput()
+											}}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -169,6 +185,10 @@ export function LoginForm() {
 											placeholder='******'
 											disabled={isPending}
 											{...field}
+											onChange={e => {
+												field.onChange(e)
+												analytics.auth.login.passwordInput()
+											}}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -197,6 +217,7 @@ export function LoginForm() {
 							size='lg'
 							isLoading={isPending}
 							className='w-full'
+							onClick={() => analytics.auth.login.click()}
 						>
 							Продолжить
 						</Button>

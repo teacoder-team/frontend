@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useGetMe } from '../api/hooks'
 import { instance } from '../api/instance'
-import { removeSessionToken } from '../lib/cookies/session'
+import { cookies } from '../lib/cookie'
 
 import { useAuth } from './useAuth'
 
@@ -20,7 +20,7 @@ export function useCurrent() {
 
 	useEffect(() => {
 		if (error) {
-			removeSessionToken()
+			cookies.remove('token')
 
 			delete instance.defaults.headers['X-Session-Token']
 

@@ -4,7 +4,7 @@ import { logout } from '../requests'
 
 export const useLogout = (
 	options?: Omit<
-		UseMutationOptions<void, unknown, void>,
+		UseMutationOptions<unknown, unknown, void>,
 		'mutationKey' | 'mutationFn'
 	>
 ) =>

@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react'
 
-import { EllipsisLoader } from '../shared/ellipsis-loader'
+import { EllipsisLoader } from '../components/shared/ellipsis-loader'
 
 import { useFetchMfaStatus } from '@/src/api/hooks'
 import { useCurrent } from '@/src/hooks'

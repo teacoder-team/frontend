@@ -1,4 +1,3 @@
-import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -7,19 +6,24 @@ import { ConfirmDialog } from '../../shared/confirm-dialog'
 import { Button } from '../../ui/button'
 import { Card, CardContent } from '../../ui/card'
 
-import { logout } from '@/src/api/requests'
+import { useLogout } from '@/src/api/hooks'
+import { instance } from '@/src/api/instance'
+import { ROUTES } from '@/src/constants'
+import { cookies } from '@/src/lib/cookie'
 
 export function AccountActions() {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const { push } = useRouter()
 
-	const { mutate } = useMutation({
-		mutationKey: ['logout'],
-		mutationFn: () => logout(),
+	const { mutate } = useLogout({
 		onSuccess() {
+			cookies.remove('token')
+
+			delete instance.defaults.headers['X-Session-Token']
+
 			setIsOpen(false)
-			push('/auth/login')
+			push(ROUTES.AUTH.LOGIN())
 		},
 		onError(error: any) {
 			toast.error(error.response?.data?.message ?? 'Ошибка при выходе')

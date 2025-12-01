@@ -22,6 +22,7 @@ import { Input } from '../ui/input'
 import { AuthWrapper } from './auth-wrapper'
 import { sendPasswordReset } from '@/src/api/requests'
 import { ROUTES } from '@/src/constants'
+import { analytics } from '@/src/lib/analytics'
 
 const resetPasswordSchema = z.object({
 	email: z
@@ -37,13 +38,17 @@ export function ResetPasswordForm() {
 		mutationKey: ['send password reset'],
 		mutationFn: (data: ResetPassword) => sendPasswordReset(data),
 		onSuccess() {
+			analytics.auth.resetPassword.success()
+
 			form.reset()
 			toast.success('Письмо с инструкциями отправлено на вашу почту')
 		},
 		onError(error: any) {
-			toast.error(
+			const message =
 				error.response?.data?.message ?? 'Ошибка при сбросе пароля'
-			)
+			analytics.auth.resetPassword.fail(message)
+
+			toast.error(message)
 		}
 	})
 
@@ -56,12 +61,18 @@ export function ResetPasswordForm() {
 	})
 
 	useEffect(() => {
+		analytics.auth.resetPassword.view()
+	}, [])
+
+	useEffect(() => {
 		if (form.formState.isSubmitSuccessful && form.getValues('captcha')) {
 			form.reset()
 		}
 	}, [form, form.reset, form.formState.isSubmitSuccessful])
 
 	async function onSubmit(data: ResetPassword) {
+		analytics.auth.resetPassword.submit()
+
 		if (!data.captcha) {
 			toast.warning('Пройдите капчу!')
 			return

@@ -1,12 +1,6 @@
 'use client'
 
-import {
-	ChartArea,
-	CreditCardIcon,
-	LinkIcon,
-	MonitorSmartphone,
-	Settings
-} from 'lucide-react'
+import { ChartArea, LinkIcon, MonitorSmartphone, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 

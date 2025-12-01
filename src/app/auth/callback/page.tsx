@@ -5,7 +5,8 @@ import { useEffect } from 'react'
 
 import { instance } from '@/src/api/instance'
 import { EllipsisLoader } from '@/src/components/shared/ellipsis-loader'
-import { setSessionToken } from '@/src/lib/cookies/session'
+import { ROUTES } from '@/src/constants'
+import { cookies } from '@/src/lib/cookie'
 
 export default function AuthCallbackPage() {
 	const router = useRouter()
@@ -15,9 +16,11 @@ export default function AuthCallbackPage() {
 		const token = new URLSearchParams(hash.slice(1)).get('token')
 
 		if (token) {
-			setSessionToken(token)
+			cookies.set('token', token, { expires: 30 })
+
 			instance.defaults.headers['X-Session-Token'] = token
-			router.push('/account/settings')
+
+			router.push(ROUTES.ACCOUNT.ROOT)
 		}
 	}, [router])
 

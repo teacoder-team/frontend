@@ -11,6 +11,7 @@ import { useGetAvailableSsoProviders } from '@/src/api/hooks'
 import { getAuthUrl } from '@/src/api/requests'
 import { SSO_PROVIDERS } from '@/src/constants'
 import { useFingerprint } from '@/src/hooks'
+import { analytics } from '@/src/lib/analytics'
 
 export function AuthSocial() {
 	const router = useRouter()
@@ -25,6 +26,8 @@ export function AuthSocial() {
 	const { mutate, isPending } = useMutation({
 		mutationKey: ['oauth login'],
 		mutationFn: (provider: string) => {
+			analytics.auth.social.redirect(provider)
+
 			const payload =
 				fingerprint && !fpError
 					? {
@@ -35,10 +38,14 @@ export function AuthSocial() {
 
 			return getAuthUrl(provider, payload)
 		},
-		onSuccess(data) {
+		onSuccess(data, variables) {
+			analytics.auth.social.success(variables)
+
 			router.push(data.url)
 		},
-		onError(error: any) {
+		onError(error: any, variables) {
+			analytics.auth.social.fail(variables, error.message)
+
 			toast.error(
 				error.response?.data?.message ?? 'Ошибка при создании URL'
 			)
@@ -66,7 +73,10 @@ export function AuthSocial() {
 							return (
 								<Button
 									key={index}
-									onClick={() => mutate(meta.id)}
+									onClick={() => {
+										analytics.auth.social.click(meta.id)
+										mutate(meta.id)
+									}}
 									variant='outline'
 									className='[&_svg]:size-[21px]'
 									disabled={isPending}
