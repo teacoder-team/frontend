@@ -18,8 +18,10 @@ import {
 } from '../ui/dropdown-menu'
 
 import { useLogout } from '@/src/api/hooks'
+import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
 import { useCurrent } from '@/src/hooks/useCurrent'
+import { cookies } from '@/src/lib/cookie'
 import { getMediaSource } from '@/src/lib/utils'
 
 export function UserMenu() {
@@ -29,7 +31,11 @@ export function UserMenu() {
 
 	const { mutate } = useLogout({
 		onSuccess() {
-			router.push('/auth/login')
+			cookies.remove('token')
+
+			delete instance.defaults.headers['X-Session-Token']
+
+			router.push(ROUTES.AUTH.LOGIN())
 		},
 		onError(error: any) {
 			toast.error(error.response?.data?.message ?? 'Ошибка при выходе')

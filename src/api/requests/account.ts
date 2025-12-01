@@ -9,27 +9,13 @@ import type {
 } from '../generated'
 import { api, instance } from '../instance'
 
-import { setSessionToken } from '@/src/lib/cookies/session'
-
 export const getMe = async () =>
-	await instance
-		.get<AccountResponse>('/auth/account')
-		.then(response => response.data)
+	await instance.get<AccountResponse>('/auth/account').then(res => res.data)
 
-export const createAccount = async (data: CreateUserRequest) => {
-	const response = await api.post<CreateUserResponse>(
-		'/auth/account/create',
-		data
-	)
-
-	if (response.data.token) {
-		setSessionToken(response.data.token)
-
-		instance.defaults.headers['X-Session-Token'] = response.data.token
-	}
-
-	return response.data
-}
+export const createAccount = async (data: CreateUserRequest) =>
+	await api
+		.post<CreateUserResponse>('/auth/account/create', data)
+		.then(res => res.data)
 
 export const sendEmailVerification = () => instance.post('/auth/account/verify')
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { TelegramAuthRequest } from '@/src/api/generated'
 import { useTelegramAuth } from '@/src/api/hooks'
@@ -9,7 +9,7 @@ import { instance } from '@/src/api/instance'
 import { EllipsisLoader } from '@/src/components/shared/ellipsis-loader'
 import { ROUTES } from '@/src/constants'
 import { useFingerprint } from '@/src/hooks'
-import { setSessionToken } from '@/src/lib/cookies/session'
+import { cookies } from '@/src/lib/cookie'
 
 function base64DecodeUnicode(str: string) {
 	try {
@@ -32,7 +32,7 @@ export default function TelegramAuthFinishPage() {
 
 	const { mutate } = useTelegramAuth({
 		onSuccess(data) {
-			setSessionToken(data.token)
+			cookies.set('token', data.token, { expires: 30 })
 
 			instance.defaults.headers['X-Session-Token'] = data.token
 

@@ -17,9 +17,10 @@ import {
 
 import { navLinks } from './nav-links'
 import { useLogout } from '@/src/api/hooks'
-import { logout } from '@/src/api/requests'
+import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
 import { useAuth } from '@/src/hooks'
+import { cookies } from '@/src/lib/cookie'
 
 export function MobileNav() {
 	const [isOpen, setIsOpen] = useState(false)
@@ -30,8 +31,13 @@ export function MobileNav() {
 
 	const { mutate } = useLogout({
 		onSuccess() {
+			cookies.remove('token')
+
+			delete instance.defaults.headers['X-Session-Token']
+
 			setIsOpen(false)
-			router.push('/auth/login')
+
+			router.push(ROUTES.AUTH.LOGIN())
 		},
 		onError(error: any) {
 			toast.error(error.response?.data?.message ?? 'Ошибка при выходе')

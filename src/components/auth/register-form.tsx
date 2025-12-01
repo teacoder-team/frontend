@@ -22,8 +22,10 @@ import { Input } from '../ui/input'
 
 import { AuthWrapper } from './auth-wrapper'
 import { useRegister } from '@/src/api/hooks'
+import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
 import { useFingerprint } from '@/src/hooks'
+import { cookies } from '@/src/lib/cookie'
 
 const registerSchema = z.object({
 	name: z.string().min(1, { message: 'Имя обязательно' }),
@@ -45,7 +47,11 @@ export function RegisterForm() {
 	const { data: fingerprint, error } = useFingerprint()
 
 	const { mutateAsync, isPending } = useRegister({
-		onSuccess() {
+		onSuccess(data) {
+			cookies.set('token', data.token, { expires: 30 })
+
+			instance.defaults.headers['X-Session-Token'] = data.token
+
 			push('/account')
 		},
 		onError(error: any) {

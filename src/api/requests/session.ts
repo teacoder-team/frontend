@@ -6,8 +6,6 @@ import type {
 } from '../generated'
 import { api, instance } from '../instance'
 
-import { removeSessionToken } from '@/src/lib/cookies/session'
-
 export const login = async (data: LoginRequest) =>
 	await api
 		.post<
@@ -16,9 +14,7 @@ export const login = async (data: LoginRequest) =>
 		.then(response => response.data)
 
 export const logout = async () =>
-	await instance
-		.post<boolean>('/auth/session/logout')
-		.then(() => removeSessionToken())
+	await instance.post<boolean>('/auth/session/logout')
 
 export const getSessions = async () =>
 	await instance

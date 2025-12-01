@@ -13,7 +13,7 @@ import { useVerifyMfa } from '@/src/api/hooks/useVerifyMfa'
 import { instance } from '@/src/api/instance'
 import { generateAuthenticationOptions } from '@/src/api/requests'
 import { MFA_OPTIONS, MfaMethod, ROUTES } from '@/src/constants'
-import { setSessionToken } from '@/src/lib/cookies/session'
+import { cookies } from '@/src/lib/cookie'
 import { cn } from '@/src/lib/utils'
 
 interface MfaFormProps {
@@ -33,7 +33,7 @@ export function MfaForm({ ticket, methods, userId, onBack }: MfaFormProps) {
 
 	const { mutate, isPending } = useVerifyMfa({
 		onSuccess(data) {
-			setSessionToken(data.token)
+			cookies.set('token', data.token, { expires: 30 })
 
 			instance.defaults.headers['X-Session-Token'] = data.token
 

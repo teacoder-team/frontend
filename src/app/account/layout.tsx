@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import { Header } from '@/src/components/layout/header'
 import { UserNavigation } from '@/src/components/layout/user-navigation'
-import { AccountProvider } from '@/src/components/providers/account-provider'
+import { AccountProvider } from '@/src/providers'
 
 export default function AccountLayout({ children }: { children: ReactNode }) {
 	return (

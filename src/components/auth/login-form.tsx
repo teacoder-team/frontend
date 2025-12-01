@@ -1,7 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -10,7 +9,6 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Captcha } from '../shared/captcha'
-import { EllipsisLoader } from '../shared/ellipsis-loader'
 import { Button } from '../ui/button'
 import {
 	Form,
@@ -29,7 +27,7 @@ import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
 import { useFingerprint } from '@/src/hooks'
 import { analytics } from '@/src/lib/analytics/events'
-import { setSessionToken } from '@/src/lib/cookies/session'
+import { cookies } from '@/src/lib/cookie'
 
 const loginSchema = z.object({
 	email: z
@@ -65,7 +63,7 @@ export function LoginForm() {
 			}
 
 			if ('token' in data && typeof data.token === 'string') {
-				setSessionToken(data.token)
+				cookies.set('token', data.token, { expires: 30 })
 
 				instance.defaults.headers['X-Session-Token'] = data.token
 
