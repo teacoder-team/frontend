@@ -28,6 +28,7 @@ import { useLogin } from '@/src/api/hooks'
 import { instance } from '@/src/api/instance'
 import { ROUTES } from '@/src/constants'
 import { useFingerprint } from '@/src/hooks'
+import { analytics } from '@/src/lib/analytics/events'
 import { setSessionToken } from '@/src/lib/cookies/session'
 
 const loginSchema = z.object({
@@ -55,6 +56,8 @@ export function LoginForm() {
 
 	const { mutateAsync, isPending } = useLogin({
 		onSuccess(data) {
+			analytics.auth.login.success()
+
 			if ('ticket' in data && typeof data.ticket === 'string') {
 				setTicket(data.ticket)
 				setMethods(data.allowedMethods)
@@ -73,7 +76,10 @@ export function LoginForm() {
 			}
 		},
 		onError(error: any) {
-			toast.error(error.response?.data?.message ?? 'Ошибка при входе')
+			const message = error.response?.data?.message ?? 'Ошибка при входе'
+			analytics.auth.login.fail(message)
+
+			toast.error(message)
 		}
 	})
 
@@ -93,6 +99,8 @@ export function LoginForm() {
 	}, [form, form.reset, form.formState.isSubmitSuccessful])
 
 	async function onSubmit(values: Login) {
+		analytics.auth.login.submit()
+
 		if (!values.captcha) {
 			toast.warning('Пройдите капчу!')
 			return
@@ -197,6 +205,7 @@ export function LoginForm() {
 							size='lg'
 							isLoading={isPending}
 							className='w-full'
+							onClick={() => analytics.auth.login.click()}
 						>
 							Продолжить
 						</Button>

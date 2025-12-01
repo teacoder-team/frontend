@@ -1,16 +1,17 @@
-import { GoogleAnalytics } from '@next/third-parties/google'
 import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
-import { YandexMetrika } from '../components/analitycs/yandex-metrika'
-import { BanChecker } from '../components/providers/ban-checker'
-import { FingerprintProvider } from '../components/providers/fingerprint-provider'
-import { PosthogProvider } from '../components/providers/posthog-provider'
-import { TanstackQueryProvider } from '../components/providers/tanstack-query-provider'
-import { ThemeProvider } from '../components/providers/theme-provider'
 import { Toaster } from '../components/shared/sonner'
 import { APP_CONFIG, SEO } from '../constants'
+import { YandexMetrikaScript } from '../lib/analytics/script-providers'
+import {
+	AnalyticsProvider,
+	BanChecker,
+	FingerprintProvider,
+	TanstackQueryProvider,
+	ThemeProvider
+} from '../providers'
 
 import '@/src/styles/globals.css'
 
@@ -73,7 +74,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 		<html className={GeistSans.variable} lang='ru' suppressHydrationWarning>
 			<body className='flex h-full w-full flex-col font-sans'>
 				<TanstackQueryProvider>
-					<PosthogProvider>
+					<AnalyticsProvider>
 						<FingerprintProvider>
 							<ThemeProvider
 								attribute='class'
@@ -99,25 +100,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 								{process.env['NEXT_PUBLIC_NODE_ENV'] ===
 									'production' && (
 									<>
-										<YandexMetrika
-											id={
-												process.env[
-													'NEXT_PUBLIC_YANDEX_METRIKA_ID'
-												] ?? ''
-											}
-										/>
-										<GoogleAnalytics
-											gaId={
-												process.env[
-													'NEXT_PUBLIC_GOOGLE_ANALYTICS_ID'
-												] ?? ''
-											}
-										/>
+										<YandexMetrikaScript />
 									</>
 								)}
 							</ThemeProvider>
 						</FingerprintProvider>
-					</PosthogProvider>
+					</AnalyticsProvider>
 				</TanstackQueryProvider>
 			</body>
 		</html>

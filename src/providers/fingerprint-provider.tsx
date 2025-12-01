@@ -12,7 +12,8 @@ export function FingerprintProvider({ children }: FingerprintProviderProps) {
 		<FpjsProvider
 			loadOptions={{
 				apiKey: process.env['NEXT_PUBLIC_FPJS_API_KEY']!,
-				endpoint: undefined
+				endpoint: process.env['NEXT_PUBLIC_FPJS_ENDPOINT'],
+				scriptUrlPattern: `${process.env['NEXT_PUBLIC_FPJS_ENDPOINT']}/web/v<version>/<apiKey>/loader_v<loaderVersion>.js`
 			}}
 		>
 			{children}

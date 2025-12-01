@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import { Button } from '../ui/button'
+import { Button } from '../components/ui/button'
 import {
 	Card,
 	CardContent,
@@ -14,7 +14,7 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle
-} from '../ui/card'
+} from '../components/ui/card'
 
 import { logout } from '@/src/api/requests'
 import { getActiveRestriction } from '@/src/api/requests'
