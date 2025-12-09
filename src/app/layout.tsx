@@ -97,8 +97,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 								/>
 								<BanChecker />
 
-								{process.env['NEXT_PUBLIC_NODE_ENV'] ===
-									'production' && (
+								{process.env['NODE_ENV'] === 'production' && (
 									<>
 										<YandexMetrikaScript />
 									</>
