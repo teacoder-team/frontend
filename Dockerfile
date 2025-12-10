@@ -1,27 +1,19 @@
-FROM oven/bun:1 AS deps
+FROM oven/bun:1 AS base
+
 WORKDIR /usr/src/app
 
-COPY package.json bun.lock ./ 
+COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
+FROM oven/bun:1 AS release
 
-FROM node:22.9.0-alpine AS build
 WORKDIR /usr/src/app
 
-COPY --from=deps /usr/src/app/node_modules ./node_modules
+COPY --from=base /usr/src/app/node_modules node_modules
 COPY . .
 
-RUN npm run build
+RUN bun --bun run build
 
-
-FROM node:22.9.0-alpine AS release
-WORKDIR /usr/src/app
-
-ENV NODE_ENV=production
-
-COPY --from=build /usr/src/app/.next/standalone ./
-COPY --from=build /usr/src/app/.next/static ./.next/static
-COPY --from=build /usr/src/app/public ./public
+CMD bun --bun run start
 
 EXPOSE 14701
-CMD ["node", "server.js"]
