@@ -6,6 +6,7 @@ const config: NextConfig = {
 	output: 'standalone',
 	trailingSlash: false,
 	skipTrailingSlashRedirect: true,
+	cacheComponents: true,
 	images: {
 		remotePatterns: [
 			{
