@@ -41,7 +41,7 @@ export function AuthSocial() {
 		onSuccess(data, variables) {
 			analytics.auth.social.success(variables)
 
-			router.push(data.url)
+			router.push(data.url as any)
 		},
 		onError(error: any, variables) {
 			analytics.auth.social.fail(variables, error.message)

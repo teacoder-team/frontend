@@ -61,7 +61,7 @@ export function CourseActions({ course }: CourseActionsProps) {
 				</Button>
 				{course.youtubeUrl && (
 					<Button variant='outline' className='w-full' asChild>
-						<Link href={course.youtubeUrl} target='_blank'>
+						<Link href={course.youtubeUrl as any} target='_blank'>
 							<FaYoutube />
 							Смотреть на YouTube
 						</Link>

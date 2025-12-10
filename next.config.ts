@@ -14,9 +14,9 @@ const config: NextConfig = {
 		],
 		dangerouslyAllowSVG: false
 	},
+	typedRoutes: false,
 	experimental: {
 		optimizePackageImports: ['tailwindcss'],
-		typedRoutes: true,
 		serverActions: {
 			bodySizeLimit: '2mb'
 		},

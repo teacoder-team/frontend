@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import type { Route } from 'next'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -72,7 +73,7 @@ export function LoginForm() {
 				const redirectTo =
 					searchParams.get('redirectTo') || ROUTES.ACCOUNT.ROOT
 
-				router.push(redirectTo)
+				router.push(redirectTo as Route)
 			}
 		},
 		onError(error: any) {

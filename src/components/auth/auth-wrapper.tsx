@@ -1,3 +1,4 @@
+import { Route } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
@@ -10,7 +11,7 @@ interface AuthWrapperProps {
 	description?: string
 	bottomText?: string
 	bottomLinkText?: string
-	bottomLinkHref?: string
+	bottomLinkHref?: Route
 	isShowSocial?: boolean
 }
 
