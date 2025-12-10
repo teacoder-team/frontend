@@ -2,8 +2,10 @@
 
 import Script from 'next/script'
 
+import { env } from '@/src/config/env'
+
 export function YandexMetrikaScript() {
-	const id = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID
+	const id = env.YANDEX_METRIKA_ID
 
 	if (!id) return null
 
