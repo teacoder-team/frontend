@@ -1,2 +1,2 @@
-[phases.build]
-runtime = "nodejs-22"
+[stack]
+node = "22"
