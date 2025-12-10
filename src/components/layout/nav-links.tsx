@@ -1,10 +1,11 @@
+import type { Route } from 'next'
 import Link from 'next/link'
 
 import { ROUTES } from '@/src/constants'
 
 interface NavLink {
 	title: string
-	href: string
+	href: Route
 }
 
 export const navLinks: NavLink[] = [

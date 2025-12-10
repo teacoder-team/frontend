@@ -1,6 +1,7 @@
 'use client'
 
 import { AlertTriangle } from 'lucide-react'
+import type { Route } from 'next'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -65,9 +66,12 @@ export function ConnectionError() {
 
 		params.delete('error')
 
-		router.replace(`${window.location.pathname}?${params.toString()}`, {
-			scroll: false
-		})
+		router.replace(
+			`${window.location.pathname}?${params.toString()}` as any as Route,
+			{
+				scroll: false
+			}
+		)
 	}
 
 	if (!isVisible || !errorInfo) return null

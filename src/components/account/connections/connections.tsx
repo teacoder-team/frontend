@@ -46,7 +46,7 @@ export function Connections() {
 
 	const { mutate, isPending } = useSsoConnect({
 		onSuccess(data) {
-			router.push(data.url)
+			router.push(data.url as any)
 		},
 		onError(error: any) {
 			toast.error(

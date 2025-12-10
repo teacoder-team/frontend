@@ -1,5 +1,6 @@
 import { startAuthentication } from '@simplewebauthn/browser'
 import { ArrowLeftIcon, KeyIcon } from 'lucide-react'
+import { Route } from 'next'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
@@ -45,7 +46,7 @@ export function MfaForm({ ticket, methods, userId, onBack }: MfaFormProps) {
 			const redirectTo =
 				searchParams.get('redirectTo') || ROUTES.ACCOUNT.ROOT
 
-			router.push(redirectTo)
+			router.push(redirectTo as Route)
 		},
 		onError(error: any, variables) {
 			const message = error.response?.data?.message ?? 'Ошибка при входе'

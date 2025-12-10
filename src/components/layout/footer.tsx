@@ -1,6 +1,7 @@
 'use client'
 
 import { ExternalLink } from 'lucide-react'
+import { Route } from 'next'
 import Link from 'next/link'
 import { JSX } from 'react'
 import { FaGithub } from 'react-icons/fa'
@@ -10,7 +11,7 @@ import { ROUTES } from '@/src/constants'
 
 interface NavLink {
 	title: string
-	href: string
+	href: Route
 	isExternal?: boolean
 }
 
@@ -135,7 +136,7 @@ function FooterLink({ title, href, isExternal }: NavLink) {
 function SocialLink({ href, icon, label }: SocialLink) {
 	return (
 		<Link
-			href={href}
+			href={href as Route}
 			className='text-muted-foreground transition-colors hover:text-primary'
 			target='_blank'
 			referrerPolicy='no-referrer'
