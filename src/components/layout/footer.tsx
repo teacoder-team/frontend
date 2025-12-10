@@ -1,9 +1,10 @@
+'use client'
+
 import { ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 import { JSX } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { FaTelegram, FaYoutube } from 'react-icons/fa6'
-import { SiBoosty } from 'react-icons/si'
 
 import { ROUTES } from '@/src/constants'
 
