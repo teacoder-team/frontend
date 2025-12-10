@@ -84,8 +84,6 @@ export function LoginForm() {
 		}
 	})
 
-	console.log('TURNSTILE KEY:', process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY)
-
 	const form = useForm<Login>({
 		resolver: zodResolver(loginSchema),
 		defaultValues: {
