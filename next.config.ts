@@ -5,19 +5,24 @@ const config: NextConfig = {
 	poweredByHeader: false,
 	output: 'standalone',
 	trailingSlash: false,
-	skipTrailingSlashRedirect: true,
-	cacheComponents: true,
 	images: {
 		remotePatterns: [
 			{
 				protocol: 'https',
 				hostname: '**'
 			}
-		]
+		],
+		dangerouslyAllowSVG: false
 	},
 	experimental: {
-		optimizePackageImports: ['tailwindcss']
-	}
+		optimizePackageImports: ['tailwindcss'],
+		typedRoutes: true,
+		serverActions: {
+			bodySizeLimit: '2mb'
+		},
+		mdxRs: false
+	},
+	compress: true
 }
 
 export default config
