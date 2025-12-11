@@ -96,6 +96,8 @@ export function Premium() {
 		}
 	})
 
+	const method = form.watch('method')
+
 	const onSubmit = (data: PaymentFormValues) => {
 		mutate({
 			method: data.method as InitPaymentRequestMethod,
@@ -198,9 +200,17 @@ export function Premium() {
 						>
 							<PaymentMethods control={form.control} />
 
-							{['BANK_CARD', 'SBP', 'T_PAY'].includes(
-								form.watch('method')
-							) && (
+							{method ===
+								InitPaymentRequestMethod.INTERNATIONAL_CARD && (
+								<p className='mt-4 text-xs text-muted-foreground'>
+									Из-за высокой комиссии международных
+									платёжных систем итоговая стоимость
+									составляет{' '}
+									<span className='font-semibold'>399₽</span>.
+								</p>
+							)}
+
+							{['BANK_CARD', 'SBP', 'T_PAY'].includes(method) && (
 								<p className='mt-4 text-xs text-muted-foreground'>
 									Я даю согласие на будущие автосписания раз в
 									месяц и принимаю условия{' '}
