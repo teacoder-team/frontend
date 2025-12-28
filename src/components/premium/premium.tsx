@@ -149,7 +149,7 @@ export function Premium() {
 						<CardContent className='flex flex-col items-center gap-6'>
 							<div className='text-center'>
 								<span className='text-5xl font-extrabold text-foreground'>
-									349&#8381;
+									459&#8381;
 								</span>
 								<span className='ml-1 text-lg text-neutral-500 dark:text-neutral-400'>
 									/ месяц
@@ -206,7 +206,7 @@ export function Premium() {
 									Из-за высокой комиссии международных
 									платёжных систем итоговая стоимость
 									составляет{' '}
-									<span className='font-semibold'>399₽</span>.
+									<span className='font-semibold'>499₽</span>.
 								</p>
 							)}
 
