@@ -40,11 +40,9 @@ export function CourseLessons({
 							<Link
 								href={
 									isAuthorized
-										? ROUTES.COURSES.LESSON(lesson.slug)
+										? ROUTES.COURSES.LESSON(lesson.id)
 										: ROUTES.AUTH.LOGIN(
-												ROUTES.COURSES.LESSON(
-													lesson.slug
-												)
+												ROUTES.COURSES.LESSON(lesson.id)
 											)
 								}
 								className='flex items-center justify-between p-4 transition-colors hover:bg-muted/50'
