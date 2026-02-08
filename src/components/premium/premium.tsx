@@ -96,6 +96,8 @@ export function Premium() {
 		}
 	})
 
+	const method = form.watch('method')
+
 	const onSubmit = (data: PaymentFormValues) => {
 		mutate({
 			method: data.method as InitPaymentRequestMethod,
@@ -147,7 +149,7 @@ export function Premium() {
 						<CardContent className='flex flex-col items-center gap-6'>
 							<div className='text-center'>
 								<span className='text-5xl font-extrabold text-foreground'>
-									349&#8381;
+									449&#8381;
 								</span>
 								<span className='ml-1 text-lg text-neutral-500 dark:text-neutral-400'>
 									/ месяц
@@ -198,9 +200,17 @@ export function Premium() {
 						>
 							<PaymentMethods control={form.control} />
 
-							{['BANK_CARD', 'SBP', 'T_PAY'].includes(
-								form.watch('method')
-							) && (
+							{method ===
+								InitPaymentRequestMethod.INTERNATIONAL_CARD && (
+								<p className='mt-4 text-xs text-muted-foreground'>
+									Из-за высокой комиссии международных
+									платёжных систем итоговая стоимость
+									составляет{' '}
+									<span className='font-semibold'>499₽</span>.
+								</p>
+							)}
+
+							{['BANK_CARD', 'SBP', 'T_PAY'].includes(method) && (
 								<p className='mt-4 text-xs text-muted-foreground'>
 									Я даю согласие на будущие автосписания раз в
 									месяц и принимаю условия{' '}

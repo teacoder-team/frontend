@@ -1,10 +1,11 @@
-import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
+import { Geist } from 'next/font/google'
 import type { ReactNode } from 'react'
 
 import { Toaster } from '../components/shared/sonner'
 import { APP_CONFIG, SEO } from '../constants'
 import { YandexMetrikaScript } from '../lib/analytics/script-providers'
+import { cn } from '../lib/utils'
 import {
 	AnalyticsProvider,
 	BanChecker,
@@ -14,6 +15,11 @@ import {
 } from '../providers'
 
 import '@/src/styles/globals.css'
+
+const font = Geist({
+	subsets: ['cyrillic', 'latin'],
+	variable: '--font-ibm-plex-sans'
+})
 
 export const metadata: Metadata = {
 	title: {
@@ -71,8 +77,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
-		<html className={GeistSans.variable} lang='ru' suppressHydrationWarning>
-			<body className='flex h-full w-full flex-col font-sans'>
+		<html lang='ru' suppressHydrationWarning>
+			<body className={cn('flex h-full w-full flex-col', font.variable)}>
 				<TanstackQueryProvider>
 					<AnalyticsProvider>
 						<FingerprintProvider>

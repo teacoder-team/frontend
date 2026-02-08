@@ -83,9 +83,7 @@ export function LessonSidebar({
 								return (
 									<Link
 										key={index}
-										href={ROUTES.COURSES.LESSON(
-											lesson.slug
-										)}
+										href={ROUTES.COURSES.LESSON(lesson.id)}
 										className={cn(
 											buttonVariants({
 												variant: 'ghost',

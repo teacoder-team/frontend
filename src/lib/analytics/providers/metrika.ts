@@ -1,3 +1,5 @@
+import { env } from '@/src/config/env'
+
 declare global {
 	interface Window {
 		ym?: any
@@ -9,12 +11,7 @@ export const metrikaProvider = {
 
 	track(event: string, data?: Record<string, any>) {
 		if (typeof window !== 'undefined' && typeof window.ym === 'function') {
-			window.ym(
-				Number(process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID),
-				'reachGoal',
-				event,
-				data
-			)
+			window.ym(Number(env.YANDEX_METRIKA_ID), 'reachGoal', event, data)
 		}
 	}
 }

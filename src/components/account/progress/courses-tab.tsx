@@ -70,7 +70,7 @@ export function CoursesTab() {
 									>
 										<Link
 											href={ROUTES.COURSES.LESSON(
-												course.lastLesson?.slug
+												course.lastLesson?.id
 											)}
 										>
 											Продолжить обучение

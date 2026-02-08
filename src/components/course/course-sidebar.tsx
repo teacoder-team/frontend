@@ -53,9 +53,7 @@ export function CourseSidebar({
 								asChild
 							>
 								<Link
-									href={ROUTES.COURSES.LESSON(
-										nextLesson.slug
-									)}
+									href={ROUTES.COURSES.LESSON(nextLesson.id)}
 								>
 									{lastIndex + 1 === lessons.length
 										? 'Смотреть курс'
@@ -78,9 +76,7 @@ export function CourseSidebar({
 								asChild
 							>
 								<Link
-									href={ROUTES.COURSES.LESSON(
-										lessons[0].slug
-									)}
+									href={ROUTES.COURSES.LESSON(lessons[0].id)}
 								>
 									Начать просмотр
 								</Link>
