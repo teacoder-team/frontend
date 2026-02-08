@@ -1,37 +1,60 @@
 'use client'
 
-import dynamic from 'next/dynamic'
-import { useRef, useState } from 'react'
-
-import { type KinescopePlayer } from '../shared/player'
+import { useEffect, useRef, useState } from 'react'
 
 interface LessonPlayerProps {
 	videoId: string
 }
 
-const Player = dynamic(
-	() => import('../shared/player').then(mod => mod.Player),
-	{
-		ssr: false
-	}
-)
-
 export function LessonPlayer({ videoId }: LessonPlayerProps) {
-	const playerRef = useRef<KinescopePlayer | null>(null)
-	const [isLoading, setIsLoading] = useState(true)
+	const embedUrl = `https://kinescope.io/embed/${videoId}`
 
-	function handlePlayerReady() {
-		setIsLoading(false)
-	}
+	const [isInView, setIsInView] = useState(false)
+	const [iframeLoaded, setIframeLoaded] = useState(false)
+	const containerRef = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		if (!containerRef.current) return
+
+		const observer = new IntersectionObserver(
+			entries => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						setIsInView(true)
+						observer.disconnect()
+					}
+				})
+			},
+			{ threshold: 0.3 }
+		)
+
+		observer.observe(containerRef.current)
+		return () => observer.disconnect()
+	}, [])
 
 	return (
-		<div className='relative mx-auto aspect-video w-full max-w-5xl overflow-hidden rounded-lg'>
-			{isLoading && <p className='absolute'>Загрузка...</p>}
-			<Player
-				forwardRef={playerRef}
-				videoId={videoId}
-				onReady={handlePlayerReady}
-			/>
+		<div
+			ref={containerRef}
+			className='relative mx-auto aspect-video w-full max-w-5xl overflow-hidden rounded-lg bg-muted'
+		>
+			{!iframeLoaded && (
+				<div className='absolute inset-0 flex flex-col items-center justify-center bg-muted'>
+					<div className='z-10 text-base text-muted-foreground'>
+						Загрузка видео…
+					</div>
+				</div>
+			)}
+
+			{isInView && (
+				<iframe
+					className='h-full w-full'
+					src={embedUrl}
+					allow='fullscreen; picture-in-picture; encrypted-media'
+					allowFullScreen
+					frameBorder='0'
+					onLoad={() => setIframeLoaded(true)}
+				/>
+			)}
 		</div>
 	)
 }
