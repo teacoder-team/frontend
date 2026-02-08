@@ -72,7 +72,7 @@ export function LessonSidebar({
 								)
 								const isActive =
 									pathname ===
-									ROUTES.COURSES.LESSON(lesson.slug)
+									ROUTES.COURSES.LESSON(lesson.id)
 
 								const Icon = isActive
 									? PauseCircle
