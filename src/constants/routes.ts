@@ -1,37 +1,26 @@
-import type { Route } from 'next'
-
 export const ROUTES = {
-	HOME: '/' as Route,
-	ABOUT: '/about' as Route,
-	PREMIUM: '/premium' as Route,
-
+	HOME: '/',
+	ABOUT: '/about',
+	PREMIUM: '/premium',
 	AUTH: {
 		LOGIN: (redirectTo?: string) =>
-			(redirectTo
-				? `/auth/login?redirectTo=${redirectTo}`
-				: '/auth/login') as Route,
-
-		REGISTER: '/auth/register' as Route,
-		RECOVERY: '/auth/recovery' as Route
+			redirectTo ? `/auth/login?redirectTo=${redirectTo}` : '/auth/login',
+		REGISTER: '/auth/register',
+		RECOVERY: '/auth/recovery'
 	},
-
 	DOCUMENTS: {
-		PRIVACY: '/document/privacy-policy' as Route,
-		TERMS: '/document/terms-of-use' as Route
+		PRIVACY: '/document/privacy-policy',
+		TERMS: '/document/terms-of-use'
 	},
-
 	COURSES: {
-		ROOT: '/courses' as Route,
-
+		ROOT: '/courses',
 		SINGLE: (slug: string) => `/courses/${slug}` as any,
-
-		LESSON: (slug: string) => `/lesson/${slug}` as any
+		LESSON: (id: string) => `/lesson/${id}` as any
 	},
-
 	ACCOUNT: {
-		ROOT: '/account' as Route,
-		SETTINGS: '/account/settings' as Route,
-		SESSIONS: '/account/sessions' as Route,
-		CONNECTIONS: '/account/connections' as Route
+		ROOT: '/account',
+		SETTINGS: '/account/settings',
+		SESSIONS: '/account/sessions',
+		CONNECTIONS: '/account/connections'
 	}
 } as const

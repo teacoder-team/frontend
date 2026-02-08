@@ -12,27 +12,22 @@ import { LessonSidebar } from '@/src/components/lesson/lesson-sidebar'
 export const revalidate = 60
 
 async function getUserProgress(courseId: string) {
-	const cookie = await cookies()
+	const cookieStore = await cookies()
+	const token = cookieStore.get('token')?.value
 
-	const token = cookie.get('token')?.value
-
-	const { data: progressCount } = await api.get<number>(
-		`/progress/${courseId}`,
-		{
-			headers: {
-				'X-Session-Token': token ?? ''
-			}
-		}
-	)
-
-	const { data: completedLessons } = await api.get<string[]>(
-		`/lessons/${courseId}/progress`,
-		{
-			headers: {
-				'X-Session-Token': token ?? ''
-			}
-		}
-	)
+	const [{ data: progressCount }, { data: completedLessons }] =
+		await Promise.all([
+			api.get<number>(`/progress/${courseId}`, {
+				headers: {
+					'X-Session-Token': token ?? ''
+				}
+			}),
+			api.get<string[]>(`/lessons/${courseId}/progress`, {
+				headers: {
+					'X-Session-Token': token ?? ''
+				}
+			})
+		])
 
 	return { progressCount, completedLessons }
 }
@@ -40,36 +35,55 @@ async function getUserProgress(courseId: string) {
 export async function generateMetadata({
 	params
 }: {
-	params: Promise<{ slug: string }>
+	params: { id: string }
 }): Promise<Metadata> {
-	const { slug } = await params
+	const { id } = await params
 
-	const lesson = await getLesson(slug).catch(() => {
-		notFound()
-	})
+	try {
+		const lesson = await getLesson(id)
 
-	return {
-		title: lesson.title,
-		description: lesson.description
+		if (!lesson)
+			return {
+				title: 'Урок не найден'
+			}
+
+		return {
+			title: lesson.title,
+			description: lesson.description ?? ''
+		}
+	} catch (error) {
+		console.error('[generateMetadata] getLesson failed', {
+			id,
+			error
+		})
+
+		return {
+			title: 'Урок'
+		}
 	}
 }
 
 export default async function LessonPage({
 	params
 }: {
-	params: Promise<{ slug: string }>
+	params: Promise<{ id: string }>
 }) {
-	const { slug } = await params
+	const { id } = await params
 
-	const lesson = await getLesson(slug).catch(error => {
-		notFound()
+	const lesson = await getLesson(id).catch(error => {
+		console.error('[LessonPage] getLesson failed', {
+			id,
+			error
+		})
+		return null
 	})
 
-	const lessons = await getCourseLessons(lesson.course.id)
+	if (!lesson) notFound()
 
-	const { progressCount, completedLessons } = await getUserProgress(
-		lesson.course.id
-	)
+	const [lessons, { progressCount, completedLessons }] = await Promise.all([
+		getCourseLessons(lesson.course.id),
+		getUserProgress(lesson.course.id)
+	])
 
 	return (
 		<div className='h-full'>

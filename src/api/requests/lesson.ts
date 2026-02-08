@@ -1,9 +1,9 @@
 import type { CreateLessonRequest, LessonResponse } from '../generated'
 import { api, instance } from '../instance'
 
-export const getLesson = async (slug: string) =>
+export const getLesson = async (id: string) =>
 	await api
-		.get<LessonResponse>(`/lessons/${slug}`)
+		.get<LessonResponse>(`/lessons/${id}`)
 		.then(response => response.data)
 
 export const getCompletedLessons = async (courseId: string) =>
