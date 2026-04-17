@@ -15,10 +15,8 @@ export function PasskeyLoginButton() {
 		mutationFn: async () => {
 			setIsLoading(true)
 
-			// 1. Получаем challenge от сервера
 			// const options = await generateLoginOptions()
 
-			// 2. Преобразуем поле challenge и credentialID
 			// options.challenge = Uint8Array.from(atob(options.challenge), c =>
 			// 	c.charCodeAt(0)
 			// )

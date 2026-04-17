@@ -17,11 +17,7 @@ export function AuthSocial() {
 	const router = useRouter()
 
 	const { data, isLoading } = useGetAvailableSsoProviders()
-	const {
-		data: fingerprint,
-		isLoading: isFpLoading,
-		error: fpError
-	} = useFingerprint()
+	const { data: fingerprint, error: fpError } = useFingerprint()
 
 	const { mutate, isPending } = useMutation({
 		mutationKey: ['oauth login'],
@@ -55,7 +51,7 @@ export function AuthSocial() {
 	return (
 		<div className='flex flex-col gap-4'>
 			<div className='grid w-full grid-cols-4 gap-4'>
-				{isLoading || isFpLoading
+				{isLoading
 					? Array.from({ length: 4 }).map((_, i) => (
 							<Skeleton
 								key={i}
