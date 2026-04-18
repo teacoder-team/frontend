@@ -1,19 +1,40 @@
-FROM oven/bun:1 AS base
+FROM oven/bun:1-alpine AS deps
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
-FROM oven/bun:1 AS release
+FROM oven/bun:1-alpine AS builder
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY --from=base /usr/src/app/node_modules node_modules
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN bun --bun run build
+ARG NEXT_PUBLIC_APP_URL
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
-CMD bun --bun run start
+RUN bun run build
 
-EXPOSE 14701
+FROM node:22-alpine AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 14702
+
+CMD ["node", "server.js"]
