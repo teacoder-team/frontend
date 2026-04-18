@@ -6,41 +6,23 @@ on:
             - main
     workflow_dispatch:
 
-permissions:
-    contents: read
-    packages: write
-    id-token: write
-
 jobs:
-    build-and-push:
-        name: Build and Push
+    deploy:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
+            - name: Deploy via SSH
+              uses: appleboy/ssh-action@v1.0.3
               with:
-                  fetch-depth: 0
+                  host: ${{ secrets.REMOTE_HOST }}
+                  port: ${{ secrets.REMOTE_PORT }}
+                  username: ${{ secrets.REMOTE_USER }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  script: |
+                      cd /opt/teacoder/apps/frontend
+                      git pull origin main
 
-            - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v3
-
-            - name: Log in to Docker Hub
-              uses: docker/login-action@v3
-              with:
-                  username: ${{ secrets.DOCKERHUB_USERNAME }}
-                  password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-            - name: Build and push Docker image
-              uses: docker/build-push-action@v6
-              with:
-                  context: .
-                  file: ./Dockerfile
-                  push: true
-                  build-args: |
-                      NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }}
-                      NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-                  tags: |
-                      ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
-                      ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ github.sha }}
-                  cache-from: type=gha
-                  cache-to: type=gha,mode=max
+                      docker compose build \
+                        --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} \
+                        --build-arg NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }}
+                        
+                      docker compose up -d
