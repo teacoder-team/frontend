@@ -37,4 +37,7 @@ USER nextjs
 
 EXPOSE 14702
 
+ENV PORT=14702
+ENV HOSTNAME="0.0.0.0"
+
 CMD ["node", "server.js"]
