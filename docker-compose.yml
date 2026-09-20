@@ -6,6 +6,8 @@ services:
             args:
                 - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
                 - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+                - NEXT_PUBLIC_STORAGE_URL=${NEXT_PUBLIC_STORAGE_URL}
+                - NEXT_PUBLIC_COOKIE_DOMAIN=${NEXT_PUBLIC_COOKIE_DOMAIN}
         container_name: frontend
         restart: always
         ports:
