@@ -22,7 +22,27 @@ const config: NextConfig = {
 		},
 		mdxRs: false
 	},
-	compress: true
+	compress: true,
+	// Pages of flows the API no longer has: email links, the Telegram widget, token callbacks.
+	async redirects() {
+		return [
+			{
+				source: '/auth/telegram-oauth-finish',
+				destination: '/auth/login',
+				permanent: false
+			},
+			{
+				source: '/auth/callback',
+				destination: '/auth/login',
+				permanent: false
+			},
+			{
+				source: '/auth/verify/:token',
+				destination: '/auth/register',
+				permanent: false
+			}
+		]
+	}
 }
 
 export default config

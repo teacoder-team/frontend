@@ -12,7 +12,7 @@ export function initAnalytics() {
 	providers.forEach(p => p.init?.())
 }
 
-export function track(event: string, data?: Record<string, any>) {
+export function track(event: string, data?: Record<string, unknown>) {
 	providers.forEach(p => p.track(event, data))
 }
 
