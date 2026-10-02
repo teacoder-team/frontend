@@ -30,6 +30,19 @@ bun run dev
 
 Капча (Turnstile / Yandex SmartCaptcha / нет), соцсети, способы оплаты и адрес файлового хранилища приходят из `GET /` и в env не задаются.
 
+## Сборка в Docker
+
+Создайте `.env` в корне проекта из `.env.example` и заполните значениями для продакшена перед сборкой:
+
+```bash
+docker build -t teacoder-web .
+docker run --rm -p 3000:3000 teacoder-web
+```
+
+Dockerfile передаёт корневой `.env` в `next build`. Без файла сборка завершится с ошибкой. Не исключайте `.env` в `.dockerignore` и не задавайте пустые `NEXT_PUBLIC_*` через `ENV` в Dockerfile: они перекрывают значения из файла. Файлы `.env.local` и `.env.production*`, если присутствуют в контексте сборки, также могут перекрывать `.env` по правилам Next.js.
+
+Значения `NEXT_PUBLIC_*` встраиваются в клиентский код при сборке. После изменения `.env` пересоберите образ; передача `--env-file` только при `docker run` эти значения не изменит. Не храните секреты в `NEXT_PUBLIC_*`.
+
 ## Клиент API
 
 - `orval.config.ts` → `generated/api.ts` (функции + хуки TanStack Query) и `generated/model/*` (типы). Руками не править, сгенерированное коммитится.
