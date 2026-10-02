@@ -6,10 +6,12 @@ import { useRouter } from 'next/navigation'
 import { FaYoutube } from 'react-icons/fa'
 import { toast } from 'sonner'
 
+import { usePostCoursesBySlugMaterialsLinkMutation } from '@/generated/api'
 import type { CourseResponse } from '@/generated/model'
 
 import { ROUTES } from '@/constants/routes'
 
+import { getErrorMessage } from '@/lib/api/errors'
 import { useSession } from '@/lib/auth/auth-provider'
 
 import { Button } from '../ui/button'
@@ -20,15 +22,32 @@ interface CourseActionsProps {
 
 export function CourseActions({ course }: CourseActionsProps) {
 	const router = useRouter()
-	const { isAuthorized, user } = useSession()
+	const { isAuthorized, isLoading } = useSession()
+	const { mutate, isPending } = usePostCoursesBySlugMaterialsLinkMutation({
+		mutation: {
+			onSuccess: ({ url }) => {
+				window.location.assign(url)
+			},
+			onError: error => {
+				toast.error(
+					getErrorMessage(error, 'Не удалось сгенерировать ссылку')
+				)
+			}
+		}
+	})
 
 	const handleDownload = () => {
-		if (!isAuthorized || !user?.isPremium) {
-			return router.push(ROUTES.PREMIUM)
+		if (isPending || isLoading || !course.hasMaterials) {
+			return
 		}
 
-		// The API has no download links for course code yet.
-		toast.error('Не удалось сгенерировать ссылку')
+		if (!isAuthorized) {
+			return router.push(
+				ROUTES.AUTH.LOGIN(ROUTES.COURSES.SINGLE(course.slug))
+			)
+		}
+
+		mutate({ slug: course.slug })
 	}
 
 	return (
@@ -44,9 +63,14 @@ export function CourseActions({ course }: CourseActionsProps) {
 					variant='primary'
 					className='w-full'
 					onClick={handleDownload}
+					disabled={!course.hasMaterials || isLoading || isPending}
 				>
 					<DownloadCloud />
-					Скачать код
+					{!course.hasMaterials
+						? 'Исходный код пока недоступен'
+						: isPending
+							? 'Готовим ссылку…'
+							: 'Скачать код'}
 				</Button>
 				{course.youtubeUrl && (
 					<Button variant='outline' className='w-full' asChild>

@@ -13,11 +13,6 @@ function toPascalCase(value: string) {
 		.join('')
 }
 
-/**
- * Names come from the route, not the backend's operationId:
- * `GET /users/@me` → `getUsersMeQuery` (hook `useGetUsersMeQuery`),
- * `DELETE /sessions/{id}` → `deleteSessionsByIdMutation`. Path params arrive as `${id}`.
- */
 function operationName(_operation: unknown, route: string, verb: string) {
 	const path = route
 		.split('/')

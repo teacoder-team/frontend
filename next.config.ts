@@ -23,7 +23,6 @@ const config: NextConfig = {
 		mdxRs: false
 	},
 	compress: true,
-	// Pages of flows the API no longer has: email links, the Telegram widget, token callbacks.
 	async redirects() {
 		return [
 			{

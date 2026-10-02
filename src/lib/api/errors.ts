@@ -97,6 +97,15 @@ const MESSAGES: Record<string, string> = {
 	'Password must be at least 6 characters':
 		'Пароль должен содержать хотя бы 6 символов',
 	'Course not found': 'Курс не найден',
+	'This course has no materials': 'У этого курса пока нет исходного кода',
+	'Course materials require buying the course':
+		'Чтобы скачать исходный код, купите курс',
+	'Course materials require TeaCoder Premium or buying the course':
+		'Чтобы скачать исходный код, оформите Premium или купите курс',
+	'Download link is invalid or expired':
+		'Ссылка на скачивание устарела. Получите новую ссылку',
+	'Course materials are temporarily unavailable':
+		'Исходный код временно недоступен. Попробуйте позже',
 	'Lesson not found': 'Урок не найден',
 	'This lesson requires TeaCoder Premium or the course to be purchased':
 		'Этот урок доступен с подпиской TeaCoder Premium',

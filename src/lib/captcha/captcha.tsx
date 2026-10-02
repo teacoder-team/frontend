@@ -11,14 +11,12 @@ interface CaptchaProps {
 	onExpire?: () => void
 }
 
-/** Is a captcha token required by the API right now (`GET /` → `features.captcha`)? */
 export function useCaptchaRequired() {
 	const { data } = useAppConfig()
 
 	return data ? data.features.captcha.provider !== 'none' : false
 }
 
-/** The widget the API is configured for; renders nothing when captcha is off. */
 export function Captcha({ onVerify, onExpire }: CaptchaProps) {
 	const { resolvedTheme } = useTheme()
 	const { data } = useAppConfig()

@@ -44,6 +44,4 @@ export interface CreatePaymentPayload {
   courseId?: string;
   /** Почта для чека. Нужна, только если у аккаунта нет своей почты. */
   email?: string;
-  /** Согласие на автопродление - только для премиум-подписки через ЮKassa (карта, СБП, T-Pay, SberPay, ЮMoney). ЮKassa сохранит способ оплаты, и в конце каждого периода подписка продлится списанием без участия пользователя. Выключить - `PATCH /billing/subscription`. */
-  autoRenew?: boolean;
 }
