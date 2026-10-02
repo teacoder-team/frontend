@@ -12,8 +12,6 @@ services:
                 - NEXT_PUBLIC_FPJS_API_KEY=${NEXT_PUBLIC_FPJS_API_KEY}
                 - NEXT_PUBLIC_FPJS_ENDPOINT=${NEXT_PUBLIC_FPJS_ENDPOINT}
                 - NEXT_PUBLIC_YANDEX_METRIKA_ID=${NEXT_PUBLIC_YANDEX_METRIKA_ID}
-                - NEXT_PUBLIC_POSTHOG_KEY=${NEXT_PUBLIC_POSTHOG_KEY}
-                - NEXT_PUBLIC_POSTHOG_HOST=${NEXT_PUBLIC_POSTHOG_HOST}
         container_name: frontend
         restart: always
         ports:

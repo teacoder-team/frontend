@@ -1,8 +1,7 @@
 import { authEvents } from './events'
-import { consoleProvider, metrikaProvider, posthogProvider } from './providers'
+import { consoleProvider, metrikaProvider } from './providers'
 
 const providers = [
-	posthogProvider,
 	metrikaProvider,
 	...(process.env.NODE_ENV === 'development' ? [consoleProvider] : [])
 ]

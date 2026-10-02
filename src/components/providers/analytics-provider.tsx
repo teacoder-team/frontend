@@ -1,7 +1,5 @@
 'use client'
 
-import posthog from 'posthog-js'
-import { PostHogProvider as PHProvider } from 'posthog-js/react'
 import { type ReactNode, useEffect } from 'react'
 
 import { initAnalytics } from '@/lib/analytics'
@@ -22,5 +20,5 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
 		}
 	}, [consent?.analytics])
 
-	return <PHProvider client={posthog}>{children}</PHProvider>
+	return <>{children}</>
 }

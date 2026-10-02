@@ -26,7 +26,7 @@ bun run dev
 | `NEXT_PUBLIC_SUPPORT_EMAIL`, `NEXT_PUBLIC_OWNER_NAME`, `NEXT_PUBLIC_OWNER_INN`              | владелец сайта: почта поддержки, ФИО и ИНН в документах                  |
 | `OPENAPI_URL`                                                                          | откуда orval читает спеку: URL (`{API}/spec.json`) или путь к файлу      |
 | `NEXT_PUBLIC_FPJS_API_KEY`, `NEXT_PUBLIC_FPJS_ENDPOINT`                                | Fingerprint Pro; пусто — заголовок `X-Fingerprint-Event` не отправляется |
-| `NEXT_PUBLIC_YANDEX_METRIKA_ID`, `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST` | аналитика; пусто — провайдер выключен                                    |
+| `NEXT_PUBLIC_YANDEX_METRIKA_ID` | Яндекс Метрика; пусто — аналитика выключена                                    |
 
 Капча (Turnstile / Yandex SmartCaptcha / нет), соцсети, способы оплаты и адрес файлового хранилища приходят из `GET /` и в env не задаются.
 
